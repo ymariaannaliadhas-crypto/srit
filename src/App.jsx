@@ -1,25 +1,24 @@
 import { Header } from "./components/srit/Header";
 import { Hero } from "./components/srit/Hero";
 import Healthcare from "./components/Healthcare";
+
 import {
   PerformanceDashboard,
   PortalCards,
   About,
-  //Features,
+  Features,
+  IcarKnoSection,
   Entertainment,
   CyberSecurity,
   PartnerAndPlans,
   SearchPlans,
- // Achievers,
+  Blogs,
   Testimonials,
- // DigitalPlatform,
-  //Faq,
-  //ShareKnowledge,
-  //Blogs,
   TrustedIndustries,
+  Certifications,
   Footer,
   BackToTop,
-} from "./components/srit/Sections";
+} from "./components/Sections";
 
 function App() {
   return (
@@ -28,19 +27,20 @@ function App() {
 
       <main>
         <Hero />
-        <PerformanceDashboard />
-        <PortalCards />
+        <TrustedIndustries />
+        <Certifications />
+        <Features />
         <About />
-      
+        <PortalCards />
         <Healthcare />
+        <PerformanceDashboard />
+        <IcarKnoSection />
         <Entertainment />
         <CyberSecurity />
         <PartnerAndPlans />
         <SearchPlans />
-        
+        <Blogs/>
         <Testimonials />
-        <TrustedIndustries />
-
       </main>
 
       <Footer />

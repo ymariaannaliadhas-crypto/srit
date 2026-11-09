@@ -1,0 +1,215 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+.ick-section {
+  position: relative;
+  width: 100%;
+  padding: 60px 24px;
+  overflow: hidden;
+  font-family: "DM Sans", sans-serif;
+  color: #142B50;
+  
+  /* The background image is now handled via inline style in React */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* REMOVED the ::before pseudo-element */
+
+.ick-section *,
+.ick-section *::before,
+.ick-section *::after {
+  box-sizing: border-box;
+}
+
+.ick-container {
+  position: relative;
+  z-index: 10;
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+/* ... rest of the CSS stays exactly the same as before ... */
+
+/* Heading */
+.ick-heading {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.ick-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #079fdf;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.ick-heading h2 {
+  margin: 0;
+  color: #142B50; 
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.2;
+}
+
+.ick-heading h2 span {
+  color: #079fdf;
+}
+
+/* Main layout */
+.ick-content {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: center;
+  gap: 45px;
+  padding: 10px;
+  background: transparent;
+}
+
+/* Video */
+.ick-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.ick-phone-frame {
+  width: 100%;
+  max-width: 245px;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 20px; 
+  box-shadow: 0 20px 40px rgba(20, 43, 80, 0.15);
+}
+
+.ick-phone-screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #000;
+}
+
+.ick-phone-screen iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Feature cards */
+.ick-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  min-width: 0;
+}
+
+.ick-feature {
+  display: flex;
+  min-height: 145px;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+}
+
+.ick-feature:hover {
+  transform: translateY(-4px);
+  border-color: #079fdf;
+  box-shadow: 0 12px 25px rgba(7, 159, 223, 0.1);
+}
+
+.ick-feature-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: 12px;
+  background: #e0f2fe;
+  color: #079fdf;
+  font-size: 22px;
+}
+
+.ick-feature-number {
+  color: #079fdf;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ick-feature h3 {
+  margin: 6px 0 8px;
+  color: #142B50;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.ick-feature p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+  .ick-content {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 25px;
+  }
+  .ick-phone-frame {
+    max-width: 210px;
+  }
+  .ick-features {
+    gap: 12px;
+  }
+  .ick-feature {
+    padding: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .ick-section {
+    padding: 40px 16px;
+  }
+  .ick-heading {
+    margin-bottom: 25px;
+  }
+  .ick-content {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 0;
+  }
+  .ick-phone-frame {
+    max-width: 200px;
+  }
+  .ick-features {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .ick-feature {
+    min-height: auto;
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ick-feature {
+    transition: none;
+  }
+}

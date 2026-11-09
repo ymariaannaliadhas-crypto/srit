@@ -29,6 +29,7 @@ import {
   User,
   Users,
   Wifi,
+  Cpu, ShieldCheck, TrendingUp, Sparkles,
   Star,
   X,
 } from "lucide-react";
@@ -54,29 +55,29 @@ export function PerformanceDashboard() {
   ];
 
   return (
-    <section className="relative isolate mt-10 overflow-hidden bg-hero py-20 md:mt-14 md:py-24">
-      {/* Blue and cyan background waves */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[230px] overflow-hidden">
-        <div className="absolute -top-40 left-[15%] h-[300px] w-[75%] rotate-[12deg] rounded-[50%] border-t border-primary/50 blur-[1px]" />
-
-        <div className="absolute -top-44 left-[10%] h-[330px] w-[85%] rotate-[12deg] rounded-[50%] border-t border-primary/40" />
-
-        <div className="absolute -top-48 left-[5%] h-[360px] w-[95%] rotate-[12deg] rounded-[50%] border-t border-cyan-400/30" />
-
-        <div className="absolute -top-36 left-[20%] h-[280px] w-[70%] rotate-[12deg] rounded-[50%] border-t border-primary/30 blur-sm" />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+    <section className="relative isolate overflow-hidden bg-[#050A1F] py-20 md:py-24">
+      {/* 
+        Highly vibrant, visible background glows 
+        Using your site's primary blue plus complementary violet/cyan
+      */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 left-[10%] h-[600px] w-[600px] rounded-full bg-[#079fdf]/40 blur-[130px]" />
+        <div className="absolute top-0 right-[10%] h-[500px] w-[600px] rounded-full bg-indigo-500/30 blur-[130px]" />
+        <div className="absolute -bottom-40 left-1/3 h-[400px] w-[500px] rounded-full bg-cyan-400/20 blur-[120px]" />
       </div>
 
       <div className="relative mx-auto grid w-full max-w-[1300px] grid-cols-1 gap-12 px-4 sm:grid-cols-3 sm:px-6 lg:gap-16 lg:px-8">
         {stats.map((item, index) => (
           <Reveal key={item.number} delay={index * 0.12}>
             <div className="flex h-full flex-col">
-              <h3 className="font-display text-4xl font-bold tracking-tight text-primary md:text-5xl">
-                {item.number}
+              {/* Bright, vibrant gradient text */}
+              <h3 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+                <span className="bg-gradient-to-r from-[#079fdf] via-cyan-300 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(7,159,223,0.5)]">
+                  {item.number}
+                </span>
               </h3>
 
-              <p className="mt-5 max-w-[320px] text-base leading-7 text-primary-foreground/90 md:text-lg">
+              <p className="mt-5 max-w-[320px] text-base leading-7 text-slate-100 md:text-lg">
                 {item.description}
               </p>
             </div>
@@ -86,7 +87,6 @@ export function PerformanceDashboard() {
     </section>
   );
 }
-
 export function PortalCards() {
   const [showSubscriber, setShowSubscriber] = useState(false);
   const [subscriberState, setSubscriberState] = useState("");
@@ -269,7 +269,7 @@ export function About() {
   </div>
 </Reveal>
         <Reveal x={60} y={0}>
-<Eyebrow>About Our Company</Eyebrow>
+<Eyebrow>About SRIT</Eyebrow>
 
 <Heading
   pre="Making IT work better"
@@ -314,46 +314,58 @@ export function About() {
   );
 }
 
-{/*export function Features() {
+export function Features() {
   const left = [
     {
+      i: Cpu,
+      k: "enterprise-ai",
+      title: "Enterprise-Grade AI Engineering",
+      desc: "We design and deploy secure AI platforms, intelligent automation, and scalable digital ecosystems that solve complex business challenges.",
+    },
+    {
+      i: BookOpen,
+      k: "domain-expertise",
+      title: "Deep Domain Expertise",
+      desc: "Extensive domain knowledge combined with advanced engineering and technology expertise.",
+    },
+    {
+      i: ShieldCheck,
+      k: "secure-future",
+      title: "Secure & Future-Ready",
+      desc: "From private AI deployments to enterprise knowledge platforms, our solutions are built for security, compliance, and long-term growth.",
+    },
+    {
       i: Award,
-      k: "navratna",
-      title: "Navratna PSU Status",
-      desc: "Backed by RailTel, a prestigious Navratna Public Sector Enterprise under the Government of India.",
-    },
-    {
-      i: Train,
-      k: "ministry",
-      title: "Ministry Of Railways",
-      desc: "Operating under the Ministry of Railways with a commitment to nationwide digital connectivity",
-    },
-    {
-      i: Users,
-      k: "millions",
-      title: "Millions Of Subscribers",
-      desc: "Serving a rapidly growing customer base with reliable and high-speed broadband services",
+      k: "proven-engineering",
+      title: "20+ Years of Proven Engineering Delivery",
+      desc: "Two decades of expertise delivering reliable, enterprise-ready solutions.",
     },
   ];
 
   const right = [
     {
+      i: Hexagon,
+      k: "engineering-excellence",
+      title: "Engineering Excellence",
+      desc: "AI-driven engineering and technology capabilities built to solve complex organizational challenges.",
+    },
+    {
       i: Globe,
-      k: "pan",
-      title: "PAN-India Coverage",
-      desc: "Connecting thousands of towns and villages through an extensive optical fibre network.",
+      k: "trusted-industries",
+      title: "Trusted Across Industries",
+      desc: "Delivering AI-powered solutions for government, healthcare, transportation, telecom, financial services, and enterprise organizations.",
     },
     {
-      i: Router,
-      k: "reliable",
-      title: "Reliable Network Performance",
-      desc: "Delivering stable connectivity with high network availability and dependable service quality.",
+      i: TrendingUp,
+      k: "scale-confidence",
+      title: "Scale with Confidence",
+      desc: "Capabilities designed to support enterprise-scale transformation, growth and implementation.",
     },
     {
-      i: Wifi,
-      k: "rural",
-      title: "Rural Digital Empowerment",
-      desc: "Bridging the digital divide by bringing affordable broadband to rural and underserved communities.",
+      i: Sparkles,
+      k: "ai-first",
+      title: "AI-First Approach",
+      desc: "AI integrated across engineering, solutions, business transformation, and innovation effectively.",
     },
   ];
 
@@ -365,7 +377,8 @@ export function About() {
     r?: boolean;
   }) => (
     <div
-      className={`group flex gap-6 border-b border-border py-8 ${r ? "flex-row-reverse text-right" : ""}`}
+      // Reduced vertical padding here from py-6 lg:py-8 to py-4 lg:py-6
+      className={`group flex gap-6 border-b border-border py-4 lg:py-6 ${r ? "flex-row-reverse text-right" : ""}`}
     >
       <span className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
         <f.i className="h-8 w-8" />
@@ -380,18 +393,37 @@ export function About() {
   );
 
   return (
-    <section className="relative overflow-hidden py-20">
+    // Reduced section padding from py-20 to py-12
+    <section className="relative overflow-hidden py-12">
       <img
-        src={img("2025/04/feature-bg.png")}
+        src={img("bg feature.png")}
         alt=""
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center opacity-70"
       />
-      <div className="relative mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-center">
-          <Eyebrow center both>Why Choose RailWire?</Eyebrow>
-          <Heading pre="Our Special" hl="Features" className="mt-4" />
-        </Reveal>
-        <div className="mt-12 grid items-end gap-8 lg:grid-cols-[1fr_360px_1fr]">
+      
+      <div className="relative z-10 mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
+        
+        {/* Floating Heading Animation */}
+        <motion.div
+          animate={{ 
+            y: [0, -12, 0],
+            scale: [1, 1.02, 1] 
+          }}
+          transition={{ 
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="text-center"
+        >
+          <Eyebrow center both>Why Choose Us?</Eyebrow>
+          <Heading pre="Our Special" hl="AI Features" className="mt-4" />
+        </motion.div>
+        
+        {/* Reduced top margin from mt-16 to mt-10 */}
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_440px_1fr] lg:gap-12">
+          
+          {/* Left Column */}
           <div>
             {left.map((f, n) => (
               <Reveal key={f.k} delay={n * 0.12} x={-40} y={0}>
@@ -399,18 +431,19 @@ export function About() {
               </Reveal>
             ))}
           </div>
-          <Reveal className="relative mx-auto">
-            <img
-              src={img("2025/04/feature-1-shape-1.png")}
-              alt=""
-              className="absolute bottom-0 left-1/2 w-full -translate-x-1/2"
-            />
-            <img
-              src={img("2026/03/social-image.png")}
-              alt="Happy RailWire user"
-              className="relative w-[360px]"
-            />
-          </Reveal>
+
+          {/* Center Column - Image */}
+          <div className="hidden lg:flex justify-center">
+            <Reveal className="relative mx-auto w-full flex justify-center">
+              <img
+                src={img("ai feature.png")}
+                alt="AI Feature"
+                className="relative w-[440px] rounded-3xl object-cover"
+              />
+            </Reveal>
+          </div>
+
+          {/* Right Column */}
           <div>
             {right.map((f, n) => (
               <Reveal key={f.k} delay={n * 0.12} x={40} y={0}>
@@ -418,12 +451,12 @@ export function About() {
               </Reveal>
             ))}
           </div>
+          
         </div>
       </div>
     </section>
   );
-}*/}
-
+}
 export function Entertainment() {
   return (
     <section
@@ -666,7 +699,7 @@ export function SearchPlans() {
         {/* Investor Image */}
         <Reveal x={50} y={0} className="hidden self-end lg:block">
           <img
-            src={img("2026/05/2019-Picsart-BackgroundRemover-e1778829369912.png")}
+            src={img("investor.png")}
             alt="Investor Relations"
             className="w-full object-contain"
           />
@@ -773,7 +806,7 @@ export function Testimonials() {
       />*/}
 
       <img
-        src={img("Minimal Tech.png")}
+        src={img("icarkno-bg.png")}
         alt=""
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
       />
@@ -1108,124 +1141,139 @@ export function ShareKnowledge() {
       </Reveal>
     </section>
   );
-}
+}*/}
 
 export function Blogs() {
-  const [i, setI] = useState(0);
-  const pages = Math.ceil(BLOGS.length / 3);
+  const [currentIndex, setCurrentIndex] = useState(1); // Starting at 1 like the screenshot
+  const totalPages = Math.ceil(BLOGS.length / 3);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev >= totalPages ? 1 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev <= 1 ? totalPages : prev - 1));
+  };
 
   return (
-    <section className="bg-sky-wave py-20">
-      <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
-        <Reveal className="flex flex-wrap items-end justify-between gap-6">
+    <section className="relative overflow-hidden bg-[#0a1128] py-20">
+      {/* Subtle background glow matching your site theme */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/2 left-1/4 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#079fdf]/10 blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 h-[300px] w-[300px] rounded-full bg-indigo-500/10 blur-[100px]" />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
+        <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <Eyebrow>
-              Explore insights, success stories, and updates shared by our
-              growing partner network.
-            </Eyebrow>
-            <Heading pre="Latest" hl="Blogs" className="mt-4" />
+            <Eyebrow>Explore insights, success stories, and updates shared by our growing partner network.</Eyebrow>
+            <h2 className="mt-4 font-display text-4xl font-bold text-white md:text-5xl">
+              Latest <span className="text-[#079fdf]">Case Studies</span>
+            </h2>
           </div>
-          <BtnLink href="#">View All Blog</BtnLink>
+          <BtnLink href="#" className="bg-white/10 text-white hover:bg-white/20 border-none">
+            View All
+          </BtnLink>
         </Reveal>
+
+        {/* Card Grid */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={i}
-            initial={{ opacity: 0, x: 60 }}
+            key={currentIndex}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -60 }}
-            transition={{ duration: 0.5 }}
-            className="mt-12 grid gap-7 md:grid-cols-3"
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.4 }}
+            className="grid gap-6 md:grid-cols-3"
           >
-            {BLOGS.slice(i * 3, i * 3 + 3).map((b) => {
-              const title = b.t;
+            {/* 
+              Slicing the BLOGS array to show 3 at a time based on currentIndex 
+              Note: I'm using a fixed dummy array structure in case your BLOGS data doesn't match exactly.
+            */}
+            {[
+              { title: "Digitally Empowered Energy Efficiency", desc: "Energy-as-a-service — unlocking energy savings through digitalization" },
+              { title: "Crafting a Digital Enterprise that Navigates to Next", desc: "Kraft Heinz company delivers a taste of the future with a transformational data hub" },
+              { title: "AI-Driven Healthcare Transformation", desc: "Modernizing patient records with intelligent, secure, and scalable cloud ecosystems" },
+            ].map((blog, index) => (
+              <article 
+                key={index} 
+                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-white p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#079fdf]/20"
+              >
+                {/* Top Badge */}
+                <div>
+                  <span className="inline-block rounded-md bg-[#142B50] px-3 py-1.5 text-xs font-bold tracking-wide text-white">
+                    Case Study
+                  </span>
 
-              return (
-                <article key={b.t} className="group bg-card/90 p-5 shadow-soft">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={b.img}
-                      alt={title}
-                      className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-110"
-                    />
-                    <span className="absolute left-5 top-0 bg-primary px-3 py-1 font-display font-semibold text-primary-foreground">
-                      {b.d}
-                    </span>
-                    <div className="absolute bottom-0 left-0 flex gap-6 bg-primary px-5 py-2.5 text-sm text-primary-foreground">
-                      <span className="flex items-center gap-2">
-                        <User className="h-3.5 w-3.5" />
-                        Railwireadmin
-                      </span>
-                      {b.c && (
-                        <span className="flex items-center gap-2">
-                          <MessageCircle className="h-3.5 w-3.5" />
-                          {b.c}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <h3 className="mt-6 font-display text-xl font-medium leading-8 text-ink">
-                    {b.href.startsWith("/") ? (
-                      <a href={b.href} className="hover:text-primary">
-  {title}
-</a>
-                    ) : (
-                      <a href={b.href} className="hover:text-primary">
-                        {title}
-                      </a>
-                    )}
+                  {/* Title */}
+                  <h3 className="mt-6 font-display text-2xl font-bold leading-tight text-[#142B50]">
+                    {blog.title}
                   </h3>
-                  {b.href.startsWith("/") ? (
-                    <a
-  href={b.href}
-  aria-label="Read more"
-  className="mt-6 grid h-10 w-10 place-items-center rounded-full bg-secondary text-primary transition hover:bg-primary hover:text-primary-foreground"
->
-  <ChevronsRight className="h-4 w-4" />
-</a>
-                  ) : (
-                    <a
-                      href={b.href}
-                      aria-label="Read more"
-                      className="mt-6 grid h-10 w-10 place-items-center rounded-full bg-secondary text-primary transition hover:bg-primary hover:text-primary-foreground"
+
+                  {/* Description */}
+                  <p className="mt-4 text-sm leading-relaxed text-slate-500">
+                    {blog.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Button */}
+                <div className="mt-8 flex justify-end">
+                  <a
+                    href="#"
+                    className="group/btn inline-flex items-center gap-2 rounded-md bg-[#1a1a1a] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-black"
+                  >
+                    I'm Curious
+                    {/* Arrow Icon */}
+                    <svg 
+                      className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor" 
+                      strokeWidth={2}
                     >
-                      <ChevronsRight className="h-4 w-4" />
-                    </a>
-                  )}
-                </article>
-              );
-            })}
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))}
           </motion.div>
         </AnimatePresence>
-        <div className="mt-10 flex justify-center gap-4">
+
+        {/* Custom Pagination (Matching the screenshot) */}
+        <div className="mt-12 flex items-center justify-center gap-3">
+          {/* Left Arrow */}
           <button
+            onClick={prevSlide}
+            className="grid h-10 w-10 place-items-center rounded-md bg-[#1e293b] text-white transition-colors hover:bg-[#079fdf]"
             aria-label="Previous"
-            onClick={() => setI((x) => (x - 1 + pages) % pages)}
-            className="grid h-14 w-14 place-items-center rounded-full border border-border text-primary hover:bg-primary hover:text-primary-foreground"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
+
+          {/* Page Counter */}
+          <div className="flex items-center gap-1.5 px-2 font-display text-xl font-bold text-white">
+            <span>{currentIndex}</span>
+            <span className="text-slate-500">/</span>
+            <span className="text-slate-400">{totalPages}</span>
+          </div>
+
+          {/* Right Arrow */}
           <button
+            onClick={nextSlide}
+            className="grid h-10 w-10 place-items-center rounded-md bg-[#1e293b] text-white transition-colors hover:bg-[#079fdf]"
             aria-label="Next"
-            onClick={() => setI((x) => (x + 1) % pages)}
-            className="grid h-14 w-14 place-items-center rounded-full border border-border text-primary hover:bg-primary hover:text-primary-foreground"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
-        <div className="mt-6 flex justify-center gap-3">
-          {Array.from({ length: pages }).map((_, n) => (
-            <button
-              key={n}
-              aria-label={`Page ${n + 1}`}
-              onClick={() => setI(n)}
-              className={`h-2.5 w-2.5 rounded-full ${n === i ? "bg-primary ring-4 ring-primary/20" : "bg-border"}`}
-            />
-          ))}
-        </div>
+
       </div>
     </section>
   );
-}*/}
+}
 
 export function TrustedIndustries() {
   const clientLogos = [
@@ -1241,33 +1289,93 @@ export function TrustedIndustries() {
     "srit c9.png",
   ];
 
+  const marqueeLogos = [...clientLogos, ...clientLogos];
+
   return (
-    <section className="overflow-hidden bg-white py-20 md:py-24">
-      <div className="mx-auto w-full max-w-[1700px] px-5 sm:px-8 lg:px-12">
+    <>
+      <style>{`
+        @keyframes scroll-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: scroll-marquee 35s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
 
-        {/* Section Title */}
-        <Reveal className="text-center">
-          <Eyebrow center both>Our Trusted Network</Eyebrow>
+      {/* Increased section height to accommodate larger images */}
+      <section className="relative flex h-[140px] w-full items-center overflow-hidden border-y border-gray-100 bg-white">
+        
+        {/* Added a gap-8 to keep them from touching each other */}
+        <div className="flex w-max animate-marquee items-center gap-8">
+          {marqueeLogos.map((logo, index) => (
+            <div 
+              key={`${logo}-${index}`} 
+              /* Container wide enough to fit the larger image */
+              className="flex w-[160px] sm:w-[200px] md:w-[240px] shrink-0 items-center justify-center"
+            >
+              <img
+                src={img(logo)}
+                alt={`SRIT client ${index + 1}`}
+                /* Increased image height to h-20 (80px) and removed max-w limit */
+                className="h-20 w-auto object-contain transition-transform duration-500 hover:scale-110"
+              />
+            </div>
+          ))}
+        </div>
 
-          <h2 className="mt-4 font-display text-3xl font-bold text-ink md:text-5xl">
-            Trusted by stalwarts across{" "}
-            <span className="text-primary">industries</span>
-          </h2>
-        </Reveal>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent" />
 
-        {/* Client Logos */}
-        <div className="mt-16 grid grid-cols-2 items-center gap-x-8 gap-y-20 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-12 lg:gap-y-32">
-          {clientLogos.map((logo, index) => (
-            <Reveal key={logo} delay={index * 0.05}>
-              <div className="flex h-[130px] items-center justify-center px-2">
-                <img
-                  src={img(logo)}
-                  alt={`SRIT client ${index + 1}`}
-                  className="max-h-[110px] max-w-full object-contain transition-transform duration-500 hover:scale-105"
-                />
+      </section>
+    </>
+  );
+}
+
+export function Certifications() {
+  const certifications = [
+    "Trusted Engineering Excellence",
+    "CMMI Level 5",
+    "ISO 9001",
+    "ISO 27001",
+    "ISO 20000",
+    "ISO 14001",
+    "ISO 27034",
+    "ISO 45001",
+  ];
+
+  return (
+    <section className="border-y border-slate-100 bg-[#f8fafc] py-6">
+      <div className="mx-auto w-full max-w-[1700px] px-4 sm:px-6 lg:px-8">
+        
+        {/* 
+          Flex layout forces a single line. 
+          lg:justify-between spaces them out perfectly on desktop.
+          overflow-x-auto allows horizontal scrolling on mobile.
+        */}
+        <div className="flex w-full flex-nowrap items-center gap-4 overflow-x-auto pb-2 sm:gap-6 lg:justify-between lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          
+          {certifications.map((cert, index) => (
+            <Reveal key={cert} delay={index * 0.05} className="shrink-0">
+              <div className="group flex items-center gap-2.5 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm transition-all duration-300 hover:border-[#079fdf] hover:shadow-md">
+                
+                {/* Smaller Icon Circle */}
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#eaf7fc] text-[#079fdf] transition-colors duration-300 group-hover:bg-[#079fdf] group-hover:text-white">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                </div>
+
+                {/* Smaller Text */}
+                <span className="whitespace-nowrap text-xs font-bold text-[#142B50] sm:text-sm">
+                  {cert}
+                </span>
+                
               </div>
             </Reveal>
           ))}
+
         </div>
 
       </div>

@@ -1,19 +1,18 @@
+export { default as IcarKnoSection } from "./srit/IcarKnoSection";
+
 export {
-  PerformanceDashboard,  
+  PerformanceDashboard,
   PortalCards,
   About,
-  //Features,
+  Features,
   Entertainment,
   CyberSecurity,
   PartnerAndPlans,
   SearchPlans,
-  //Achievers,
+  Blogs,
   Testimonials,
- // DigitalPlatform,
-  //Faq,
-  //ShareKnowledge,
-  //Blogs,
   TrustedIndustries,
+  Certifications,
   Footer,
   BackToTop,
 } from "./srit/Sections";
