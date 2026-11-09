@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Outfit", sans-serif;
+  --font-sans: "Roboto", sans-serif;
+}
+
+:root {
+  font-family: "Roboto", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+/* ===== RAILWIRE TEMPLATE DESIGN SYSTEM ===== */
+
+@theme {
+  --color-primary: #079fdf;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #eaf7fc;
+  --color-muted: #f0f7fa;
+  --color-muted-foreground: #64748b;
+  --color-card: #ffffff;
+  --color-ink: #172b4d;
+  --color-ink-blue: #092b55;
+  --color-border: #dce8ef;
+  --color-destructive: #ef4444;
+  --color-accent-gold: #fbbf24;
+}
+
+/* Main backgrounds */
+
+.bg-hero {
+  background: linear-gradient(120deg, #07152f, #17233d, #07152f);
+}
+
+.bg-cosmic {
+  background: linear-gradient(120deg, #20005c, #45008c, #16004b);
+}
+
+.bg-network {
+  background-color: #f5fbff;
+  background-image:
+    radial-gradient(circle at 15% 20%, #d5efff 0, transparent 35%),
+    radial-gradient(circle at 85% 75%, #d8f2ff 0, transparent 35%);
+}
+
+.bg-sky-wave {
+  background: linear-gradient(180deg, #ffffff 0%, #eaf8ff 100%);
+}
+
+/* Cards and shadows */
+
+.shadow-soft {
+  box-shadow: 0 8px 30px rgba(15, 50, 80, 0.10);
+}
+
+/* Text colors */
+
+.text-ink {
+  color: #172b4d;
+}
+
+.text-ink-blue {
+  color: #092b55;
+}
+
+/* Portal and digital platform card colors */
+
+.tone-sky {
+  --tone: #079fdf;
+  --tone-soft: #e0f5ff;
+}
+
+.tone-orange {
+  --tone: #f28c28;
+  --tone-soft: #fff0df;
+}
+
+.tone-violet {
+  --tone: #9346d8;
+  --tone-soft: #f2e7ff;
+}
+
+.tone-green {
+  --tone: #20a66b;
+  --tone-soft: #e2f8ed;
+}
+
+/* Hero scrolling announcement */
+.hero-marquee-track {
+  animation: hero-marquee 28s linear infinite;
+}
+
+.hero-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
