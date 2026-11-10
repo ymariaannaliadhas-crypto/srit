@@ -1,4 +1,3 @@
-import React from "react";
 import "./icarKnoSection.css";
 import { img } from "./assets";
 

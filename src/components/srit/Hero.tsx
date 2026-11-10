@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-const ease = [0.22, 1, 0.36, 1];
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function Hero() {
   return (

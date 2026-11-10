@@ -1,5 +1,5 @@
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -43,7 +43,7 @@ export default function Healthcare() {
   const [direction, setDirection] = useState(1);
   const touchStart = useRef(0);
 
-  const getMetrics = () => {
+  const getMetrics = useCallback(() => {
     const width = containerRef.current?.clientWidth || 0;
     const gap = window.innerWidth < 640 ? 8 : 14;
     const featured = width * 0.62;
@@ -61,9 +61,9 @@ export default function Healthcare() {
         featured + gap + (preview + gap) * 2,
       ],
     };
-  };
+  }, []);
 
-  const positionCards = () => {
+  const positionCards = useCallback(() => {
     const m = getMetrics();
     if (!m.width) return;
 
@@ -77,7 +77,7 @@ export default function Healthcare() {
         scale: 1,
       });
     });
-  };
+  }, [getMetrics]);
 
   useLayoutEffect(() => {
     positionCards();
@@ -88,7 +88,7 @@ export default function Healthcare() {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [activeIndex]);
+  }, [activeIndex, positionCards]);
 
   const changeSlide = (dir) => {
     if (busy.current) return;

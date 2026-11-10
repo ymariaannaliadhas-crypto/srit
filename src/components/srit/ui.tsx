@@ -85,10 +85,12 @@ export function BtnLink({
   href,
   children,
   variant = "primary",
+  className = "",
 }: {
   href: string;
   children: ReactNode;
   variant?: "primary" | "white";
+  className?: string;
 }) {
   const cls =
     variant === "white"
@@ -97,7 +99,7 @@ export function BtnLink({
   return (
     <a
       href={href}
-      className={`group inline-flex items-center gap-3 rounded-md px-7 py-3.5 font-display font-semibold transition-colors duration-300 ${cls}`}
+      className={`group inline-flex items-center gap-3 rounded-md px-7 py-3.5 font-display font-semibold transition-colors duration-300 ${cls} ${className}`}
     >
       {children}
       <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

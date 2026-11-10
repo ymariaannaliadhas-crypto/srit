@@ -1,4 +1,3 @@
-
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -13,6 +12,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": false,
+    "types": ["vite/client"],
     "allowJs": true,
     "checkJs": false
   },

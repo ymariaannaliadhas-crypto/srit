@@ -2,12 +2,15 @@ import { Header } from "./components/srit/Header";
 import { Hero } from "./components/srit/Hero";
 import Healthcare from "./components/Healthcare";
 
+// 1. Import IcarKnoSection separately from its own file
+import IcarKnoSection from "./components/srit/IcarKnoSection"; 
+
 import {
   PerformanceDashboard,
   PortalCards,
   About,
   Features,
-  IcarKnoSection,
+  // IcarKnoSection, <--- REMOVE THIS LINE from here
   Entertainment,
   CyberSecurity,
   PartnerAndPlans,
@@ -18,7 +21,7 @@ import {
   Certifications,
   Footer,
   BackToTop,
-} from "./components/Sections";
+} from "./components/srit/Sections";
 
 function App() {
   return (

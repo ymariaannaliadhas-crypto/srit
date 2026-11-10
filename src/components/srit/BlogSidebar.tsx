@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, User } from "lucide-react";
-import { useTranslation } from "react-i18next";
+// Mock fallback for missing react-i18next package
+const useTranslation = () => ({ t: (key: string) => key });
 import { BLOGS } from "./data";
 
 const WIDGET = "rounded-2xl bg-[#f6f5f1] p-6";

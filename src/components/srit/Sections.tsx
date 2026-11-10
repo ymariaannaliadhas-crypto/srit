@@ -1351,15 +1351,11 @@ export function Certifications() {
     <section className="border-y border-slate-100 bg-[#f8fafc] py-6">
       <div className="mx-auto w-full max-w-[1700px] px-4 sm:px-6 lg:px-8">
         
-        {/* 
-          Flex layout forces a single line. 
-          lg:justify-between spaces them out perfectly on desktop.
-          overflow-x-auto allows horizontal scrolling on mobile.
-        */}
         <div className="flex w-full flex-nowrap items-center gap-4 overflow-x-auto pb-2 sm:gap-6 lg:justify-between lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
-          {certifications.map((cert, index) => (
-            <Reveal key={cert} delay={index * 0.05} className="shrink-0">
+          {certifications.map((cert) => (
+            /* REMOVED the <Reveal> wrapper here */
+            <div key={cert} className="shrink-0">
               <div className="group flex items-center gap-2.5 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm transition-all duration-300 hover:border-[#079fdf] hover:shadow-md">
                 
                 {/* Smaller Icon Circle */}
@@ -1373,11 +1369,10 @@ export function Certifications() {
                 </span>
                 
               </div>
-            </Reveal>
+            </div>
           ))}
 
         </div>
-
       </div>
     </section>
   );
