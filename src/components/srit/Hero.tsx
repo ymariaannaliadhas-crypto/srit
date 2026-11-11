@@ -36,12 +36,12 @@ export function Hero() {
               Revolutionizing Healthcare and Beyond
             </motion.h1>
 
-            {/* Subtext is now full width (removed max-w-3xl) */}
+            {/* Reduced top margin from mt-5 to mt-2 */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease }}
-              className="mt-5 w-full text-sm leading-relaxed text-white/80 sm:text-base md:leading-7"
+              className="mt-2 w-full text-sm leading-relaxed text-white/80 sm: md:leading-7"
             >
               Since 1999, SRIT has been at the forefront of innovation,
               transforming industries such as Healthcare, eGovernance, and
@@ -60,43 +60,24 @@ export function Hero() {
               transition={{ delay: 0.6, duration: 0.8, ease }}
               className="mt-8"
             >
-              <button
+              {/*<button
                 type="button"
                 className="rounded-md border border-white/20 bg-[#142B50] px-8 py-3 text-sm font-semibold tracking-wide text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0f203d] hover:shadow-xl"
               >
                 Explore AI Solutions
-              </button>
+              </button>*/}
             </motion.div>
 
           </div>
         </div>
 
-        {/* Scrolling announcement strip - Added /80 opacity and backdrop-blur */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden border-t border-white/10 bg-[#142B50]/80 py-4 text-white backdrop-blur-md">
-          <div className="hero-marquee-track flex w-max items-center">
-            {[1, 2].map((item) => (
-              <div
-                key={item}
-                className="flex shrink-0 items-center gap-5 px-8"
-              >
-                <span className="text-sm font-bold uppercase tracking-wide text-[#38BDF8] sm:text-base">
-                  Celebrating a defining milestone.
-                </span>
-
-                <span className="text-sm font-semibold sm:text-base">
-                  Building a stronger future!
-                </span>
-
-                <span className="h-2 w-2 shrink-0 rounded-full bg-[#38BDF8]" />
-
-                <span className="text-sm font-medium sm:text-base">
-                  SRIT India Limited is now officially listed on both the NSE and BSE,
-                  as of 6th October 2026.
-                </span>
-
-                <span className="h-2 w-2 shrink-0 rounded-full bg-[#38BDF8]" />
-              </div>
-            ))}
+        {/* Static announcement strip */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden border-t border-white/10 bg-[#142B50]/30 py-4 text-white backdrop-blur-md">
+          <div className="flex items-center justify-center gap-5 px-4 sm:px-8">
+            <span className="text-sm font-medium sm:text-base">
+              SRIT India Limited is now officially listed on both the NSE and BSE,
+              as of 6th October 2026.
+            </span>
           </div>
         </div>
 

@@ -377,13 +377,13 @@ export function Features() {
     r?: boolean;
   }) => (
     <div
-      // Reduced vertical padding here from py-6 lg:py-8 to py-4 lg:py-6
-      className={`group flex gap-6 border-b border-border py-4 lg:py-6 ${r ? "flex-row-reverse text-right" : ""}`}
+      className={`group flex gap-6 border-b border-border py-4 lg:py-6 ${r ? "flex-row-reverse" : ""}`}
     >
       <span className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
         <f.i className="h-8 w-8" />
       </span>
-      <div>
+      {/* Text block: for right column, align text to the right but keep same start position */}
+      <div className={`min-w-0 flex-1 ${r ? "text-right" : "text-left"}`}>
         <h4 className="font-display text-xl font-semibold text-ink">
           {f.title}
         </h4>
@@ -393,7 +393,6 @@ export function Features() {
   );
 
   return (
-    // Reduced section padding from py-20 to py-12
     <section className="relative overflow-hidden py-12">
       <img
         src={img("bg feature.png")}
@@ -416,11 +415,10 @@ export function Features() {
           }}
           className="text-center"
         >
-          <Eyebrow center both>Why Choose Us?</Eyebrow>
+          <Eyebrow center both>AI-Driven</Eyebrow>
           <Heading pre="Our Special" hl="AI Features" className="mt-4" />
         </motion.div>
         
-        {/* Reduced top margin from mt-16 to mt-10 */}
         <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_440px_1fr] lg:gap-12">
           
           {/* Left Column */}
@@ -436,9 +434,9 @@ export function Features() {
           <div className="hidden lg:flex justify-center">
             <Reveal className="relative mx-auto w-full flex justify-center">
               <img
-                src={img("ai feature.png")}
+                src={img("ai-feature.png")}
                 alt="AI Feature"
-                className="relative w-[440px] rounded-3xl object-cover"
+                className="relative w-[440px] rounded-3xl object-cover opacity-60"
               />
             </Reveal>
           </div>
@@ -1143,6 +1141,159 @@ export function ShareKnowledge() {
   );
 }*/}
 
+export function AIChatButton() {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<
+    { role: "user" | "bot"; text: string }[]
+  >([
+    {
+      role: "bot",
+      text: "Hi! I'm SRIT's AI assistant. How can I help you today?",
+    },
+  ]);
+  const [input, setInput] = useState("");
+
+  const send = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text) return;
+
+    setMessages((prev) => [...prev, { role: "user", text }]);
+    setInput("");
+
+    // Placeholder reply — swap with your real API call
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: "Thanks for your message! A member of our team will be in touch shortly.",
+        },
+      ]);
+    }, 600);
+  };
+
+  return (
+    <>
+      {/* Chat panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-24 right-6 z-50 flex h-[440px] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between bg-[#079fdf] px-4 py-3 text-white">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5" />
+                <span className="font-display text-sm font-semibold">
+                  SRIT AI Assistant
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                className="rounded-full p-1 transition hover:bg-white/20"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-4 text-sm">
+              {messages.map((m, idx) => (
+                <div
+                  key={idx}
+                  className={`max-w-[85%] rounded-xl px-3 py-2 leading-relaxed ${
+                    m.role === "user"
+                      ? "ml-auto bg-[#079fdf] text-white"
+                      : "bg-white text-slate-700 shadow-sm"
+                  }`}
+                >
+                  {m.text}
+                </div>
+              ))}
+            </div>
+
+            {/* Input */}
+            <form
+              onSubmit={send}
+              className="flex items-center gap-2 border-t border-slate-200 bg-white p-3"
+            >
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask me anything..."
+                className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#079fdf]"
+              />
+              <button
+                type="submit"
+                className="grid h-9 w-9 place-items-center rounded-lg bg-[#079fdf] text-white transition hover:bg-[#078bc4]"
+                aria-label="Send message"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating button + "AI Chat" label above it */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2">
+        {!open && (
+          <motion.span
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: 0.4 }}
+            className="rounded-full bg-[#142B50] px-3 py-1 text-[11px] font-semibold tracking-wide text-white shadow-md"
+          >
+            AI Chat
+          </motion.span>
+        )}
+
+        <motion.button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close AI chat" : "Open AI chat"}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="grid h-14 w-14 place-items-center rounded-full bg-[#079fdf] text-white shadow-lg shadow-[#079fdf]/40 transition hover:bg-[#078bc4]"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {open ? (
+              <motion.span
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <X className="h-6 w-6" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="chat"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <MessageCircle className="h-6 w-6" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
+    </>
+  );
+}
+
 export function Blogs() {
   const [currentIndex, setCurrentIndex] = useState(1); // Starting at 1 like the screenshot
   const totalPages = Math.ceil(BLOGS.length / 3);
@@ -1299,28 +1450,26 @@ export function TrustedIndustries() {
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: scroll-marquee 35s linear infinite;
+          animation: scroll-marquee 60s linear infinite;
         }
         .animate-marquee:hover {
           animation-play-state: paused;
         }
       `}</style>
 
-      {/* Increased section height to accommodate larger images */}
       <section className="relative flex h-[140px] w-full items-center overflow-hidden border-y border-gray-100 bg-white">
         
-        {/* Added a gap-8 to keep them from touching each other */}
-        <div className="flex w-max animate-marquee items-center gap-8">
+        {/* Reduced gap from gap-8 to gap-3 */}
+        <div className="flex w-max animate-marquee items-center gap-3">
           {marqueeLogos.map((logo, index) => (
             <div 
               key={`${logo}-${index}`} 
-              /* Container wide enough to fit the larger image */
-              className="flex w-[160px] sm:w-[200px] md:w-[240px] shrink-0 items-center justify-center"
+              /* Reduced width to tighten spacing further */
+              className="flex w-[140px] sm:w-[170px] md:w-[200px] shrink-0 items-center justify-center"
             >
               <img
                 src={img(logo)}
                 alt={`SRIT client ${index + 1}`}
-                /* Increased image height to h-20 (80px) and removed max-w limit */
                 className="h-20 w-auto object-contain transition-transform duration-500 hover:scale-110"
               />
             </div>

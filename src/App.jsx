@@ -20,7 +20,8 @@ import {
   TrustedIndustries,
   Certifications,
   Footer,
-  BackToTop,
+  //BackToTop,
+  AIChatButton,
 } from "./components/srit/Sections";
 
 function App() {
@@ -47,7 +48,8 @@ function App() {
       </main>
 
       <Footer />
-      <BackToTop />
+     
+      < AIChatButton/>
     </>
   );
 }
