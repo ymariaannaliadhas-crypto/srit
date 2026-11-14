@@ -837,25 +837,29 @@ export function Certifications() {
 }
 
 export function Footer() {
-  const solutions = [
-    { label: "Healthcare", href: "#healthcare" },
-    { label: "e-Governance", href: "#e-governance" },
-    { label: "Telecom & Broadband", href: "#entertainment" },
-    { label: "Cyber Security", href: "#cyber-security" },
-    { label: "Insurance", href: "#" },
-    { label: "Brochures", href: "#" },
+  const blueprintLinks = [
+    { label: "Our Next Technology Direction (Sovereign AI)", href: "/#sovereign-ai" },
+    { label: "Industries & Verticals", href: "/#industries" },
+    { label: "The 4 Flagship Solutions", href: "/#solutions" },
+    { label: "Our Future Projects", href: "/#future-projects" },
+    { label: "AI-Native Engineering", href: "/#ai-native-engineering" },
   ];
 
-  const projects = [
-    { label: "Projects & Wins", href: "#" },
-    { label: "Clients", href: "#" },
+  const knowledgeLinks = [
+    { label: "Leadership & Management", href: "/management" },
+    { label: "The Thinking Edge (7 Viewpoints)", href: "/#the-thinking-edge" },
+    { label: "Top Stories & Newsroom", href: "/#newsroom" },
+    { label: "Citizen Touchpoints", href: "/#citizen-touchpoints" },
+    { label: "Client Roster", href: "/#clients" },
+    { label: "Careers in DPI & AI", href: "/#careers" },
   ];
 
-  const aboutLinks = [
-    { label: "Company", href: "#" },
-    { label: "Management", href: "#" },
-    { label: "Recognition", href: "#" },
-    { label: "Invest/Partner", href: "#" },
+  const investorLinks = [
+    { label: "NSE & BSE Listing Details", href: "/investor" },
+    { label: "Corporate Governance", href: "/investor" },
+    { label: "Financials & Filings", href: "/investors-information" },
+    { label: "Annual Reports & IPO", href: "/annual-report" },
+    { label: "DPDP Act & Privacy Policy", href: "/privacy-policy" },
   ];
 
   const socialLinks = [
@@ -946,9 +950,9 @@ export function Footer() {
         </div>
 
         <div>
-          <FooterHeading>Solutions</FooterHeading>
+          <FooterHeading>Enterprise Architecture</FooterHeading>
           <div>
-            {solutions.map((item) => (
+            {blueprintLinks.map((item) => (
               <FooterLink key={item.label} href={item.href}>
                 {item.label}
               </FooterLink>
@@ -957,34 +961,26 @@ export function Footer() {
         </div>
 
         <div>
-          <FooterHeading>Projects</FooterHeading>
+          <FooterHeading>Knowledge & Media</FooterHeading>
           <div>
-            {projects.map((item) => (
+            {knowledgeLinks.map((item) => (
               <FooterLink key={item.label} href={item.href}>
                 {item.label}
               </FooterLink>
             ))}
-          </div>
-          <div className="mt-6 space-y-4">
-            <a href="#" className="block text-xl font-medium text-primary-foreground/85 transition hover:text-primary">
-              Media
-            </a>
-            <a href="#" className="block text-xl font-medium text-primary-foreground/85 transition hover:text-primary">
-              Contact Us
-            </a>
           </div>
         </div>
 
         <div>
-          <FooterHeading>About Us</FooterHeading>
+          <FooterHeading>Investor Relations</FooterHeading>
           <div>
-            {aboutLinks.map((item) => (
+            {investorLinks.map((item) => (
               <FooterLink key={item.label} href={item.href}>
                 {item.label}
               </FooterLink>
             ))}
           </div>
-          <h4 className="block text-xl font-medium text-primary-foreground/85 transition hover:text-primary">
+          <h4 className="mt-6 block text-xl font-medium text-primary-foreground/85 transition hover:text-primary">
             Follow Us
           </h4>
           <div className="flex flex-wrap gap-3">

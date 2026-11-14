@@ -1,15 +1,18 @@
 export type SearchCategory =
   | "all"
   | "solutions"
+  | "knowledge"
   | "services"
   | "pages"
   | "investors"
+  | "investor"
   | "certifications"
   | "resources";
 
 export type SearchActionType =
   | "scroll"      // In-page smooth scroll (e.g. #healthcare, #e-governance)
   | "route"       // In-app navigation (e.g. /company, /contact-us)
+  | "navigate"    // In-app navigation alias
   | "external"    // External portal / CRM link (e.g. RailWire CRM, subscriber portal)
   | "action";     // Interactive tool/modal trigger (e.g. state selector, AI chat)
 

@@ -11,46 +11,48 @@ import { SmartSearchBar, SmartSearchModal } from "../../features/smart-search";
 
 const menus = [
   {
-    title: "Solutions",
+    title: "Sovereign AI",
+    badge: "Next Tech",
     items: [
-      { label: "Healthcare", href: "/healthcare" },
-      { label: "eGovernance", href: "/egovernance" },
-      { label: "Telecom", href: "/telecom" },
-      { label: "Insurance", href: "/insurance" },
+      { label: "AI-Native Engineering", href: "/#ai-native-engineering" },
+      { label: "Sovereign Edge Architecture", href: "/#the-thinking-edge" },
+      { label: "ShaktiDB & Sovereign Cloud", href: "/#future-projects" },
     ],
   },
   {
-    title: "Projects",
+    title: "Solutions",
     items: [
-      { label: "Projects & Wins", href: "/project-wins" },
+      { label: "Connected Care (ABHA & EMR)", href: "/#connected-care" },
+      { label: "Public Admin & Urban Mobility", href: "/#urban-mobility" },
+      { label: "Statewide Digital Highways", href: "/#digital-highways" },
+      { label: "Zero-Trust CSOC & Cyber Defense", href: "/#zero-trust-csoc" },
+    ],
+  },
+  {
+    title: "Knowledge Center",
+    items: [
+      { label: "The Thinking Edge (7 Viewpoints)", href: "/#the-thinking-edge" },
+      { label: "Top Stories & Newsroom", href: "/#newsroom" },
+      { label: "Real-Life Citizen Touchpoints", href: "/#citizen-touchpoints" },
     ],
   },
   {
     title: "Investors",
+    badge: "NSE/BSE",
     items: [
-      { label: "Overview", href: "/investor" },
+      { label: "Overview & Listing Details", href: "/investor" },
       { label: "Management Commentary", href: "/investor" },
-      { label: "Financials", href: "/investors-information" },
-      { label: "News & Events", href: "/investors-information" },
-      { label: "ESG", href: "/investor" },
-      { label: "Resources", href: "/investor" },
-      { label: "Annual Reports", href: "/annual-report" },
+      { label: "Financials & Filings", href: "/investors-information" },
+      { label: "Annual Reports & IPO", href: "/annual-report" },
     ],
   },
   {
     title: "About Us",
     items: [
-      { label: "Company", href: "/company" },
-      { label: "Management", href: "/management" },
-      { label: "Invest / Partner", href: "/invest" },
-      { label: "Recognition", href: "/recognition" },
+      { label: "Leadership & Management", href: "/management" },
+      { label: "Company Overview", href: "/company" },
+      { label: "Careers", href: "/#careers" },
       { label: "Contact Us", href: "/contact-us" },
-    ],
-  },
-  {
-    title: "Media",
-    items: [
-      { label: "Media", href: "/media" },
     ],
   },
 ];

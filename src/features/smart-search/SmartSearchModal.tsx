@@ -55,16 +55,17 @@ const ICON_MAP: Record<string, LucideIcon> = {
 const CATEGORIES: { id: SearchCategory; label: string }[] = [
   { id: "all", label: "All" },
   { id: "solutions", label: "Solutions" },
-  { id: "services", label: "Services & Portals" },
-  { id: "pages", label: "Pages" },
+  { id: "knowledge", label: "Knowledge Center" },
   { id: "investors", label: "Investors" },
+  { id: "pages", label: "Leadership & Pages" },
   { id: "certifications", label: "Certifications" },
-  { id: "resources", label: "FAQs & Case Studies" },
+  { id: "resources", label: "Impact & Clients" },
 ];
 
 export interface SmartSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialQuery?: string;
   onNavigate?: (item: SearchItem) => void;
   navigate?: (to: string) => void;
 }
@@ -72,6 +73,7 @@ export interface SmartSearchModalProps {
 export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
   isOpen,
   onClose,
+  initialQuery,
   onNavigate,
   navigate,
 }) => {
@@ -96,6 +98,7 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
     onNavigate,
     onClose,
     navigate,
+    initialQuery,
   });
 
   const handleItemSelect = (item: SearchItem) => {
@@ -106,13 +109,17 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
   // Focus input automatically when modal opens
   useEffect(() => {
     if (isOpen) {
+      if (initialQuery !== undefined) {
+        setQuery(initialQuery);
+      }
       setTimeout(() => {
         inputRef.current?.focus();
+        inputRef.current?.select();
       }, 60);
     } else {
       setQuery("");
     }
-  }, [isOpen, setQuery]);
+  }, [isOpen, initialQuery, setQuery]);
 
   // Scroll active item into view during keyboard navigation
   useEffect(() => {

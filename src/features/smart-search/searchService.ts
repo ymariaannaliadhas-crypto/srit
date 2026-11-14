@@ -1,5 +1,6 @@
 import type {
   ISearchService,
+  SearchCategory,
   SearchFilterOptions,
   SearchItem,
   SearchResult,
@@ -91,7 +92,12 @@ export class SmartSearchService implements ISearchService {
     const filteredIndex =
       category === "all"
         ? this.items
-        : this.items.filter((item) => item.category === category);
+        : this.items.filter((item) => {
+            if (category === "investors" || category === "investor") {
+              return item.category === "investors" || item.category === "investor";
+            }
+            return item.category === category;
+          });
 
     const scoredResults: SearchResult[] = [];
 
@@ -262,12 +268,13 @@ export class SmartSearchService implements ISearchService {
    */
   public getQuickSuggestions(): SearchItem[] {
     const ids = [
-      "sol-healthcare-suite",
-      "sol-egov-edistrict",
-      "sol-egov-agnipermit",
+      "flagship-connected-care",
+      "flagship-urban-mobility",
+      "flagship-digital-highways",
+      "vp-sovereign-ai-viewpoints",
+      "news-ipo-listing",
       "page-management",
       "sol-icarkno-ai",
-      "inv-annual-report",
       "cert-cmmi-level-5",
     ];
 
@@ -281,7 +288,12 @@ export class SmartSearchService implements ISearchService {
    */
   public getAllByCategory(category: SearchCategory): SearchItem[] {
     if (category === "all") return this.items;
-    return this.items.filter((item) => item.category === category);
+    return this.items.filter((item) => {
+      if (category === "investors" || category === "investor") {
+        return item.category === "investors" || item.category === "investor";
+      }
+      return item.category === category;
+    });
   }
 }
 

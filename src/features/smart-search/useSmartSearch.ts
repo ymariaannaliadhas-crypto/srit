@@ -5,6 +5,7 @@ import { SEARCH_INDEX } from "./searchIndex";
 
 export interface UseSmartSearchOptions {
   initialCategory?: SearchCategory;
+  initialQuery?: string;
   debounceMs?: number;
   onNavigate?: (item: SearchItem) => void;
   onClose?: () => void;
@@ -18,14 +19,62 @@ export interface UseSmartSearchOptions {
 function resolveTargetElement(item: SearchItem): HTMLElement | null {
   const targetId = item.metadata?.targetId || item.url.replace(/^#/, "");
 
-  // 1. Check if direct ID exists (e.g. healthcare, e-governance, telecom, cyber-security, icarkno)
+  // 1. Check if direct ID exists
   const elById = document.getElementById(targetId);
   if (elById) return elById;
 
-  // 2. Dynamic resolver for sections without IDs in unmodified codebase
+  // 2. Dynamic resolver for sections
   const sections = Array.from(document.querySelectorAll<HTMLElement>("section"));
 
-  if (targetId === "investors" || item.category === "investors") {
+  if (targetId === "the-thinking-edge" || targetId === "viewpoints") {
+    const el = document.getElementById("the-thinking-edge") ||
+      sections.find((s) => s.textContent?.includes("The Thinking Edge"));
+    if (el) return el;
+  }
+
+  if (targetId === "newsroom" || targetId === "news") {
+    const el = document.getElementById("newsroom") ||
+      sections.find((s) => s.textContent?.includes("Top Stories") || s.textContent?.includes("Newsroom"));
+    if (el) return el;
+  }
+
+  if (targetId === "citizen-touchpoints" || targetId === "touchpoints") {
+    const el = document.getElementById("citizen-touchpoints") ||
+      sections.find((s) => s.textContent?.includes("Citizen Impact") || s.textContent?.includes("Citizen Touchpoints"));
+    if (el) return el;
+  }
+
+  if (targetId === "future-projects" || targetId === "projects") {
+    const el = document.getElementById("future-projects") ||
+      sections.find((s) => s.textContent?.includes("Future Projects"));
+    if (el) return el;
+  }
+
+  if (targetId === "ai-native-engineering" || targetId === "sovereign-ai") {
+    const el = document.getElementById("ai-native-engineering") ||
+      sections.find((s) => s.textContent?.includes("AI-Native Engineering"));
+    if (el) return el;
+  }
+
+  if (targetId === "industries") {
+    const el = document.getElementById("industries") ||
+      sections.find((s) => s.textContent?.includes("Industries & Services"));
+    if (el) return el;
+  }
+
+  if (targetId === "clients") {
+    const el = document.getElementById("clients") ||
+      sections.find((s) => s.textContent?.includes("Key Clients"));
+    if (el) return el;
+  }
+
+  if (targetId === "careers") {
+    const el = document.getElementById("careers") ||
+      sections.find((s) => s.textContent?.includes("Digital Public Infrastructure with Us"));
+    if (el) return el;
+  }
+
+  if (targetId === "investors" || targetId === "investor" || item.category === "investors" || item.category === "investor") {
     const investorSection = sections.find(
       (s) =>
         s.textContent?.includes("Investor Relations") ||
@@ -39,33 +88,6 @@ function resolveTargetElement(item: SearchItem): HTMLElement | null {
       (s) => s.textContent?.includes("CMMI Level 5") || s.textContent?.includes("ISO 9001")
     );
     if (certSection) return certSection;
-  }
-
-  if (targetId === "testimonials" || item.id.includes("testimonial")) {
-    const testimonialSection = sections.find(
-      (s) =>
-        s.textContent?.includes("TÜV Rheinland") ||
-        s.textContent?.includes("met our expectations")
-    );
-    if (testimonialSection) return testimonialSection;
-  }
-
-  if (targetId === "blogs" || item.id.includes("blog")) {
-    const blogSection = sections.find(
-      (s) =>
-        s.textContent?.includes("Latest Case Studies") ||
-        s.textContent?.includes("RailWire Expands")
-    );
-    if (blogSection) return blogSection;
-  }
-
-  if (targetId === "faq") {
-    const faqSection = sections.find(
-      (s) =>
-        s.textContent?.includes("Frequently Asked") ||
-        s.textContent?.includes("RailWire connection")
-    );
-    if (faqSection) return faqSection;
   }
 
   return null;
@@ -102,14 +124,21 @@ function activateSubTabIfApplicable(itemId: string) {
 }
 
 export function useSmartSearch(options: UseSmartSearchOptions = {}) {
-  const { initialCategory = "all", debounceMs = 120, onNavigate, onClose, navigate } = options;
+  const { initialCategory = "all", initialQuery = "", debounceMs = 120, onNavigate, onClose, navigate } = options;
 
-  const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
+  const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
   const [activeCategory, setActiveCategory] = useState<SearchCategory>(initialCategory);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
+
+  // Update query when initialQuery changes
+  useEffect(() => {
+    if (initialQuery !== undefined) {
+      setQuery(initialQuery);
+    }
+  }, [initialQuery]);
 
   // Refresh recent searches whenever modal opens
   const refreshRecent = useCallback(() => {
@@ -134,9 +163,11 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
     const counts: Record<SearchCategory, number> = {
       all: 0,
       solutions: 0,
+      knowledge: 0,
       services: 0,
       pages: 0,
       investors: 0,
+      investor: 0,
       certifications: 0,
       resources: 0,
     };
@@ -151,12 +182,18 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
         if (counts[r.item.category] !== undefined) {
           counts[r.item.category]++;
         }
+        if (r.item.category === "investor") {
+          counts.investors++;
+        }
       });
     } else {
       counts.all = SEARCH_INDEX.length;
       SEARCH_INDEX.forEach((item) => {
         if (counts[item.category] !== undefined) {
           counts[item.category]++;
+        }
+        if (item.category === "investor") {
+          counts.investors++;
         }
       });
     }
@@ -270,7 +307,7 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
         }, 60);
       } else if (item.actionType === "external") {
         window.open(item.url, "_blank", "noopener,noreferrer");
-      } else if (item.actionType === "route") {
+      } else if (item.actionType === "route" || item.actionType === "navigate") {
         if (navigate) {
           navigate(item.url);
         } else {

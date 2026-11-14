@@ -9,10 +9,16 @@ const queries = [
   { q: "building permit", target: "PlanPermit" },
   { q: "madhu nambiar", target: "Dr. Madhu Nambiar" },
   { q: "rangan thiyagarajan", target: "Rangan Thiyagarajan" },
+  { q: "cfo", target: "Manesh George" },
   { q: "annual report", target: "Annual Reports" },
   { q: "cmmi", target: "CMMI" },
   { q: "request demo", target: "Request a Solution Demo" },
   { q: "icarkno", target: "icarKno" },
+  { q: "safe kerala", target: "SAFE Kerala" },
+  { q: "kfon", target: "KFON" },
+  { q: "shaktidb", target: "ShaktiDB" },
+  { q: "sovereign ai", target: "Sovereign AI" },
+  { q: "careers", target: "Careers" },
 ];
 
 let failed = 0;

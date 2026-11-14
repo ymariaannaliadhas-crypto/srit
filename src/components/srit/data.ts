@@ -119,3 +119,6 @@ export const FAQS = [
     a: "Yes, RailWire offers unlimited broadband plans. However, speeds may be adjusted as per Fair Usage Policy (FUP) after a certain limit.",
   },
 ];
+
+export const BLOGS: any[] = [];
+export const STATES: any[] = [];
