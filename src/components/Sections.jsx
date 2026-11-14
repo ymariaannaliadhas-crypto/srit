@@ -1,5 +1,3 @@
-export { default as IcarKnoSection } from "./srit/IcarKnoSection";
-
 export {
   PerformanceDashboard,
   PortalCards,
@@ -15,4 +13,5 @@ export {
   Certifications,
   Footer,
   BackToTop,
+  AIChatButton,
 } from "./srit/Sections";
