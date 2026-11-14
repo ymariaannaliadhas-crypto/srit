@@ -7,11 +7,12 @@ const queries = [
   { q: "healtcare", target: "Healthcare" },
   { q: "fire noc", target: "AgniPermit" },
   { q: "building permit", target: "PlanPermit" },
-  { q: "apply connection", target: "RailWire Connection" },
-  { q: "kerala", target: "Kerala" },
-  { q: "annual report", target: "Annual Report" },
+  { q: "madhu nambiar", target: "Dr. Madhu Nambiar" },
+  { q: "rangan thiyagarajan", target: "Rangan Thiyagarajan" },
+  { q: "annual report", target: "Annual Reports" },
   { q: "cmmi", target: "CMMI" },
-  { q: "documents required", target: "Documents" },
+  { q: "request demo", target: "Request a Solution Demo" },
+  { q: "icarkno", target: "icarKno" },
 ];
 
 let failed = 0;

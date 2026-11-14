@@ -57,11 +57,6 @@ export const SmartSearchOverlay: React.FC<SmartSearchOverlayProps> = ({
           <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 shadow-2xs group-hover:bg-[#eaf7fc] group-hover:text-[#079fdf]">
             {isMac ? "⌘K" : "Ctrl+K"}
           </kbd>
-
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#079fdf] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#079fdf]"></span>
-          </span>
         </button>
       </div>
 

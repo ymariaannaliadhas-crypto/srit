@@ -1,12 +1,14 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import type { SearchCategory, SearchItem, SearchResult } from "./types";
 import { searchService } from "./searchService";
+import { SEARCH_INDEX } from "./searchIndex";
 
 export interface UseSmartSearchOptions {
   initialCategory?: SearchCategory;
   debounceMs?: number;
   onNavigate?: (item: SearchItem) => void;
   onClose?: () => void;
+  navigate?: (to: string) => void;
 }
 
 /**
@@ -100,7 +102,7 @@ function activateSubTabIfApplicable(itemId: string) {
 }
 
 export function useSmartSearch(options: UseSmartSearchOptions = {}) {
-  const { initialCategory = "all", debounceMs = 120, onNavigate, onClose } = options;
+  const { initialCategory = "all", debounceMs = 120, onNavigate, onClose, navigate } = options;
 
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -127,14 +129,57 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
     return () => clearTimeout(timer);
   }, [query, debounceMs]);
 
+  // Dynamic counts for each category filter based on query or total catalog
+  const categoryCounts = useMemo(() => {
+    const counts: Record<SearchCategory, number> = {
+      all: 0,
+      solutions: 0,
+      services: 0,
+      pages: 0,
+      investors: 0,
+      certifications: 0,
+      resources: 0,
+    };
+
+    if (debouncedQuery.trim()) {
+      const allMatches = searchService.search(debouncedQuery, {
+        category: "all",
+        limit: 100,
+      });
+      counts.all = allMatches.length;
+      allMatches.forEach((r) => {
+        if (counts[r.item.category] !== undefined) {
+          counts[r.item.category]++;
+        }
+      });
+    } else {
+      counts.all = SEARCH_INDEX.length;
+      SEARCH_INDEX.forEach((item) => {
+        if (counts[item.category] !== undefined) {
+          counts[item.category]++;
+        }
+      });
+    }
+
+    return counts;
+  }, [debouncedQuery]);
+
   // Execute search based on debounced query and active category
+  // If query is empty but a category is selected, lists all items in that category for easy browsing
   const results: SearchResult[] = useMemo(() => {
     if (!debouncedQuery.trim()) {
+      if (activeCategory !== "all") {
+        return searchService.getAllByCategory(activeCategory).map((item) => ({
+          item,
+          score: 100,
+          matchedFields: { category: true },
+        }));
+      }
       return [];
     }
     return searchService.search(debouncedQuery, {
       category: activeCategory,
-      limit: 12,
+      limit: 15,
     });
   }, [debouncedQuery, activeCategory]);
 
@@ -172,6 +217,20 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
 
       // 4. Perform smooth scroll with header offset
       if (item.actionType === "scroll") {
+        const isHomePage =
+          typeof window !== "undefined" &&
+          (window.location.pathname === "/" || window.location.pathname === "");
+        const targetId = item.metadata?.targetId || item.url.replace(/^#/, "");
+
+        if (!isHomePage) {
+          if (navigate) {
+            navigate(`/#${targetId}`);
+          } else {
+            window.location.href = `/#${targetId}`;
+          }
+          return;
+        }
+
         setTimeout(() => {
           const targetElement = resolveTargetElement(item);
 
@@ -185,7 +244,7 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
               behavior: "smooth",
             });
 
-            const id = targetElement.id || item.metadata?.targetId || item.url.replace(/^#/, "");
+            const id = targetElement.id || targetId;
             if (id) {
               window.history.replaceState(null, "", `#${id}`);
             }
@@ -202,14 +261,21 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
               targetElement.classList.remove("ring-4", "ring-[#079fdf]", "ring-offset-4");
             }, 2400);
           } else {
-            const targetId = item.metadata?.targetId || item.url.replace(/^#/, "");
-            window.location.href = `/#${targetId}`;
+            if (navigate) {
+              navigate(`/#${targetId}`);
+            } else {
+              window.location.href = `/#${targetId}`;
+            }
           }
         }, 60);
       } else if (item.actionType === "external") {
         window.open(item.url, "_blank", "noopener,noreferrer");
       } else if (item.actionType === "route") {
-        window.location.href = item.url;
+        if (navigate) {
+          navigate(item.url);
+        } else {
+          window.location.href = item.url;
+        }
       } else if (item.actionType === "action") {
         if (item.url === "#ai-chat") {
           setTimeout(() => {
@@ -230,7 +296,7 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
         }
       }
     },
-    [query, onNavigate, onClose, refreshRecent]
+    [query, onNavigate, onClose, refreshRecent, navigate]
   );
 
   // Global Ctrl+K / Cmd+K keyboard shortcut listener
@@ -286,6 +352,7 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
     debouncedQuery,
     activeCategory,
     setActiveCategory,
+    categoryCounts,
     results,
     selectedIndex,
     setSelectedIndex,
