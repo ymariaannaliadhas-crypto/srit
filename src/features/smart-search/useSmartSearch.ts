@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import type { SearchCategory, SearchItem, SearchResult } from "./types";
 import { searchService } from "./searchService";
+import { SEARCH_INDEX } from "./searchIndex";
 
 export interface UseSmartSearchOptions {
   initialCategory?: SearchCategory;
@@ -127,14 +128,57 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
     return () => clearTimeout(timer);
   }, [query, debounceMs]);
 
+  // Dynamic counts for each category filter based on query or total catalog
+  const categoryCounts = useMemo(() => {
+    const counts: Record<SearchCategory, number> = {
+      all: 0,
+      solutions: 0,
+      services: 0,
+      pages: 0,
+      investors: 0,
+      certifications: 0,
+      resources: 0,
+    };
+
+    if (debouncedQuery.trim()) {
+      const allMatches = searchService.search(debouncedQuery, {
+        category: "all",
+        limit: 100,
+      });
+      counts.all = allMatches.length;
+      allMatches.forEach((r) => {
+        if (counts[r.item.category] !== undefined) {
+          counts[r.item.category]++;
+        }
+      });
+    } else {
+      counts.all = SEARCH_INDEX.length;
+      SEARCH_INDEX.forEach((item) => {
+        if (counts[item.category] !== undefined) {
+          counts[item.category]++;
+        }
+      });
+    }
+
+    return counts;
+  }, [debouncedQuery]);
+
   // Execute search based on debounced query and active category
+  // If query is empty but a category is selected, lists all items in that category for easy browsing
   const results: SearchResult[] = useMemo(() => {
     if (!debouncedQuery.trim()) {
+      if (activeCategory !== "all") {
+        return searchService.getAllByCategory(activeCategory).map((item) => ({
+          item,
+          score: 100,
+          matchedFields: { category: true },
+        }));
+      }
       return [];
     }
     return searchService.search(debouncedQuery, {
       category: activeCategory,
-      limit: 12,
+      limit: 15,
     });
   }, [debouncedQuery, activeCategory]);
 
@@ -286,6 +330,7 @@ export function useSmartSearch(options: UseSmartSearchOptions = {}) {
     debouncedQuery,
     activeCategory,
     setActiveCategory,
+    categoryCounts,
     results,
     selectedIndex,
     setSelectedIndex,

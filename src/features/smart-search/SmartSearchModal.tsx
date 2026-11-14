@@ -81,6 +81,7 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
     setQuery,
     activeCategory,
     setActiveCategory,
+    categoryCounts,
     results,
     selectedIndex,
     setSelectedIndex,
@@ -137,34 +138,12 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
     );
   };
 
-  const getActionBadge = (item: SearchItem) => {
-    switch (item.actionType) {
-      case "scroll":
-        return {
-          label: "In-Page Section",
-          icon: ArrowRight,
-          className: "bg-slate-100 text-slate-700",
-        };
-      case "external":
-        return {
-          label: item.metadata?.externalLabel || "Portal Link",
-          icon: ExternalLink,
-          className: "bg-blue-50 text-blue-700",
-        };
-      case "action":
-        return {
-          label: "Interactive Tool",
-          icon: Sparkles,
-          className: "bg-purple-50 text-purple-700",
-        };
-      case "route":
-      default:
-        return {
-          label: "Navigate Page",
-          icon: ArrowRight,
-          className: "bg-emerald-50 text-emerald-700",
-        };
+  // Render clean action icon based on action type
+  const renderActionIcon = (actionType: SearchItem["actionType"]) => {
+    if (actionType === "external") {
+      return <ExternalLink className="h-4 w-4" />;
     }
+    return <ArrowRight className="h-4 w-4" />;
   };
 
   return (
@@ -205,38 +184,53 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setQuery("")}
-                  className="rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                  className="rounded-md px-2 py-1 text-xs font-medium text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"
                   aria-label="Clear query"
+                  title="Clear text"
                 >
-                  <X className="h-4 w-4" />
+                  Clear
                 </button>
               )}
 
               <button
                 type="button"
                 onClick={onClose}
-                className="hidden rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-500 hover:bg-slate-100 sm:inline-block"
+                className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
+                aria-label="Close search"
+                title="Close (Esc)"
               >
-                ESC
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* Category Filter Pills */}
+            {/* Category Filter Pills with Live Match Counts */}
             <div className="flex items-center gap-1.5 overflow-x-auto border-b border-slate-100 bg-slate-50/70 px-4 py-2 sm:px-6 [&::-webkit-scrollbar]:hidden">
               {CATEGORIES.map((cat) => {
                 const isActive = activeCategory === cat.id;
+                const count = categoryCounts[cat.id] ?? 0;
                 return (
                   <button
                     key={cat.id}
                     type="button"
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+                    className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition-all ${
                       isActive
                         ? "bg-[#079fdf] text-white shadow-xs"
                         : "bg-white text-slate-600 hover:bg-slate-200/70 border border-slate-200/80"
                     }`}
                   >
-                    {cat.label}
+                    <span>{cat.label}</span>
+                    {cat.id !== "all" && (
+                      <span
+                        className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+                          isActive
+                            ? "bg-white/25 text-white"
+                            : "bg-slate-100 text-slate-500"
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -247,12 +241,15 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
               ref={listRef}
               className="max-h-[58vh] min-h-[260px] overflow-y-auto p-3 sm:p-4 divide-y divide-slate-100"
             >
-              {/* Case 1: Active query with results */}
-              {query.trim() && results.length > 0 && (
+              {/* Case 1: Results available (from active query or category filter) */}
+              {results.length > 0 && (
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between px-2 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                    <span>Results ({results.length})</span>
-                    <span>Relevance Match</span>
+                  <div className="px-2 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <span>
+                      {query.trim()
+                        ? `Matches in ${CATEGORIES.find((c) => c.id === activeCategory)?.label || "All"} (${results.length})`
+                        : `${CATEGORIES.find((c) => c.id === activeCategory)?.label} (${results.length})`}
+                    </span>
                   </div>
 
                   {results.map((res: SearchResult, index: number) => {
@@ -260,8 +257,6 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                     const IconComponent =
                       (res.item.metadata?.iconName && ICON_MAP[res.item.metadata.iconName]) ||
                       Activity;
-                    const actionBadge = getActionBadge(res.item);
-                    const ActionIcon = actionBadge.icon;
 
                     return (
                       <div
@@ -287,21 +282,9 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                           </div>
 
                           <div className="min-w-0">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <h4 className="font-display text-[15px] font-semibold text-[#172b4d]">
-                                {renderHighlightedText(res.item.title, query)}
-                              </h4>
-
-                              {res.item.badge && (
-                                <span className="rounded-md bg-[#079fdf]/10 px-2 py-0.5 text-[11px] font-semibold text-[#079fdf]">
-                                  {res.item.badge}
-                                </span>
-                              )}
-
-                              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500 uppercase">
-                                {res.item.categoryLabel}
-                              </span>
-                            </div>
+                            <h4 className="font-display text-[15px] font-semibold text-[#172b4d]">
+                              {renderHighlightedText(res.item.title, query)}
+                            </h4>
 
                             <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-600">
                               {renderHighlightedText(res.item.description, query)}
@@ -309,13 +292,16 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                           </div>
                         </div>
 
-                        <div className="shrink-0 flex items-center pt-1">
-                          <span
-                            className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium ${actionBadge.className}`}
+                        <div className="shrink-0 flex items-center self-center pl-2">
+                          <div
+                            className={`flex h-7 w-7 items-center justify-center rounded-lg transition-colors ${
+                              isSelected
+                                ? "bg-[#079fdf]/20 text-[#079fdf]"
+                                : "text-slate-400 group-hover:text-[#079fdf] group-hover:bg-[#eaf7fc]"
+                            }`}
                           >
-                            <span>{actionBadge.label}</span>
-                            <ActionIcon className="h-3.5 w-3.5" />
-                          </span>
+                            {renderActionIcon(res.item.actionType)}
+                          </div>
                         </div>
                       </div>
                     );
@@ -354,8 +340,8 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                 </div>
               )}
 
-              {/* Case 3: Empty query - Quick suggestions & Recent Searches */}
-              {!query.trim() && (
+              {/* Case 3: Empty query in 'All' - Quick suggestions & Recent Searches */}
+              {!query.trim() && activeCategory === "all" && (
                 <div className="space-y-5 py-2">
                   {/* Recent Searches */}
                   {recentSearches.length > 0 && (
@@ -422,9 +408,6 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                                 <h4 className="font-display text-sm font-semibold text-[#172b4d]">
                                   {item.title}
                                 </h4>
-                                <span className="text-[11px] text-slate-500">
-                                  {item.categoryLabel}
-                                </span>
                               </div>
                             </div>
 
@@ -462,11 +445,6 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                   </kbd>{" "}
                   Close
                 </span>
-              </div>
-
-              <div className="flex items-center gap-1 text-[11px] text-[#079fdf] font-semibold">
-                <Sparkles className="h-3 w-3" />
-                <span>SRIT Smart Search</span>
               </div>
             </div>
           </motion.div>

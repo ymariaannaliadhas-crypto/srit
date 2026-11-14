@@ -275,6 +275,14 @@ export class SmartSearchService implements ISearchService {
       .map((id) => this.items.find((item) => item.id === id))
       .filter((item): item is SearchItem => Boolean(item));
   }
+
+  /**
+   * Returns all items in a category for direct browsing
+   */
+  public getAllByCategory(category: SearchCategory): SearchItem[] {
+    if (category === "all") return this.items;
+    return this.items.filter((item) => item.category === category);
+  }
 }
 
 // Export singleton instance for convenience
