@@ -66,12 +66,14 @@ export interface SmartSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigate?: (item: SearchItem) => void;
+  navigate?: (to: string) => void;
 }
 
 export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
   isOpen,
   onClose,
   onNavigate,
+  navigate,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -93,6 +95,7 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
   } = useSmartSearch({
     onNavigate,
     onClose,
+    navigate,
   });
 
   const handleItemSelect = (item: SearchItem) => {

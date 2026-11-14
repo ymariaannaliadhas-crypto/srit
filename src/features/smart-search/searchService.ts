@@ -265,8 +265,8 @@ export class SmartSearchService implements ISearchService {
       "sol-healthcare-suite",
       "sol-egov-edistrict",
       "sol-egov-agnipermit",
-      "svc-apply-connection",
-      "svc-subscriber-portal-hub",
+      "page-management",
+      "sol-icarkno-ai",
       "inv-annual-report",
       "cert-cmmi-level-5",
     ];

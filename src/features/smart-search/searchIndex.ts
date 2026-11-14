@@ -181,7 +181,7 @@ export const SEARCH_INDEX: SearchItem[] = [
     categoryLabel: "e-Governance",
     subCategory: "Smart City",
     description:
-      "Automated verification of building codes directly from CAD drawing files for issuance of building permits. Active in Karnataka, Haryana, Uttarakhand, and Bihar with 20,000+ architects and planners.",
+      "Automated verification of building codes directly from CAD drawing files for issuance of building permits. Implemented across Karnataka, Haryana, Uttarakhand, and Bihar with 20,000+ architects and planners.",
     keywords: [
       "planpermit",
       "plan permit",
@@ -264,25 +264,24 @@ export const SEARCH_INDEX: SearchItem[] = [
   // ==========================================
   {
     id: "sol-telecom-broadband",
-    title: "Telecom & High-Speed Broadband Services",
+    title: "Telecom & Managed Network Infrastructure Solutions",
     category: "solutions",
     categoryLabel: "Telecom",
     subCategory: "Network Services",
     description:
-      "Managed service provider for nationwide high-speed broadband and telecom networks, managing millions of subscribers, revenue cycles, network operations, and partner ecosystems.",
+      "Managed service provider for telecom networks and high-speed optical broadband infrastructure, managing large-scale subscriber ecosystems, operations, and network reliability.",
     keywords: [
       "telecom",
       "broadband",
-      "railwire",
-      "fiber",
-      "high speed internet",
+      "network infrastructure",
+      "fiber optics",
       "managed network",
-      "isp",
-      "subscribers",
-      "wifi"
+      "noc",
+      "isp operations",
+      "optical network",
+      "telecom services"
     ],
-    synonyms: ["fiber broadband", "internet service", "optical fiber network"],
-    badge: "RailWire MSP",
+    synonyms: ["managed service provider", "network operations", "optical fiber infrastructure"],
     url: "#telecom",
     actionType: "scroll",
     metadata: {
@@ -348,159 +347,29 @@ export const SEARCH_INDEX: SearchItem[] = [
   },
 
   // ==========================================
-  // 4. SERVICES & TOOLS (APPLY, PARTNER, STATE PORTALS)
+  // 4. SERVICES & TOOLS
   // ==========================================
   {
-    id: "svc-apply-connection",
-    title: "Apply for New RailWire Connection",
+    id: "svc-schedule-demo",
+    title: "Request a Solution Demo & Consultation",
     category: "services",
     categoryLabel: "Services",
-    subCategory: "Online Application",
+    subCategory: "Consultation",
     description:
-      "Submit an online application for new high-speed optical fiber RailWire broadband connection for homes, offices, and institutions.",
+      "Get in touch with SRIT enterprise solution architects to schedule a live product demonstration or technical evaluation.",
     keywords: [
-      "apply online",
-      "new connection",
-      "get railwire",
-      "broadband application",
-      "new wifi",
-      "install connection",
-      "customer registration"
+      "request demo",
+      "schedule demo",
+      "solution consultation",
+      "product demo",
+      "book consultation",
+      "architect meeting"
     ],
-    synonyms: ["buy broadband", "request connection", "order wifi"],
-    badge: "Online Service",
-    url: "https://crm.railwire.co.in/Portalcntl/rlwr_apply_online_customer",
-    actionType: "external",
+    synonyms: ["demo booking", "sales enquiry", "solution preview"],
+    url: "/contact-us",
+    actionType: "route",
     metadata: {
-      iconName: "ExternalLink",
-      externalLabel: "RailWire CRM Portal"
-    }
-  },
-  {
-    id: "svc-become-partner",
-    title: "Become a RailWire Partner / MSP / AGNP",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "Partnership",
-    description:
-      "Join the RailWire partner network as a Local Cable Operator (LCO), Access Network Provider (AGNP), or MSP to deliver high-speed broadband.",
-    keywords: [
-      "partner",
-      "become a partner",
-      "agnp",
-      "lco",
-      "franchise",
-      "cable operator",
-      "railwire partner",
-      "business opportunity"
-    ],
-    synonyms: ["partner registration", "distributor application", "isp franchise"],
-    badge: "Partner Program",
-    url: "https://crm.railwire.co.in/Portalcntl/rlwr_apply_online_partner",
-    actionType: "external",
-    metadata: {
-      iconName: "Users",
-      externalLabel: "Partner Application"
-    }
-  },
-  {
-    id: "svc-subscriber-portal-hub",
-    title: "Subscriber Portal State Hub",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "Subscriber Access",
-    description:
-      "Select your state to recharge your account, pay broadband bills, test speeds, or log service requests across 24+ Indian states.",
-    keywords: [
-      "subscriber portal",
-      "recharge",
-      "bill payment",
-      "railwire login",
-      "state login",
-      "account recharge",
-      "broadband bill"
-    ],
-    synonyms: ["customer portal", "account dashboard", "user login"],
-    url: "#subscriber-modal",
-    actionType: "action",
-    metadata: {
-      iconName: "CreditCard",
-      highlights: ["Karnataka", "Kerala", "Tamil Nadu", "Maharashtra", "Andhra Pradesh", "Delhi", "UP"]
-    }
-  },
-  {
-    id: "svc-portal-karnataka",
-    title: "Karnataka RailWire Subscriber Portal",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "State Portal",
-    description: "Official subscriber login, recharge, and support portal for RailWire users in Karnataka.",
-    keywords: ["karnataka railwire", "bangalore wifi", "ka subscriber portal", "karnataka broadband"],
-    url: "https://ka.railwire.co.in/",
-    actionType: "external",
-    metadata: {
-      stateOrRegion: "Karnataka",
-      externalLabel: "ka.railwire.co.in"
-    }
-  },
-  {
-    id: "svc-portal-kerala",
-    title: "Kerala RailWire Subscriber Portal",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "State Portal",
-    description: "Official subscriber login, recharge, and support portal for RailWire users in Kerala.",
-    keywords: ["kerala railwire", "kochi internet", "kl subscriber portal", "kerala broadband"],
-    url: "https://kl.railwire.co.in/",
-    actionType: "external",
-    metadata: {
-      stateOrRegion: "Kerala",
-      externalLabel: "kl.railwire.co.in"
-    }
-  },
-  {
-    id: "svc-portal-tamilnadu",
-    title: "Tamil Nadu RailWire Subscriber Portal",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "State Portal",
-    description: "Official subscriber login, bill payment, and support portal for RailWire users in Tamil Nadu.",
-    keywords: ["tamil nadu railwire", "chennai internet", "tn subscriber portal", "tamil nadu broadband"],
-    url: "https://tn.railwire.co.in/",
-    actionType: "external",
-    metadata: {
-      stateOrRegion: "Tamil Nadu",
-      externalLabel: "tn.railwire.co.in"
-    }
-  },
-  {
-    id: "svc-portal-maharashtra",
-    title: "Maharashtra & Goa RailWire Subscriber Portal",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "State Portal",
-    description: "Official subscriber login, bill payment, and support portal for RailWire users in Maharashtra and Goa.",
-    keywords: ["maharashtra railwire", "mumbai internet", "pune wifi", "goa broadband", "mh subscriber portal"],
-    url: "https://mh.railwire.co.in/",
-    actionType: "external",
-    metadata: {
-      stateOrRegion: "Maharashtra & Goa",
-      externalLabel: "mh.railwire.co.in"
-    }
-  },
-  {
-    id: "svc-portal-delhi",
-    title: "Delhi RailWire Subscriber Portal",
-    category: "services",
-    categoryLabel: "Services",
-    subCategory: "State Portal",
-    description: "Official subscriber login and account management portal for RailWire users in Delhi NCR.",
-    keywords: ["delhi railwire", "dl subscriber portal", "delhi broadband login", "ncr wifi"],
-    url: "https://dl.railwire.co.in/",
-    actionType: "external",
-    metadata: {
-      stateOrRegion: "Delhi",
-      externalLabel: "dl.railwire.co.in"
+      iconName: "Sparkles"
     }
   },
   {
@@ -509,7 +378,8 @@ export const SEARCH_INDEX: SearchItem[] = [
     category: "services",
     categoryLabel: "Services",
     subCategory: "AI Support",
-    description: "Chat with SRIT's automated interactive AI assistant to answer queries about products, plans, and company services.",
+    description:
+      "Chat with SRIT's automated interactive AI assistant to answer queries about products, services, and company capabilities.",
     keywords: ["ai chat", "assistant", "chatbot", "help widget", "support chat", "talk to ai"],
     synonyms: ["virtual assistant", "live chat", "support bot"],
     badge: "Interactive AI",
@@ -517,6 +387,21 @@ export const SEARCH_INDEX: SearchItem[] = [
     actionType: "action",
     metadata: {
       iconName: "Sparkles"
+    }
+  },
+  {
+    id: "svc-partner-alliance",
+    title: "Partner & Strategic Alliance Program",
+    category: "services",
+    categoryLabel: "Services",
+    subCategory: "Alliances",
+    description:
+      "Explore technology, channel, and strategic integration partnerships with SRIT India across healthcare and e-governance domains.",
+    keywords: ["partner", "strategic alliances", "channel partner", "collaboration", "joint venture"],
+    url: "/invest",
+    actionType: "route",
+    metadata: {
+      iconName: "Briefcase"
     }
   },
 
@@ -528,117 +413,81 @@ export const SEARCH_INDEX: SearchItem[] = [
     title: "SRIT Home Page",
     category: "pages",
     categoryLabel: "Pages",
-    description: "SRIT official homepage showcasing our flagship healthcare, e-governance, telecom, and AI engineering offerings.",
+    description:
+      "SRIT official homepage showcasing our flagship healthcare, e-governance, telecom, and AI engineering offerings.",
     keywords: ["home", "main page", "start", "overview", "srit india limited"],
     url: "/",
     actionType: "route",
     metadata: { iconName: "Home" }
   },
   {
-    id: "page-healthcare",
-    title: "Healthcare Solutions Page",
+    id: "page-management",
+    title: "Executive Management & Leadership",
     category: "pages",
     categoryLabel: "Pages",
-    description: "Dedicated page detailing SRIT's hospital suites, clinical modules, infrastructure, and case deployments.",
-    keywords: ["healthcare page", "hospital solutions", "his page", "emr page"],
-    url: "/healthcare",
+    subCategory: "Leadership",
+    description:
+      "Meet the Board of Directors, executive management team, and technology advisory leadership driving SRIT.",
+    keywords: ["management", "board of directors", "leadership", "executives", "directors", "team"],
+    url: "/management",
     actionType: "route",
-    metadata: { iconName: "Activity" }
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "page-healthcare",
+    title: "Healthcare Solutions Section",
+    category: "pages",
+    categoryLabel: "Pages",
+    description:
+      "Detailed view of SRIT's hospital suites, clinical modules, infrastructure, and case deployments.",
+    keywords: ["healthcare page", "hospital solutions", "his page", "emr page"],
+    url: "/#healthcare",
+    actionType: "scroll",
+    metadata: { iconName: "Activity", targetId: "healthcare" }
   },
   {
     id: "page-egov",
-    title: "e-Governance Solutions Page",
+    title: "e-Governance Solutions Section",
     category: "pages",
     categoryLabel: "Pages",
-    description: "In-depth overview of SRIT's citizen and municipal platforms including e-District, eCIVIC, and PlanPermit.",
+    description:
+      "Overview of SRIT's citizen and municipal platforms including e-District, eCIVIC, and PlanPermit.",
     keywords: ["egovernance page", "government solutions", "smart city page"],
-    url: "/egovernance",
-    actionType: "route",
-    metadata: { iconName: "Landmark" }
+    url: "/#e-governance",
+    actionType: "scroll",
+    metadata: { iconName: "Landmark", targetId: "e-governance" }
   },
   {
     id: "page-telecom",
-    title: "Telecom & Broadband Page",
+    title: "Telecom & Network Services Section",
     category: "pages",
     categoryLabel: "Pages",
-    description: "Details regarding SRIT managed telecom services, optical networks, and state operations.",
-    keywords: ["telecom page", "broadband page", "railwire info"],
-    url: "/telecom",
-    actionType: "route",
-    metadata: { iconName: "Wifi" }
-  },
-  {
-    id: "page-insurance",
-    title: "Insurance IT Solutions Page",
-    category: "pages",
-    categoryLabel: "Pages",
-    description: "Enterprise IT solutions for insurance claim management, underwriting workflows, and policy administration.",
-    keywords: ["insurance page", "claims software", "policy tech", "tpa erp"],
-    url: "/insurance",
-    actionType: "route",
-    metadata: { iconName: "Shield" }
-  },
-  {
-    id: "page-projects-wins",
-    title: "Projects & Wins Showcase",
-    category: "pages",
-    categoryLabel: "Pages",
-    description: "Comprehensive record of successful government and enterprise project deployments and industry contracts.",
-    keywords: ["projects", "wins", "case studies", "tenders", "deployments", "milestones"],
-    url: "/project-wins",
-    actionType: "route",
-    metadata: { iconName: "Trophy" }
+    description:
+      "Details regarding SRIT managed telecom services, optical networks, and state operations.",
+    keywords: ["telecom page", "broadband page", "network services"],
+    url: "/#telecom",
+    actionType: "scroll",
+    metadata: { iconName: "Wifi", targetId: "telecom" }
   },
   {
     id: "page-company",
-    title: "About SRIT Company",
+    title: "About SRIT Company & History",
     category: "pages",
     categoryLabel: "Pages",
-    description: "SRIT history since 1999, vision, corporate philosophy, executive leadership, and global footprint.",
+    description:
+      "SRIT track record since 1999, vision, corporate philosophy, executive leadership, and global footprint.",
     keywords: ["about us", "company", "who we are", "history", "leadership", "mission"],
     url: "/company",
     actionType: "route",
     metadata: { iconName: "Building" }
   },
   {
-    id: "page-management",
-    title: "Executive Management & Leadership",
-    category: "pages",
-    categoryLabel: "Pages",
-    description: "Profile of the Board of Directors, executive management team, and technology advisory leadership.",
-    keywords: ["management", "board of directors", "leadership", "executives", "ceo", "directors"],
-    url: "/management",
-    actionType: "route",
-    metadata: { iconName: "Users" }
-  },
-  {
-    id: "page-invest-partner",
-    title: "Invest & Partner with SRIT",
-    category: "pages",
-    categoryLabel: "Pages",
-    description: "Strategic investment opportunities, institutional partnerships, and alliance frameworks with SRIT.",
-    keywords: ["invest", "partner with us", "strategic alliances", "joint ventures"],
-    url: "/invest",
-    actionType: "route",
-    metadata: { iconName: "Handshake" }
-  },
-  {
-    id: "page-recognition",
-    title: "Awards & Industry Recognition",
-    category: "pages",
-    categoryLabel: "Pages",
-    description: "Awards, accolades, CMMI Level 5 benchmarks, and government recognitions achieved by SRIT.",
-    keywords: ["recognition", "awards", "honors", "cmmi 5", "emram award"],
-    url: "/recognition",
-    actionType: "route",
-    metadata: { iconName: "Award" }
-  },
-  {
     id: "page-contact",
     title: "Contact SRIT & Corporate Offices",
     category: "pages",
     categoryLabel: "Pages",
-    description: "Get in touch with SRIT sales, enterprise support, and regional office locations across India.",
+    description:
+      "Get in touch with SRIT corporate headquarters in Bengaluru and regional support offices.",
     keywords: ["contact", "contact us", "email", "office address", "phone number", "info@sritindia.com"],
     synonyms: ["reach us", "customer care", "helpdesk"],
     url: "/contact-us",
@@ -646,11 +495,36 @@ export const SEARCH_INDEX: SearchItem[] = [
     metadata: { iconName: "PhoneCall" }
   },
   {
+    id: "page-projects-wins",
+    title: "Projects & Wins Showcase",
+    category: "pages",
+    categoryLabel: "Pages",
+    description:
+      "Comprehensive record of successful government and enterprise project deployments and contract wins.",
+    keywords: ["projects", "wins", "case studies", "tenders", "deployments", "milestones"],
+    url: "/project-wins",
+    actionType: "route",
+    metadata: { iconName: "Trophy" }
+  },
+  {
+    id: "page-recognition",
+    title: "Awards & Industry Recognition",
+    category: "pages",
+    categoryLabel: "Pages",
+    description:
+      "Awards, accolades, CMMI Level 5 benchmarks, and government recognitions achieved by SRIT.",
+    keywords: ["recognition", "awards", "honors", "cmmi 5", "emram award"],
+    url: "/recognition",
+    actionType: "route",
+    metadata: { iconName: "Award" }
+  },
+  {
     id: "page-media",
     title: "Media Releases & Press Coverage",
     category: "pages",
     categoryLabel: "Pages",
-    description: "Official press releases, media coverage, event appearances, and public announcements.",
+    description:
+      "Official press releases, media coverage, event appearances, and public announcements.",
     keywords: ["media", "press", "news", "announcements", "coverage"],
     url: "/media",
     actionType: "route",
@@ -658,7 +532,115 @@ export const SEARCH_INDEX: SearchItem[] = [
   },
 
   // ==========================================
-  // 6. INVESTOR RELATIONS & GOVERNANCE
+  // 6. LEADERSHIP PROFILES (MANAGEMENT)
+  // ==========================================
+  {
+    id: "leader-rangan-thiyagarajan",
+    title: "Rangan Thiyagarajan - Chairman",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Chartered Accountant with over 35 years of financial leadership across industry conglomerates. Former CFO and Director at VST Tillers Tractors.",
+    keywords: ["rangan thiyagarajan", "chairman", "board", "director", "finance leadership"],
+    url: "/management/rangan-thiyagarajan",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-madhu-nambiar",
+    title: "Dr. Madhu Nambiar - Managing Director & CEO",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Ph.D. from Washington State University with 37+ years of experience in ICT. Former India Director & Country Head for American MNC AEI. Founder of SRIT.",
+    keywords: ["madhu nambiar", "ceo", "managing director", "founder", "executive leader"],
+    url: "/management/madhu-nambiar",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-prasaktha-vn",
+    title: "Prasaktha V N - Wholetime Director",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Heads Corporate Affairs, Corporate Governance, and oversees Human Resources Management at SRIT with over 22 years of experience.",
+    keywords: ["prasaktha vn", "wholetime director", "corporate affairs", "governance", "hr leadership"],
+    url: "/management/prasaktha-vn",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-pc-martin",
+    title: "P C Martin - Wholetime Director",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Engineering rank holder with 24 years at SRIT and 32 total years of experience, overseeing business process alignment and delivery.",
+    keywords: ["pc martin", "wholetime director", "operations", "engineering leader"],
+    url: "/management/pc-martin",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-chandan-dash",
+    title: "Dr. Chandan Dash - Director",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Founder and CEO of Blossom Hospitals and Orthopedic Surgeon, driving digital healthcare and mobile health infrastructure initiatives.",
+    keywords: ["chandan dash", "doctor", "blossom hospitals", "healthcare director"],
+    url: "/management/chandan-dash",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-amit-oberoi",
+    title: "Dr. Amit Oberoi - Director",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Co-founder & CEO of Carnot Research, PhD in NLP from IIT Delhi, and former Indian Army Colonel leading Satcom, cyber and AI platforms.",
+    keywords: ["amit oberoi", "director", "carnot research", "ai researcher", "defense satcom"],
+    url: "/management/amit-oberoi",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-suresh-menon",
+    title: "Suresh B Menon - Independent Director",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Public Independent Director at NSE International Exchange (NSE IX) with 30 years as a career regulator at SEBI heading investigations.",
+    keywords: ["suresh menon", "independent director", "sebi", "nse ix", "regulator"],
+    url: "/management/suresh-b-menon",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+  {
+    id: "leader-karthick-varadarajan",
+    title: "Karthick Varadarajan - Independent Director",
+    category: "pages",
+    categoryLabel: "Leadership",
+    subCategory: "Board of Directors",
+    description:
+      "Practicing Company Secretary since 2002 specializing in Secretarial Audit, Internal Audit, Due Diligence, and Corporate Advisory.",
+    keywords: ["karthick varadarajan", "independent director", "company secretary", "audit"],
+    url: "/management/karthick-varadarajan",
+    actionType: "route",
+    metadata: { iconName: "Users" }
+  },
+
+  // ==========================================
+  // 7. INVESTOR RELATIONS & GOVERNANCE
   // ==========================================
   {
     id: "inv-overview",
@@ -666,7 +648,8 @@ export const SEARCH_INDEX: SearchItem[] = [
     category: "investors",
     categoryLabel: "Investors",
     subCategory: "Investor Relations",
-    description: "Investor relations portal for shareholders, analysts, financial reports, and corporate governance updates.",
+    description:
+      "Investor relations portal for shareholders, analysts, financial reports, and corporate governance updates.",
     keywords: ["investor", "investors", "shareholders", "investor relations", "equity", "nse", "bse"],
     badge: "Listed (NSE/BSE)",
     url: "/investor",
@@ -675,23 +658,25 @@ export const SEARCH_INDEX: SearchItem[] = [
   },
   {
     id: "inv-financials",
-    title: "Financial Statements & Quarterly Results",
+    title: "Financial Statements & Results",
     category: "investors",
     categoryLabel: "Investors",
     subCategory: "Financials",
-    description: "Quarterly and annual financial results, balance sheets, audited statements, and revenue growth metrics.",
-    keywords: ["financials", "quarterly results", "q1", "q2", "q3", "q4", "balance sheet", "p&l", "profit", "revenue"],
+    description:
+      "Quarterly and annual financial results, balance sheets, audited statements, and revenue growth metrics.",
+    keywords: ["financials", "quarterly results", "balance sheet", "p&l", "profit", "revenue"],
     url: "/investors-information",
     actionType: "route",
     metadata: { iconName: "TrendingUp" }
   },
   {
     id: "inv-annual-report",
-    title: "Annual Reports & Filings",
+    title: "Annual Reports & Statutory Filings",
     category: "investors",
     categoryLabel: "Investors",
     subCategory: "Reports",
-    description: "Download published annual reports, auditor commentary, and performance reviews.",
+    description:
+      "Published annual reports, auditor commentary, and statutory annual filings for shareholders.",
     keywords: ["annual report", "annual reports", "statutory filings", "auditor report", "financial year"],
     badge: "Reports",
     url: "/annual-report",
@@ -704,7 +689,8 @@ export const SEARCH_INDEX: SearchItem[] = [
     category: "investors",
     categoryLabel: "Investors",
     subCategory: "Governance",
-    description: "Corporate governance policies, Board committee charters, stakeholder relationship protocols, and ethics codes.",
+    description:
+      "Corporate governance policies, Board committee charters, stakeholder relationship protocols, and ethics codes.",
     keywords: ["corporate governance", "governance", "board committee", "audit committee", "ethics", "transparency"],
     url: "/investors-information#governance",
     actionType: "route",
@@ -716,7 +702,8 @@ export const SEARCH_INDEX: SearchItem[] = [
     category: "investors",
     categoryLabel: "Investors",
     subCategory: "Policies",
-    description: "Official company policies including Whistleblower policy, Insider Trading code, CSR, and Fair Disclosure guidelines.",
+    description:
+      "Official company policies including Whistleblower policy, Insider Trading code, CSR, and Fair Disclosure guidelines.",
     keywords: ["codes and policies", "whistleblower", "insider trading", "csr", "fair disclosure", "code of conduct"],
     url: "/investors-information#policies",
     actionType: "route",
@@ -728,7 +715,8 @@ export const SEARCH_INDEX: SearchItem[] = [
     category: "investors",
     categoryLabel: "Investors",
     subCategory: "Public Offering",
-    description: "Initial Public Offering (IPO) prospectus, red herring prospectus, allocation details, and listing documents.",
+    description:
+      "Initial Public Offering (IPO) prospectus, red herring prospectus, allocation details, and listing documents.",
     keywords: ["ipo", "ipo documents", "prospectus", "rhp", "listing date", "bse listing", "nse listing"],
     badge: "IPO",
     url: "/investors-information#ipo",
@@ -737,7 +725,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   },
 
   // ==========================================
-  // 7. CERTIFICATIONS & COMPANY CREDENTIALS
+  // 8. CERTIFICATIONS & COMPANY CREDENTIALS
   // ==========================================
   {
     id: "cert-cmmi-level-5",
@@ -797,7 +785,8 @@ export const SEARCH_INDEX: SearchItem[] = [
     category: "certifications",
     categoryLabel: "Certifications",
     subCategory: "Corporate Credential",
-    description: "SRIT India Limited is officially listed on both the National Stock Exchange (NSE) and Bombay Stock Exchange (BSE).",
+    description:
+      "SRIT India Limited is officially listed on both the National Stock Exchange (NSE) and Bombay Stock Exchange (BSE).",
     keywords: ["stock exchange", "nse", "bse", "listed company", "stock ticker", "market listing"],
     badge: "NSE/BSE",
     url: "#hero",
@@ -806,74 +795,8 @@ export const SEARCH_INDEX: SearchItem[] = [
   },
 
   // ==========================================
-  // 8. RESOURCES, FAQS & CASE STUDIES
+  // 9. RESOURCES, FAQS & CASE STUDIES
   // ==========================================
-  {
-    id: "faq-new-connection",
-    title: "FAQ: How to get a new RailWire connection?",
-    category: "resources",
-    categoryLabel: "FAQs & Guides",
-    subCategory: "FAQ",
-    description:
-      "Apply through the online portal or reach out to your nearest local partner for quick site survey, fiber installation, and same-day activation.",
-    keywords: ["how to apply", "installation procedure", "new connection steps", "quick activation", "faq connection"],
-    url: "#faq",
-    actionType: "scroll",
-    metadata: { iconName: "HelpCircle" }
-  },
-  {
-    id: "faq-documents-required",
-    title: "FAQ: What documents are required for installation?",
-    category: "resources",
-    categoryLabel: "FAQs & Guides",
-    subCategory: "FAQ",
-    description:
-      "Valid ID proof (such as Aadhaar card, Voter ID), passport photograph, and an active registered mobile number.",
-    keywords: ["documents required", "id proof", "aadhaar", "address proof", "documents for wifi"],
-    url: "#faq",
-    actionType: "scroll",
-    metadata: { iconName: "FileText" }
-  },
-  {
-    id: "faq-unlimited-plans",
-    title: "FAQ: Are RailWire broadband plans unlimited?",
-    category: "resources",
-    categoryLabel: "FAQs & Guides",
-    subCategory: "FAQ",
-    description:
-      "Yes, RailWire offers unlimited high-speed fiber broadband plans subject to fair usage policies (FUP) with high speed data tiers.",
-    keywords: ["unlimited data", "fup policy", "data cap", "fair usage", "broadband plans"],
-    url: "#faq",
-    actionType: "scroll",
-    metadata: { iconName: "Wifi" }
-  },
-  {
-    id: "blog-rural-india",
-    title: "Case Study: RailWire High-Speed Connectivity Across Rural India",
-    category: "resources",
-    categoryLabel: "Case Studies",
-    subCategory: "Case Study",
-    description:
-      "How SRIT and RailWire expanded optical fiber high-speed connectivity to underserved and rural communities across India.",
-    keywords: ["rural connectivity", "digital india", "case study", "rural broadband", "high speed expansion"],
-    badge: "Case Study",
-    url: "/railwire-expands-rural-india",
-    actionType: "route",
-    metadata: { iconName: "BookOpen" }
-  },
-  {
-    id: "blog-fiber-future",
-    title: "Insight: Why Fiber Broadband is the Future of Internet",
-    category: "resources",
-    categoryLabel: "Insights",
-    subCategory: "Blog",
-    description:
-      "An analytical look at FTTH (Fiber-to-the-Home) symmetric speeds, low latency, and reliability compared to copper and legacy wireless networks.",
-    keywords: ["fiber broadband", "ftth", "future of internet", "fiber optics", "high speed bandwidth"],
-    url: "/why-fiber-broadband-is-the-future",
-    actionType: "route",
-    metadata: { iconName: "Sparkles" }
-  },
   {
     id: "testimonial-universal-hospitals",
     title: "Client Testimonial: Universal Hospitals Group, Abu Dhabi",
@@ -899,5 +822,57 @@ export const SEARCH_INDEX: SearchItem[] = [
     url: "#testimonials",
     actionType: "scroll",
     metadata: { iconName: "Quote", targetId: "testimonials" }
+  },
+  {
+    id: "testimonial-baxter",
+    title: "Client Testimonial: Baxter International Inc.",
+    category: "resources",
+    categoryLabel: "Testimonials",
+    subCategory: "Testimonial",
+    description:
+      "Robert Seguy: 'SRIT brings the highest standards with respect to business ethics and technology. A reliable, dependable team exceeding expectations.'",
+    keywords: ["baxter", "baxter international", "client review", "testimonial"],
+    url: "#testimonials",
+    actionType: "scroll",
+    metadata: { iconName: "Quote", targetId: "testimonials" }
+  },
+  {
+    id: "testimonial-bcg",
+    title: "Client Testimonial: Boston Consulting Group (BCG)",
+    category: "resources",
+    categoryLabel: "Testimonials",
+    subCategory: "Testimonial",
+    description:
+      "Günter Degitz: 'We have been pleased with SRIT's project delivery capabilities in terms of implementation cost and final quality of the systems.'",
+    keywords: ["bcg", "boston consulting group", "client review", "testimonial"],
+    url: "#testimonials",
+    actionType: "scroll",
+    metadata: { iconName: "Quote", targetId: "testimonials" }
+  },
+  {
+    id: "faq-healthcare-standards",
+    title: "FAQ: What healthcare standards and certifications does SRIT support?",
+    category: "resources",
+    categoryLabel: "FAQs",
+    subCategory: "FAQ",
+    description:
+      "SRIT's HMIS/EMR suites comply with NABH certifications, HL7, DICOM, and ISO 27001 data protection standards for hospital networks.",
+    keywords: ["healthcare standards", "nabh compliance", "hl7", "dicom", "emr compliance", "hospital cert"],
+    url: "#faq",
+    actionType: "scroll",
+    metadata: { iconName: "HelpCircle" }
+  },
+  {
+    id: "faq-icarkno-privacy",
+    title: "FAQ: How does icarKno AI ensure enterprise data privacy?",
+    category: "resources",
+    categoryLabel: "FAQs",
+    subCategory: "FAQ",
+    description:
+      "icarKno can be deployed completely on-premises with air-gapped security, zero external telemetry, and strict enterprise role-based access control.",
+    keywords: ["icarkno privacy", "private ai", "on prem security", "air gapped ai", "enterprise privacy"],
+    url: "#icarkno",
+    actionType: "scroll",
+    metadata: { iconName: "HelpCircle" }
   }
 ];

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import { Header } from "./components/srit/Header";
 import { Footer, AIChatButton } from "./components/srit/Sections";
 import HomePage from "./components/HomePage";
@@ -8,6 +9,7 @@ import Profile from "./components/Profile";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

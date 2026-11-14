@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ChevronDown,
   Menu,
   X,
   ArrowUpRight,
 } from "lucide-react";
+import { SmartSearchBar, SmartSearchModal } from "../../features/smart-search";
 
 
 const menus = [
@@ -55,8 +57,22 @@ const menus = [
 
 
 export function Header() {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  // Global Ctrl+K / Cmd+K listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white">
@@ -152,8 +168,9 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Contact button */}
-        <div className="hidden lg:block">
+        {/* Desktop actions (Search + Contact) */}
+        <div className="hidden items-center gap-4 lg:flex">
+          <SmartSearchBar compact onClick={() => setSearchOpen(true)} />
           <a
             href="/contact-us"
             className="inline-flex items-center gap-2 rounded-full bg-[#168bc4] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#102b50]"
@@ -163,18 +180,21 @@ export function Header() {
           </a>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          onClick={() => {
-            setMobileOpen(!mobileOpen);
-            setActiveMenu("");
-          }}
-          className="rounded-lg p-2 text-[#102b50] transition hover:bg-gray-100 lg:hidden"
-          aria-label="Toggle navigation"
-        >
-          {mobileOpen ? <X size={27} /> : <Menu size={27} />}
-        </button>
+        {/* Mobile controls (Search + Menu toggle) */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <SmartSearchBar compact onClick={() => setSearchOpen(true)} />
+          <button
+            type="button"
+            onClick={() => {
+              setMobileOpen(!mobileOpen);
+              setActiveMenu("");
+            }}
+            className="rounded-lg p-2 text-[#102b50] transition hover:bg-gray-100"
+            aria-label="Toggle navigation"
+          >
+            {mobileOpen ? <X size={27} /> : <Menu size={27} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile navigation */}
@@ -234,6 +254,13 @@ export function Header() {
           </a>
         </nav>
       )}
+
+      {/* Smart Search Modal */}
+      <SmartSearchModal
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        navigate={navigate}
+      />
     </header>
   );
 }
