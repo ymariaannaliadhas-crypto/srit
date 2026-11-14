@@ -1,56 +1,22 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/srit/Header";
-import { Hero } from "./components/srit/Hero";
-import Healthcare from "./components/Healthcare";
-
-// 1. Import IcarKnoSection separately from its own file
-import IcarKnoSection from "./components/srit/IcarKnoSection"; 
-
-import {
-  PerformanceDashboard,
-  PortalCards,
-  About,
-  Features,
-  // IcarKnoSection, <--- REMOVE THIS LINE from here
-  Entertainment,
-  CyberSecurity,
-  PartnerAndPlans,
-  SearchPlans,
-  Blogs,
-  Testimonials,
-  TrustedIndustries,
-  Certifications,
-  Footer,
-  //BackToTop,
-  AIChatButton,
-} from "./components/srit/Sections";
+import { Footer, AIChatButton } from "./components/srit/Sections";
+import HomePage from "./components/HomePage";
+import Management from "./components/Management";
+import Profile from "./components/Profile";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Header />
-
-      <main>
-        <Hero />
-        <TrustedIndustries />
-        <Certifications />
-        <Features />
-        <About />
-        <PortalCards />
-        <Healthcare />
-        <PerformanceDashboard />
-        <IcarKnoSection />
-        <Entertainment />
-        <CyberSecurity />
-        <PartnerAndPlans />
-        <SearchPlans />
-        <Blogs/>
-        <Testimonials />
-      </main>
-
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/management" element={<Management />} />
+        <Route path="/management/:slug" element={<Profile />} />
+      </Routes>
       <Footer />
-     
-      < AIChatButton/>
-    </>
+      <AIChatButton />
+    </BrowserRouter>
   );
 }
 

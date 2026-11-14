@@ -1,11 +1,3 @@
-import { img } from "./assets";
-
-export const LINKS = {
-  newConnection: "https://crm.railwire.co.in/Portalcntl/rlwr_apply_online_customer",
-  partner: "https://crm.railwire.co.in/Portalcntl/rlwr_apply_online_partner",
-  agnp: "https://railwire.co.in/partner.php",
-};
-
 export type Plan = {
   name: string;
   description: string;
@@ -13,17 +5,17 @@ export type Plan = {
 };
 
 export const PLAN_TABS: { label: string; plans: Plan[] }[] = [
-{
-  label: "E-District",
-  plans: [
-    {
-      name: "E-District",
-      description:
-        "E-District is a digital Government-to-Citizen (G2C) platform used by State and district administrations to deliver citizen services online. It enables access to statutory certificates and administrative services, workflow-based processing and service monitoring.",
-      features: [],
-    },
-  ],
-},
+  {
+    label: "E-District",
+    plans: [
+      {
+        name: "E-District",
+        description:
+          "E-District is a digital Government-to-Citizen (G2C) platform used by State and district administrations to deliver citizen services online. It enables access to statutory certificates and administrative services, workflow-based processing and service monitoring.",
+        features: [],
+      },
+    ],
+  },
   {
     label: "eCIVIC",
     plans: [
@@ -31,8 +23,7 @@ export const PLAN_TABS: { label: string; plans: Plan[] }[] = [
         name: "eCIVIC",
         description:
           "ERP for municipalities and urban development agencies. Covers diverse functions including works, projects, contracts, procurement, stores, revenue, property management, assets, human resources, payroll, finance, etc.",
-        features: [
-        ],
+        features: [],
       },
     ],
   },
@@ -43,8 +34,7 @@ export const PLAN_TABS: { label: string; plans: Plan[] }[] = [
         name: "PlanPermit",
         description:
           "Automated verification of building code directly from the drawing file for issuance of building permits, including a citizen portal and site inspection mobile app. Implemented in Karnataka, Haryana, Uttarakhand and Bihar, with 20,000 users including architects, designers and town-planners.",
-        features: [
-        ],
+        features: [],
       },
     ],
   },
@@ -55,8 +45,7 @@ export const PLAN_TABS: { label: string; plans: Plan[] }[] = [
         name: "AgniPermit",
         description:
           "Automated verification of fire code for issuance of building fire NOCs and fire permits, directly from the drawing file, including a citizen portal and site inspection mobile app. The product has gone LIVE and into full production statewide in Karnataka.",
-        features: [
-        ],
+        features: [],
       },
     ],
   },
@@ -67,41 +56,11 @@ export const PLAN_TABS: { label: string; plans: Plan[] }[] = [
         name: "Litigation Management Software",
         description:
           "A dedicated legal workspace specifically built for Government Bodies.",
-        features: [
-        ],
+        features: [],
       },
     ],
   },
 ];
-
-export const STATES = [
-  "Andhra Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Delhi",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jammu & Kashmir",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Lakshadweep",
-  "Madhya Pradesh",
-  "Maharashtra & Goa",
-  "Mizoram, Meghalaya & Tripura",
-  "Manipur, Nagaland & Arunachal Pradesh",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Tamil Nadu",
-  "Telangana",
-  "UP East",
-  "UP West",
-  "West Bengal",
-];
-
 
 export const TESTIMONIALS = [
   {
@@ -142,7 +101,6 @@ export const TESTIMONIALS = [
   },
 ];
 
-
 export const FAQS = [
   {
     q: "How can I get a new RailWire connection?",
@@ -159,50 +117,5 @@ export const FAQS = [
   {
     q: "Is the internet plan unlimited?",
     a: "Yes, RailWire offers unlimited broadband plans. However, speeds may be adjusted as per Fair Usage Policy (FUP) after a certain limit.",
-  },
-];
-
-export const BLOGS = [
-  {
-    d: "MAR, 19",
-    t: "RailWire Expands High-Speed Connectivity Across Rural India",
-    c: "1 Comment",
-    img: img("2026/03/fast-internet-e1774507469167-315x255.jpg"),
-    href: "/railwire-expands-rural-india",
-  },
-  {
-    d: "AUG, 11",
-    t: "How a Local Partner Transformed Connectivity in Their Region",
-    c: "2 Comments",
-    img: img("2024/08/connecting-regions-315x255.jpg"),
-    href: "/how-a-local-partner-transformed-connectivity",
-  },
-  {
-    d: "AUG, 11",
-    t: "Why Fiber Broadband is the Future of Internet Connectivity",
-    c: "2 Comments",
-    img: img("2024/08/fiber-internet-315x255.jpg"),
-    href: "/why-fiber-broadband-is-the-future",
-  },
-  {
-    d: "AUG, 11",
-    t: "Become a RailWire Partner and Grow Your Business",
-    c: "2 Comments",
-    img: img("2024/08/become-partner-2-315x255.jpg"),
-    href: "https://railwire.infocuz.in/2024/08/11/the-best-usage-of-the-fiber-internet-from-broadband/",
-  },
-  {
-    d: "MAY, 13",
-    t: "Guide for wifi Setup – Wi-Fi connection is simple and quick",
-    c: "",
-    img: img("2026/03/hispeed-internet-e1774507817280-315x255.jpg"),
-    href: "/guide-for-wifi-setup",
-  },
-  {
-    d: "MAR, 26",
-    t: "The Rise of Digital India and the Need for Better Connectivity",
-    c: "",
-    img: img("rise.jpg"),
-    href: "/rise-of-digital-india",
   },
 ];
