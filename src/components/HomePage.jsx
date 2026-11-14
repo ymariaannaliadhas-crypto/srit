@@ -3,7 +3,6 @@ import Healthcare from "./Healthcare";
 import IcarKnoSection from "./srit/IcarKnoSection";
 import {
   PerformanceDashboard,
-  PortalCards,
   About,
   Features,
   Entertainment,
@@ -24,7 +23,6 @@ export default function HomePage() {
       <Certifications />
       <Features />
       <About />
-      <PortalCards />
       <Healthcare />
       <PerformanceDashboard />
       <IcarKnoSection />

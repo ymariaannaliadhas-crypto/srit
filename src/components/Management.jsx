@@ -449,13 +449,13 @@ export default function Management() {
             <span className="text-black">Management</span>
           </nav>
 
-<h1 className="text-black font-normal tracking-tight md:text-5xl">
+<h1 className="text-black font-normal tracking-normal md:text-5xl">
   Management
   <span className="mx-2">/</span>
-  <span className="text-sm">
-    Meet the Directors, Key Managerial Personnel, Strategic Partners,
-    and our Leadership & Senior Management team.
-  </span>
+<span className="text-sm tracking-normal leading-relaxed">
+  Meet the Directors, Key Managerial Personnel, Strategic Partners,
+  and our Leadership & Senior Management team.
+</span>
 </h1>
 
           {/* TABS */}

@@ -1,6 +1,5 @@
 export {
   PerformanceDashboard,
-  PortalCards,
   About,
   Features,
   Entertainment,
