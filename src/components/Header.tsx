@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   ChevronDown,
   Menu,
   X,
   ArrowUpRight,
 } from "lucide-react";
-import { SmartSearchBar, SmartSearchModal } from "../../features/smart-search";
+import { SmartSearchBar, SmartSearchModal } from "../features/smart-search";
 
 
 const menus = [
   {
-    title: "Solutions",
+    title: "Sovereign AI",
     items: [
       { label: "Healthcare", href: "/healthcare" },
       { label: "eGovernance", href: "/egovernance" },
@@ -92,23 +92,16 @@ export function Header() {
       {/* Main header */}
       <div className="mx-auto flex min-h-[88px] max-w-[1440px] items-center justify-between px-6 md:px-12">
         {/* Logo */}
-<a href="/" className="flex shrink-0 items-center">
-  <img
-    src="/images/srit logo.png"
-    alt="SRIT India Limited"
-    className="h-auto w-[180px] object-contain"
-  />
-</a>
+        <Link to="/" className="flex shrink-0 items-center">
+          <img
+            src="/images/srit logo.png"
+            alt="SRIT India Limited"
+            className="h-auto w-[180px] object-contain"
+          />
+        </Link>
 
         {/* Desktop navigation */}
         <nav className="hidden h-full items-center gap-8 lg:flex">
-          <a
-            href="/"
-            className="py-8 text-[15px] font-semibold text-[#26364b] transition-colors hover:text-[#168bc4]"
-          >
-            Home
-          </a>
-
           {menus.map((menu) => (
             <div
               key={menu.title}
@@ -200,14 +193,6 @@ export function Header() {
       {/* Mobile navigation */}
       {mobileOpen && (
         <nav className="border-t border-gray-100 bg-white px-6 py-5 shadow-lg lg:hidden">
-          <a
-            href="/"
-            onClick={() => setMobileOpen(false)}
-            className="block border-b border-gray-100 py-4 font-semibold text-[#26364b]"
-          >
-            Home
-          </a>
-
           {menus.map((menu) => (
             <div key={menu.title} className="border-b border-gray-100">
               <button

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
-import { Header } from "./components/srit/Header";
-import { Footer, AIChatButton } from "./components/srit/Sections";
+import { Header } from "./components/Header";
+import { Footer, AIChatButton } from "./components/Sections";
 import HomePage from "./components/HomePage";
 import Management from "./components/Management";
 import Profile from "./components/Profile";

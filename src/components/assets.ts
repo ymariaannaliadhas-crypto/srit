@@ -1,10 +1,10 @@
-const imageAssets = import.meta.glob<string>("../../assets/rw/**/*.{png,jpg,jpeg,webp,svg}", {
+const imageAssets = import.meta.glob<string>("../assets/rw/**/*.{png,jpg,jpeg,webp,svg}", {
   eager: true,
   query: "?url",
   import: "default",
 });
 
-const pdfAssets = import.meta.glob<string>("../../assets/rw/**/*.pdf", {
+const pdfAssets = import.meta.glob<string>("../assets/rw/**/*.pdf", {
   eager: true,
   query: "?url",
   import: "default",
@@ -15,7 +15,7 @@ const pdfMap: Record<string, string> = {};
 
 for (const [path, url] of Object.entries(imageAssets)) {
   const key = path
-    .replace("../../assets/rw/", "")
+    .replace("../assets/rw/", "")
     .replace(/\.[^.]+$/, "")
     .replace(/\//g, "_");
 

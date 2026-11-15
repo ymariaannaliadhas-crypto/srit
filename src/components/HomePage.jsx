@@ -1,20 +1,24 @@
 import { useEffect } from "react";
-import { Hero } from "./srit/Hero";
+import { Hero } from "./Hero";
 import Healthcare from "./Healthcare";
-import IcarKnoSection from "./srit/IcarKnoSection";
+import IcarKnoSection from "./IcarKnoSection";
 import {
   PerformanceDashboard,
+  PortalCards,
   About,
   Features,
+  FutureProjects,
+  AiNativeEngineering,
   Entertainment,
   CyberSecurity,
   PartnerAndPlans,
   SearchPlans,
   Blogs,
+  ClientLogoWall,
+  CareersSection,
   Testimonials,
-  TrustedIndustries,
   Certifications,
-} from "./srit/Sections";
+} from "./Sections";
 
 export default function HomePage() {
   // Handle smooth scroll & highlight when arriving with a hash (e.g. from /management)
@@ -71,9 +75,11 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <TrustedIndustries />
+      <PortalCards />
       <Certifications />
       <Features />
+      <FutureProjects />
+      <AiNativeEngineering />
       <About />
       <Healthcare />
       <PerformanceDashboard />
@@ -83,6 +89,8 @@ export default function HomePage() {
       <PartnerAndPlans />
       <SearchPlans />
       <Blogs />
+      <ClientLogoWall />
+      <CareersSection />
       <Testimonials />
     </main>
   );
