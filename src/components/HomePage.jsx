@@ -53,7 +53,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white text-[#172b4d]">
+    <main className="min-h-screen bg-white text-[#172b4d] antialiased selection:bg-[#079fdf]/15 selection:text-[#102b50]">
       {/* Hero Section & ASK SRIT */}
       <Hero />
 

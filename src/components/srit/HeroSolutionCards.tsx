@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { motion } from "motion/react";
-import { Activity, Landmark, Network, ShieldCheck, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { HERO_SOLUTION_CARDS, HeroSolutionCard } from "../../data/blueprint/heroCardsData";
 import { SlideOverDrawer } from "./SlideOverDrawer";
+import { img } from "./assets";
 
 export function HeroSolutionCards() {
   const [selectedCard, setSelectedCard] = useState<HeroSolutionCard | null>(null);
@@ -13,85 +13,110 @@ export function HeroSolutionCards() {
     setDrawerOpen(true);
   };
 
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case "Activity":
-        return <Activity className="h-6 w-6 text-[#079fdf]" />;
-      case "Landmark":
-        return <Landmark className="h-6 w-6 text-[#079fdf]" />;
-      case "Network":
-        return <Network className="h-6 w-6 text-[#079fdf]" />;
-      case "ShieldAlert":
-        return <ShieldCheck className="h-6 w-6 text-[#079fdf]" />;
+  const getCardImage = (id: string) => {
+    switch (id) {
+      case "connected-care":
+        return img("healthcare.webp");
+      case "urban-mobility":
+        return img("E-Governance.webp");
+      case "digital-highways":
+        return img("telecom.jpg");
+      case "zero-trust-csoc":
+        return img("cyber.jpg");
       default:
-        return <Activity className="h-6 w-6 text-[#079fdf]" />;
+        return img("healthcare.webp");
     }
   };
 
   return (
     <>
-      <section id="solutions" className="py-20 bg-white text-[#172b4d]">
-        <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
-          
-          {/* Header */}
-          <div className="max-w-3xl mb-12">
-            <h2 className="font-display text-3xl font-bold text-[#102b50] sm:text-4xl">
-              Flagship Solution Architectures
-            </h2>
-            <p className="mt-3 text-base text-slate-600 leading-relaxed">
-              Proven, standards-compliant digital platforms deployed across healthcare, governance, broadband networks, and cybersecurity.
-            </p>
-          </div>
+      <section
+        id="solutions"
+        className="border-b border-gray-200 bg-white py-24 text-[#172b4d] sm:py-28"
+      >
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start">
+            {/* Left Sticky Editorial Intro & Domain Index */}
+            <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#079fdf]">
+                Core Architectures
+              </p>
+              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#102b50] sm:text-4xl">
+                Flagship Solution Architectures
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-600">
+                <strong className="font-semibold text-[#102b50]">
+                  Proprietary software suites and carrier-grade infrastructure
+                </strong>{" "}
+                deployed at population scale across Indian state governments, healthcare institutions, and defense backbones.
+              </p>
 
-          {/* 4-Card Grid */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {HERO_SOLUTION_CARDS.map((card, idx) => (
-              <motion.div
-                key={card.id}
-                id={card.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08, duration: 0.5 }}
-                className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#079fdf]/50 hover:shadow-md scroll-mt-28"
+              {/* Quick-Jump Domain Index */}
+              <nav
+                aria-label="Flagship solution architectures index"
+                className="mt-8 divide-y divide-gray-200 border-y border-gray-200"
               >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-[#079fdf]">
-                      {getIcon(card.iconName)}
-                    </div>
-                    <span className="rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">
+                {HERO_SOLUTION_CARDS.map((card) => (
+                  <a
+                    key={card.id}
+                    href={`#${card.id}`}
+                    className="flex items-center justify-between py-3 text-sm text-gray-600 transition-colors duration-200 hover:text-[#079fdf]"
+                  >
+                    <span className="min-w-0 truncate font-medium text-[#102b50]">
                       {card.badge}
                     </span>
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-gray-400" aria-hidden="true" />
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Right 2x2 Structured Bento Grid */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:col-span-8">
+              {HERO_SOLUTION_CARDS.map((card) => (
+                <button
+                  key={card.id}
+                  type="button"
+                  id={card.id}
+                  onClick={() => handleCardClick(card)}
+                  className="group flex cursor-pointer scroll-mt-28 flex-col justify-between rounded-xl border border-gray-200 bg-[#fafbfc] p-5 text-left transition-colors duration-200 hover:border-[#079fdf] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf]"
+                >
+                  <div>
+                    {/* Top Metadata Row */}
+                    <div className="mb-4 flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#079fdf]">
+                        {card.badge}
+                      </span>
+                    </div>
+
+                    {/* Visual Imagery Window */}
+                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+                      <img
+                        src={getCardImage(card.id)}
+                        alt={card.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    {/* Card Content */}
+                    <h3 className="mt-5 font-display text-lg font-bold leading-snug tracking-tight text-[#102b50] transition-colors duration-200 group-hover:text-[#079fdf]">
+                      {card.title}
+                    </h3>
                   </div>
 
-                  <h3 className="mt-5 font-display text-lg font-bold leading-snug text-[#102b50] group-hover:text-[#079fdf] transition-colors">
-                    {card.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                    {card.cardTeaser}
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-5 border-t border-slate-100">
-                  <button
-                    type="button"
-                    onClick={() => handleCardClick(card)}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#079fdf] hover:text-[#092b55] transition-colors"
-                  >
-                    <span>Know More</span>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+                  {/* Clean Action Footer */}
+                  <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4 text-xs font-semibold text-gray-600 transition-colors duration-200 group-hover:text-[#079fdf]">
+                    <span>Learn more</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
-
         </div>
       </section>
 
-      {/* Slide-over detail drawer */}
+      {/* Deep Interactive Specification Drawer */}
       <SlideOverDrawer
         card={selectedCard}
         isOpen={drawerOpen}

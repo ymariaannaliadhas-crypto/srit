@@ -5,8 +5,8 @@ import { ChevronRight } from "lucide-react";
 export function Reveal({
   children,
   delay = 0,
-  y = 40,
-  x = 0,
+  y = 8,
+  x: _x = 0,
   className,
 }: {
   children: ReactNode;
@@ -15,13 +15,15 @@ export function Reveal({
   x?: number;
   className?: string;
 }) {
+  const subtleY = Math.min(Math.max(y, 0), 10);
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, x }}
-      whileInView={{ opacity: 1, y: 0, x: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: subtleY }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.3, delay: Math.min(delay, 0.15), ease: "easeOut" }}
     >
       {children}
     </motion.div>
@@ -29,15 +31,13 @@ export function Reveal({
 }
 
 export function Pill() {
-  return (
-    <span className="inline-block h-3 w-6 rounded-full border-2 border-primary bg-primary/70" />
-  );
+  return <span className="inline-block h-px w-6 bg-[#079fdf]" aria-hidden="true" />;
 }
 
 export function Eyebrow({
   children,
   center,
-  both,
+  both: _both,
   light,
 }: {
   children: ReactNode;
@@ -47,11 +47,11 @@ export function Eyebrow({
 }) {
   return (
     <div
-      className={`flex items-center gap-3 font-display text-sm font-semibold uppercase tracking-wide ${light ? "text-primary-foreground" : "text-primary"} ${center ? "justify-center" : ""}`}
+      className={`flex items-center font-display text-xs font-bold uppercase tracking-wider ${
+        light ? "text-cyan-300" : "text-[#079fdf]"
+      } ${center ? "justify-center" : ""}`}
     >
-      <Pill />
       {children}
-      {both && <Pill />}
     </div>
   );
 }
@@ -69,14 +69,12 @@ export function Heading({
 }) {
   return (
     <h2
-      className={`font-display text-4xl font-bold leading-tight md:text-5xl ${light ? "text-primary-foreground" : "text-ink"} ${className}`}
+      className={`font-display text-3xl font-bold tracking-tight leading-tight sm:text-4xl ${
+        light ? "text-white" : "text-[#102b50]"
+      } ${className}`}
     >
       {pre}{" "}
-      {hl && (
-        <span className="relative inline-block text-primary">
-          {hl}
-        </span>
-      )}
+      {hl && <span className="text-[#079fdf]">{hl}</span>}
     </h2>
   );
 }
@@ -94,15 +92,15 @@ export function BtnLink({
 }) {
   const cls =
     variant === "white"
-      ? "bg-card text-primary hover:bg-ink hover:text-primary-foreground"
-      : "bg-primary text-primary-foreground hover:bg-ink";
+      ? "bg-white text-[#102b50] hover:bg-gray-100"
+      : "bg-[#079fdf] text-white hover:bg-[#102b50]";
   return (
     <a
       href={href}
-      className={`group inline-flex items-center gap-3 rounded-md px-7 py-3.5 font-display font-semibold transition-colors duration-300 ${cls} ${className}`}
+      className={`inline-flex items-center gap-2.5 rounded-lg px-6 py-3 font-display text-sm font-semibold transition-colors duration-200 ${cls} ${className}`}
     >
       {children}
-      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+      <ChevronRight className="h-4 w-4" />
     </a>
   );
 }

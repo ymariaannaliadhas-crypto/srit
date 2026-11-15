@@ -1,40 +1,45 @@
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function CareersBanner() {
   return (
-    <section id="careers" className="py-20 bg-slate-50/60 text-[#172b4d]">
-      <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-[#102b50] p-8 sm:p-12 text-white shadow-soft">
+    <section
+      id="careers"
+      className="bg-white py-20 text-[#172b4d] sm:py-24"
+    >
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-xl border border-[#1e3a66] bg-[#102b50] p-7 text-white sm:p-10">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-8 space-y-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <div className="space-y-3 lg:col-span-5">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
                 Build Digital Public Infrastructure with Us
               </h2>
 
-              <p className="max-w-2xl text-sm sm:text-base text-white/80 leading-relaxed">
-                Join our CMMI Level 5 engineering organization. We are looking for software engineers, AI architects, and cloud infrastructure leads committed to building population-scale platforms.
+              <p className="max-w-3xl text-sm leading-relaxed text-gray-200 sm:text-base">
+                Join our CMMI Level 5 engineering organization building population-scale AI, healthcare, and governance systems.
               </p>
+            </div>
 
-              <div className="flex flex-wrap gap-4 pt-1 text-xs sm:text-sm text-white/90">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-cyan-300" /> CMMI Level 5 Delivery Excellence
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-cyan-300" /> Population-Scale Projects
-                </div>
+            <div className="flex flex-col gap-3 border-y border-white/15 py-5 text-xs text-gray-200 sm:text-sm lg:col-span-4 lg:border-x lg:border-y-0 lg:px-8 lg:py-2">
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                <span>CMMI Level 5 Delivery Excellence</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                <span>Population-Scale Engineering Projects</span>
               </div>
             </div>
 
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-2.5 justify-end items-start lg:items-end">
+            <div className="flex flex-col items-start justify-end gap-3 sm:flex-row sm:items-center lg:col-span-3 lg:flex-col lg:items-end">
               <a
-                href="/company#careers"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#079fdf] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#168bc4]"
+                href="/contact-us"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#079fdf] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#168bc4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
                 <span>Explore Open Roles</span>
                 <ArrowUpRight className="h-4 w-4" />
               </a>
-              <span className="text-xs text-white/60">
-                Bengaluru • Hyderabad • Delivery Centers
+              <span className="text-xs text-gray-300">
+                Bengaluru &bull; Hyderabad &bull; Delivery Centers
               </span>
             </div>
           </div>

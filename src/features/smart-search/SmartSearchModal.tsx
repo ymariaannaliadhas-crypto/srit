@@ -1,56 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Search,
   X,
   ArrowRight,
   ExternalLink,
-  Sparkles,
   Clock,
-  Activity,
-  Landmark,
-  Building2,
-  FileCheck2,
-  Flame,
-  Scale,
-  Wifi,
-  Cpu,
-  ShieldCheck,
-  CreditCard,
-  Briefcase,
-  TrendingUp,
-  FileSpreadsheet,
-  Award,
-  BookOpen,
-  Home,
-  HelpCircle,
-  Quote,
-  type LucideIcon,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import type { SearchCategory, SearchItem, SearchResult } from "./types";
 import { useSmartSearch } from "./useSmartSearch";
-
-// Dynamic icon mapper matching SRIT domains
-const ICON_MAP: Record<string, LucideIcon> = {
-  Activity,
-  Landmark,
-  Building2,
-  FileCheck2,
-  Flame,
-  Scale,
-  Wifi,
-  Cpu,
-  ShieldCheck,
-  CreditCard,
-  Briefcase,
-  TrendingUp,
-  FileSpreadsheet,
-  Award,
-  BookOpen,
-  Home,
-  HelpCircle,
-  Quote,
-};
 
 const CATEGORIES: { id: SearchCategory; label: string }[] = [
   { id: "all", label: "All" },
@@ -79,6 +39,9 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const {
     query,
@@ -129,6 +92,40 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
     }
   }, [selectedIndex]);
 
+  const updateTabScrollState = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 2);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 2);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const rafId = requestAnimationFrame(updateTabScrollState);
+    const timerId = setTimeout(updateTabScrollState, 180);
+    window.addEventListener("resize", updateTabScrollState);
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timerId);
+      window.removeEventListener("resize", updateTabScrollState);
+    };
+  }, [isOpen, categoryCounts, updateTabScrollState]);
+
+  const scrollTabs = (dir: "left" | "right") => {
+    tabsRef.current?.scrollBy({
+      left: dir === "left" ? -180 : 180,
+      behavior: "smooth",
+    });
+  };
+
+  const handleTabsWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = tabsRef.current;
+    if (!el) return;
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      el.scrollLeft += e.deltaY;
+    }
+  };
+
   // Highlight query term in string
   const renderHighlightedText = (text: string, highlight: string) => {
     if (!highlight.trim()) return text;
@@ -172,78 +169,114 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -16 }}
+            initial={{ opacity: 0, scale: 0.98, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -16 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 0.98, y: -8 }}
+            transition={{ duration: 0.16, ease: "easeOut" }}
             onKeyDown={handleKeyDown}
-            className="relative z-10 w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xl"
+            className="relative z-10 w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-xl"
           >
             {/* Top Search Input Bar */}
-            <div className="flex items-center gap-3 border-b border-slate-200 px-4 py-3.5 sm:px-6">
-              <Search className="h-5 w-5 shrink-0 text-[#079fdf]" />
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search solutions, services, portals, investor docs..."
-                className="flex-1 bg-transparent font-sans text-base text-[#172b4d] placeholder-slate-400 outline-none sm:text-lg"
-              />
+            <div className="flex items-center gap-2.5 border-b border-slate-200/80 bg-white px-4 py-3.5 sm:px-5 sm:py-4">
+              <div className="group flex flex-1 items-center gap-2.5 rounded-lg border border-slate-200/90 bg-[#fafbfc] px-3.5 py-2.5 transition-colors duration-150 ease-out focus-within:border-[#079fdf]/60 focus-within:bg-white">
+                <Search className="h-4 w-4 shrink-0 text-slate-400 transition-colors duration-150 group-focus-within:text-[#079fdf]" />
+                <input
+                  ref={inputRef}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search solutions, services, portals, investor docs..."
+                  className="w-full bg-transparent font-sans text-sm text-[#172b4d] placeholder-slate-400 outline-none focus:outline-none focus-visible:outline-none"
+                />
 
-              {query && (
-                <button
-                  type="button"
-                  onClick={() => setQuery("")}
-                  className="rounded-md px-2 py-1 text-xs font-medium text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"
-                  aria-label="Clear query"
-                  title="Clear text"
-                >
-                  Clear
-                </button>
-              )}
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => setQuery("")}
+                    className="shrink-0 rounded px-2 py-0.5 text-xs font-medium text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#079fdf]"
+                    aria-label="Clear query"
+                    title="Clear text"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
 
               <button
                 type="button"
                 onClick={onClose}
-                className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-slate-200/80 bg-[#fafbfc] text-slate-500 transition-colors duration-150 hover:bg-slate-100 hover:text-[#102b50] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf]"
                 aria-label="Close search"
                 title="Close (Esc)"
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
               </button>
             </div>
 
-            {/* Category Filter Pills with Live Match Counts */}
-            <div className="flex items-center gap-1.5 overflow-x-auto border-b border-slate-100 bg-slate-50/70 px-4 py-2 sm:px-6 [&::-webkit-scrollbar]:hidden">
-              {CATEGORIES.map((cat) => {
-                const isActive = activeCategory === cat.id;
-                const count = categoryCounts[cat.id] ?? 0;
-                return (
+            {/* Category Filter Tabs */}
+            <div className="relative border-b border-slate-200/80 bg-[#fafbfc]">
+              {canScrollLeft && (
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center bg-gradient-to-r from-[#fafbfc] via-[#fafbfc]/95 to-transparent pl-2 pr-5">
                   <button
-                    key={cat.id}
                     type="button"
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition-all ${
-                      isActive
-                        ? "bg-[#079fdf] text-white shadow-xs"
-                        : "bg-white text-slate-600 hover:bg-slate-200/70 border border-slate-200/80"
-                    }`}
+                    onClick={() => scrollTabs("left")}
+                    aria-label="Scroll categories left"
+                    className="pointer-events-auto flex h-7 w-7 items-center justify-center rounded-md border border-slate-200/80 bg-white text-slate-600 transition-colors duration-150 ease-out hover:border-[#079fdf] hover:text-[#079fdf] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf]"
                   >
-                    <span>{cat.label}</span>
-                    {cat.id !== "all" && (
-                      <span
-                        className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
-                          isActive
-                            ? "bg-white/25 text-white"
-                            : "bg-slate-100 text-slate-500"
-                        }`}
-                      >
-                        {count}
-                      </span>
-                    )}
+                    <ChevronLeft className="h-3.5 w-3.5" />
                   </button>
-                );
-              })}
+                </div>
+              )}
+
+              <div
+                ref={tabsRef}
+                onScroll={updateTabScrollState}
+                onWheel={handleTabsWheel}
+                className="flex items-center gap-5 overflow-x-auto px-4 sm:px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              >
+                {CATEGORIES.map((cat) => {
+                  const isActive = activeCategory === cat.id;
+                  const count = categoryCounts[cat.id] ?? 0;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={(e) => {
+                        setActiveCategory(cat.id);
+                        e.currentTarget.scrollIntoView({
+                          behavior: "smooth",
+                          inline: "nearest",
+                          block: "nearest",
+                        });
+                      }}
+                      className={`relative shrink-0 scroll-mx-10 inline-flex items-center gap-1.5 border-b-2 py-2.5 text-xs font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf] ${
+                        isActive
+                          ? "border-[#079fdf] text-[#102b50]"
+                          : "border-transparent text-slate-500 hover:text-[#172b4d]"
+                      }`}
+                    >
+                      <span>{cat.label}</span>
+                      {cat.id !== "all" && (
+                        <span className="text-[11px] font-medium tabular-nums text-slate-400">
+                          {count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {canScrollRight && (
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 flex items-center bg-gradient-to-l from-[#fafbfc] via-[#fafbfc]/95 to-transparent pr-2 pl-5">
+                  <button
+                    type="button"
+                    onClick={() => scrollTabs("right")}
+                    aria-label="Scroll categories right"
+                    className="pointer-events-auto flex h-7 w-7 items-center justify-center rounded-md border border-slate-200/80 bg-white text-slate-600 transition-colors duration-150 ease-out hover:border-[#079fdf] hover:text-[#079fdf] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf]"
+                  >
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Search Content Body */}
@@ -254,7 +287,7 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
               {/* Case 1: Results available (from active query or category filter) */}
               {results.length > 0 && (
                 <div className="space-y-1">
-                  <div className="px-2 py-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <div className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400 tabular-nums">
                     <span>
                       {query.trim()
                         ? `Matches in ${CATEGORIES.find((c) => c.id === activeCategory)?.label || "All"} (${results.length})`
@@ -264,9 +297,6 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
 
                   {results.map((res: SearchResult, index: number) => {
                     const isSelected = index === selectedIndex;
-                    const IconComponent =
-                      (res.item.metadata?.iconName && ICON_MAP[res.item.metadata.iconName]) ||
-                      Activity;
 
                     return (
                       <div
@@ -274,44 +304,35 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                         data-index={index}
                         onClick={() => handleItemSelect(res.item)}
                         onMouseEnter={() => setSelectedIndex(index)}
-                        className={`group flex cursor-pointer items-start justify-between gap-4 rounded-xl p-3 transition-colors ${
+                        className={`group flex cursor-pointer items-center justify-between gap-4 rounded-lg border px-3.5 py-3 transition-colors duration-150 ease-out ${
                           isSelected
-                            ? "bg-[#eaf7fc] border border-[#079fdf]/40 shadow-xs"
-                            : "hover:bg-slate-50 border border-transparent"
+                            ? "border-[#079fdf]/35 bg-[#eaf7fc]/75"
+                            : "border-transparent hover:bg-slate-50"
                         }`}
                       >
-                        <div className="flex items-start gap-3 min-w-0">
-                          <div
-                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors ${
-                              isSelected
-                                ? "bg-[#079fdf] text-white"
-                                : "bg-slate-100 text-[#079fdf] group-hover:bg-[#eaf7fc]"
-                            }`}
-                          >
-                            <IconComponent className="h-5 w-5" />
-                          </div>
-
-                          <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
                             <h4 className="font-display text-[15px] font-semibold text-[#172b4d]">
                               {renderHighlightedText(res.item.title, query)}
                             </h4>
-
-                            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-600">
-                              {renderHighlightedText(res.item.description, query)}
-                            </p>
+                            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#079fdf]">
+                              {res.item.badge || res.item.categoryLabel}
+                            </span>
                           </div>
+
+                          <p className="mt-1 line-clamp-2 text-xs leading-[1.6] text-slate-600 text-pretty">
+                            {renderHighlightedText(res.item.description, query)}
+                          </p>
                         </div>
 
-                        <div className="shrink-0 flex items-center self-center pl-2">
-                          <div
-                            className={`flex h-7 w-7 items-center justify-center rounded-lg transition-colors ${
-                              isSelected
-                                ? "bg-[#079fdf]/20 text-[#079fdf]"
-                                : "text-slate-400 group-hover:text-[#079fdf] group-hover:bg-[#eaf7fc]"
-                            }`}
-                          >
-                            {renderActionIcon(res.item.actionType)}
-                          </div>
+                        <div
+                          className={`shrink-0 transition-colors duration-150 ${
+                            isSelected
+                              ? "text-[#079fdf]"
+                              : "text-slate-400 group-hover:text-[#079fdf]"
+                          }`}
+                        >
+                          {renderActionIcon(res.item.actionType)}
                         </div>
                       </div>
                     );
@@ -321,14 +342,14 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
 
               {/* Case 2: Active query with NO results */}
               {query.trim() && results.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-12 text-center px-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-full bg-slate-100 text-slate-400 mb-3">
-                    <Search className="h-6 w-6" />
+                <div className="flex flex-col items-center justify-center px-4 py-12 text-center">
+                  <div className="mb-3 grid h-11 w-11 place-items-center rounded-lg border border-slate-200/80 bg-[#fafbfc] text-slate-400">
+                    <Search className="h-5 w-5" />
                   </div>
-                  <h3 className="font-display text-base font-semibold text-slate-800">
+                  <h3 className="font-display text-base font-semibold text-[#172b4d]">
                     No matching results found
                   </h3>
-                  <p className="mt-1 max-w-sm text-xs text-slate-500 leading-relaxed">
+                  <p className="mt-1 max-w-sm text-xs leading-[1.6] text-slate-500 text-pretty">
                     We couldn't find anything matching &ldquo;{query}&rdquo;. Try
                     searching for broader keywords or check our popular suggestions below.
                   </p>
@@ -340,7 +361,7 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                           key={tag}
                           type="button"
                           onClick={() => setQuery(tag)}
-                          className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600 hover:border-[#079fdf] hover:text-[#079fdf]"
+                          className="rounded-md border border-slate-200/80 bg-white px-3 py-1 text-xs font-medium text-slate-600 transition-colors duration-150 hover:border-[#079fdf] hover:text-[#079fdf] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#079fdf]"
                         >
                           {tag}
                         </button>
@@ -387,15 +408,12 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
 
                   {/* Top Popular Shortcuts */}
                   <div>
-                    <div className="flex items-center gap-1.5 px-2 pb-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                      <Sparkles className="h-3.5 w-3.5 text-[#079fdf]" />
+                    <div className="flex items-center gap-1.5 px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
                       <span>Popular Shortcuts & Solutions</span>
                     </div>
 
                     <div className="space-y-1">
                       {quickSuggestions.map((item, idx) => {
-                        const IconComponent =
-                          (item.metadata?.iconName && ICON_MAP[item.metadata.iconName]) || Activity;
                         const isSelected = idx === selectedIndex;
 
                         return (
@@ -404,24 +422,28 @@ export const SmartSearchModal: React.FC<SmartSearchModalProps> = ({
                             data-index={idx}
                             onClick={() => handleItemSelect(item)}
                             onMouseEnter={() => setSelectedIndex(idx)}
-                            className={`flex cursor-pointer items-center justify-between rounded-xl p-2.5 transition-colors ${
+                            className={`group flex cursor-pointer items-center justify-between gap-4 rounded-lg border px-3.5 py-2.5 transition-colors duration-150 ease-out ${
                               isSelected
-                                ? "bg-[#eaf7fc] border border-[#079fdf]/40"
-                                : "hover:bg-slate-50 border border-transparent"
+                                ? "border-[#079fdf]/35 bg-[#eaf7fc]/75"
+                                : "border-transparent hover:bg-slate-50"
                             }`}
                           >
-                            <div className="flex items-center gap-3">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-[#079fdf]">
-                                <IconComponent className="h-4 w-4" />
-                              </div>
-                              <div>
-                                <h4 className="font-display text-sm font-semibold text-[#172b4d]">
-                                  {item.title}
-                                </h4>
-                              </div>
+                            <div className="min-w-0 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                              <h4 className="font-display text-sm font-semibold text-[#172b4d]">
+                                {item.title}
+                              </h4>
+                              <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                                {item.badge || item.categoryLabel}
+                              </span>
                             </div>
 
-                            <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-[#079fdf]" />
+                            <ArrowRight
+                              className={`h-4 w-4 shrink-0 transition-colors duration-150 ${
+                                isSelected
+                                  ? "text-[#079fdf]"
+                                  : "text-slate-400 group-hover:text-[#079fdf]"
+                              }`}
+                            />
                           </div>
                         );
                       })}

@@ -1,63 +1,76 @@
-import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
 import { FUTURE_PROJECTS_DATA } from "../../data/blueprint/futureProjectsData";
 
 export function FutureProjectsCarousel() {
   return (
-    <section id="future-projects" className="py-20 bg-white text-[#172b4d]">
-      <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="max-w-3xl mb-12">
-          <h2 className="font-display text-3xl font-bold text-[#102b50] sm:text-4xl">
-            Our Future Projects
-          </h2>
-          <p className="mt-3 text-base text-slate-600 leading-relaxed">
-            Upcoming initiatives across sovereign cloud hosting with L&T, indigenous database rollouts with IIT Pravartak, and next-gen ABDM health integrations.
-          </p>
-        </div>
+    <section
+      id="future-projects"
+      className="border-b border-gray-200 bg-[#fafbfc] py-24 text-[#172b4d] sm:py-28"
+    >
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
+          {/* Left Sticky Header Column */}
+          <div className="lg:col-span-4 lg:sticky lg:top-28">
+            <p className="text-xs font-bold uppercase tracking-wider text-[#079fdf]">
+              Strategic Roadmap
+            </p>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-[#102b50] text-balance sm:text-4xl">
+              Our Future Projects
+            </h2>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-600 text-pretty">
+              <strong className="font-semibold text-[#102b50]">
+                Co-engineering sovereign cloud, indigenous database, and clinical AI infrastructure
+              </strong>{" "}
+              with national deep-tech partners.
+            </p>
 
-        {/* 3 Project Cards */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {FUTURE_PROJECTS_DATA.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              id={project.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.08, duration: 0.45 }}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-slate-50/40 p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#079fdf]/50 hover:bg-white hover:shadow-md scroll-mt-28"
-            >
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="rounded bg-sky-50 px-2 py-0.5 text-xs font-semibold text-[#079fdf]">
-                    {project.badge}
-                  </span>
-                  <span className="rounded bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+            <blockquote className="mt-6 rounded-r-lg border-l-2 border-[#079fdf] bg-white py-3 pl-4 pr-3 text-sm font-medium leading-relaxed text-[#102b50]">
+              Advancing indigenous sovereign R&amp;D across domestic DC-DR cloud infrastructure, defense-grade databases, and population-scale clinical interoperability.
+            </blockquote>
+          </div>
+
+          {/* Right Structured Horizon Projects Stack */}
+          <div className="space-y-4 lg:col-span-8">
+            {FUTURE_PROJECTS_DATA.map((project) => (
+              <article
+                key={project.id}
+                id={project.id}
+                className="scroll-mt-28 rounded-xl border border-gray-200 bg-white p-6 transition-colors duration-200 hover:border-[#079fdf]/60 sm:p-7"
+              >
+                {/* Top Metadata Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-4">
+                  <div className="flex flex-wrap items-center gap-3 text-xs">
+                    <span className="font-bold uppercase tracking-wider text-[#079fdf]">
+                      {project.badge}
+                    </span>
+                    <span className="text-gray-300">&bull;</span>
+                    <span className="font-semibold text-[#102b50]">
+                      {project.partner}
+                    </span>
+                  </div>
+
+                  <span className="shrink-0 rounded-md border border-emerald-200 bg-emerald-50/70 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
                     {project.status}
                   </span>
                 </div>
 
-                <h3 className="mt-4 font-display text-lg font-bold text-[#102b50]">
-                  {project.title}
-                </h3>
-                <h4 className="mt-1 text-xs font-semibold text-[#079fdf]">
-                  {project.tagline}
-                </h4>
+                {/* Main Content */}
+                <div className="mt-5">
+                  <h3 className="font-display text-xl font-bold leading-snug tracking-tight text-[#102b50]">
+                    {project.title}
+                  </h3>
 
-                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600">
-                  {project.description}
-                </p>
-              </div>
+                  <p className="mt-2 text-sm font-semibold text-[#079fdf]">
+                    {project.tagline}
+                  </p>
 
-              <div className="mt-6 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
-                <span>Partner: <strong className="text-slate-800">{project.partner}</strong></span>
-              </div>
-            </motion.div>
-          ))}
+                  <p className="mt-2.5 max-w-3xl text-sm leading-relaxed text-gray-600">
+                    {project.description}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-
       </div>
     </section>
   );

@@ -25,6 +25,31 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+@layer base {
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid #079fdf;
+    outline-offset: 2px;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 #root {
@@ -73,7 +98,7 @@ body {
 /* Cards and shadows */
 
 .shadow-soft {
-  box-shadow: 0 8px 30px rgba(15, 50, 80, 0.10);
+  box-shadow: 0 1px 2px rgba(16, 43, 80, 0.04);
 }
 
 /* Text colors */

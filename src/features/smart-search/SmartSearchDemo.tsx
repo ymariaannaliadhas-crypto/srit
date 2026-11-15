@@ -2,13 +2,6 @@ import React, { useState, useMemo } from "react";
 import {
   Search,
   CheckCircle2,
-  Sparkles,
-  Command,
-  ArrowRight,
-  ShieldCheck,
-  Activity,
-  Layers,
-  HelpCircle,
 } from "lucide-react";
 import { SmartSearchBar } from "./SmartSearchBar";
 import { SmartSearchModal } from "./SmartSearchModal";
@@ -142,44 +135,41 @@ export const SmartSearchDemo: React.FC = () => {
       <div className="mx-auto max-w-5xl space-y-10">
         
         {/* Header Banner */}
-        <div className="rounded-3xl bg-gradient-to-r from-[#092b55] via-[#102b50] to-[#079fdf] p-8 sm:p-10 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute right-0 top-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-          
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="rounded-xl border border-[#102b50] bg-[#102b50] p-8 text-white sm:p-10">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold backdrop-blur">
-                <Sparkles className="h-3.5 w-3.5 text-cyan-300" />
+              <div className="inline-flex items-center rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-semibold text-cyan-200">
                 <span>Working Prototype Demo</span>
               </div>
-              <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+              <h1 className="font-display text-3xl font-bold tracking-[-0.03em] text-balance sm:text-4xl">
                 SRIT Smart Search & Site Navigator
               </h1>
-              <p className="max-w-xl text-sm sm:text-base text-cyan-100/90 leading-relaxed">
+              <p className="max-w-xl text-sm leading-[1.6] text-white/80 text-pretty sm:text-base">
                 Universal search engine indexing solutions, state broadband portals,
                 application services, investor documentation, company certifications, and FAQs.
               </p>
             </div>
 
             {/* Launch Modal Trigger */}
-            <div className="shrink-0 flex flex-col items-start md:items-end gap-2">
+            <div className="flex shrink-0 flex-col items-start gap-2.5 md:items-end">
               <a
                 href="/"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-white/20 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-white/30 backdrop-blur transition mb-1"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition-colors duration-150 ease-out hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 ← View Main App with Live Search
               </a>
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#092b55] shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-cyan-50"
+                className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-bold text-[#102b50] transition-colors duration-150 ease-out hover:bg-[#f0f7fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <Search className="h-4 w-4 text-[#079fdf]" />
                 <span>Open Search Palette</span>
-                <kbd className="rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600">
+                <kbd className="rounded bg-slate-100 px-1.5 py-0.5 text-xs tabular-nums text-slate-600">
                   ⌘K
                 </kbd>
               </button>
-              <span className="text-xs text-cyan-200">
+              <span className="text-xs text-white/75 tabular-nums">
                 Total Indexed Items: <strong className="text-white">{SEARCH_INDEX.length}</strong>
               </span>
             </div>
@@ -188,31 +178,31 @@ export const SmartSearchDemo: React.FC = () => {
 
         {/* Action feedback toast */}
         {selectedActionMessage && (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 flex items-center justify-between shadow-sm animate-pulse">
+          <div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
               <span>{selectedActionMessage}</span>
             </div>
           </div>
         )}
 
         {/* Search Bar Component Preview */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="space-y-4 rounded-xl border border-slate-200/80 bg-white p-6">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="font-display text-lg font-bold text-[#092b55]">
+              <h2 className="font-display text-lg font-bold tracking-[-0.02em] text-[#172b4d]">
                 1. Standalone Search Bar Component (`SmartSearchBar`)
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs leading-[1.6] text-slate-500 text-pretty">
                 Can be placed in the Header or Hero section with a single line of code.
               </p>
             </div>
-            <span className="rounded-full bg-[#eaf7fc] px-2.5 py-1 text-xs font-semibold text-[#079fdf]">
+            <span className="rounded-md border border-[#079fdf]/20 bg-[#eaf7fc] px-2.5 py-1 text-xs font-semibold text-[#079fdf]">
               Theme-Aligned
             </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+          <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row">
             <div className="w-full max-w-lg">
               <SmartSearchBar onClick={() => setModalOpen(true)} />
             </div>
@@ -224,12 +214,12 @@ export const SmartSearchDemo: React.FC = () => {
         </div>
 
         {/* Interactive Query Tester */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft space-y-6">
+        <div className="space-y-6 rounded-xl border border-slate-200/80 bg-white p-6">
           <div>
-            <h2 className="font-display text-lg font-bold text-[#092b55]">
+            <h2 className="font-display text-lg font-bold tracking-[-0.02em] text-[#172b4d]">
               2. Interactive Query Test Bench
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs leading-[1.6] text-slate-500 text-pretty">
               Click any sample query chip to test how fuzzy matching, synonyms, and multi-domain indexing behave.
             </p>
           </div>
@@ -245,10 +235,10 @@ export const SmartSearchDemo: React.FC = () => {
                   onClick={() => {
                     setActiveTestQuery(tc.query);
                   }}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#079fdf] ${
                     isActive
-                      ? "bg-[#079fdf] text-white shadow-sm"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      ? "bg-[#102b50] text-white"
+                      : "border border-slate-200/80 bg-[#fafbfc] text-[#172b4d] hover:border-slate-300 hover:bg-slate-100"
                   }`}
                 >
                   {tc.label}
@@ -258,33 +248,33 @@ export const SmartSearchDemo: React.FC = () => {
           </div>
 
           {/* Live Search Inspector Card */}
-          <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4 space-y-3">
-            <div className="flex items-center justify-between text-xs font-semibold text-slate-500 border-b border-slate-200 pb-2">
+          <div className="space-y-3 rounded-lg border border-slate-200/80 bg-[#fafbfc] p-4">
+            <div className="flex items-center justify-between border-b border-slate-200/80 pb-2 text-xs font-semibold text-slate-500">
               <div className="flex items-center gap-2">
                 <span>Active Query:</span>
-                <code className="rounded bg-white px-2 py-0.5 text-slate-800 border border-slate-200">
+                <code className="rounded border border-slate-200/80 bg-white px-2 py-0.5 text-[#172b4d]">
                   &ldquo;{activeTestQuery}&rdquo;
                 </code>
               </div>
-              <span>Execution Time: {liveResults.elapsed} ms</span>
+              <span className="tabular-nums">Execution Time: {liveResults.elapsed} ms</span>
             </div>
 
             <div className="space-y-2">
               {liveResults.results.map((res, i) => (
                 <div
                   key={res.item.id}
-                  className="flex items-start justify-between gap-4 rounded-lg bg-white p-3 border border-slate-200 text-xs shadow-2xs"
+                  className="flex items-start justify-between gap-4 rounded-md border border-slate-200/80 bg-white p-3 text-xs"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-[#172b4d] text-sm">
+                      <span className="font-bold text-sm tabular-nums text-[#172b4d]">
                         #{i + 1} {res.item.title}
                       </span>
-                      <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-500 uppercase">
+                      <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-slate-500">
                         {res.item.categoryLabel}
                       </span>
                     </div>
-                    <p className="text-slate-600 line-clamp-1">{res.item.description}</p>
+                    <p className="line-clamp-1 text-slate-600">{res.item.description}</p>
                     <div className="flex items-center gap-3 text-[11px] text-slate-400">
                       <span>Action: <code>{res.item.actionType}</code></span>
                       <span>Target: <code>{res.item.url}</code></span>
@@ -292,7 +282,7 @@ export const SmartSearchDemo: React.FC = () => {
                   </div>
 
                   <div className="shrink-0 text-right">
-                    <span className="inline-block rounded-full bg-[#eaf7fc] px-2 py-0.5 text-[11px] font-bold text-[#079fdf]">
+                    <span className="inline-block rounded-md border border-[#079fdf]/20 bg-[#eaf7fc] px-2 py-0.5 text-[11px] font-bold tabular-nums text-[#079fdf]">
                       Score: {res.score}
                     </span>
                   </div>
@@ -303,17 +293,17 @@ export const SmartSearchDemo: React.FC = () => {
         </div>
 
         {/* Automated Test Suite Summary */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="space-y-4 rounded-xl border border-slate-200/80 bg-white p-6">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="font-display text-lg font-bold text-[#092b55]">
+              <h2 className="font-display text-lg font-bold tracking-[-0.02em] text-[#172b4d]">
                 3. Automated Domain Assertion Suite
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs leading-[1.6] text-slate-500 text-pretty">
                 Verifies correctness across all website categories.
               </p>
             </div>
-            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+            <span className="flex items-center gap-1.5 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold tabular-nums text-emerald-700">
               <CheckCircle2 className="h-4 w-4 text-emerald-600" />
               <span>{testResultsSummary.filter((t) => t.passed).length} / {testResultsSummary.length} Tests Passing</span>
             </span>
@@ -321,24 +311,24 @@ export const SmartSearchDemo: React.FC = () => {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-600">
-              <thead className="bg-slate-50 text-slate-400 uppercase text-[10px] border-y border-slate-200">
+              <thead className="border-y border-slate-200/80 bg-[#fafbfc] text-[10px] uppercase text-slate-500">
                 <tr>
-                  <th className="py-2.5 px-3">Test Scenario</th>
-                  <th className="py-2.5 px-3">Query</th>
-                  <th className="py-2.5 px-3">Target Match</th>
-                  <th className="py-2.5 px-3">Score</th>
-                  <th className="py-2.5 px-3">Status</th>
+                  <th className="px-3 py-2.5">Test Scenario</th>
+                  <th className="px-3 py-2.5">Query</th>
+                  <th className="px-3 py-2.5">Target Match</th>
+                  <th className="px-3 py-2.5">Score</th>
+                  <th className="px-3 py-2.5">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-200/60">
                 {testResultsSummary.map((t) => (
-                  <tr key={t.query} className="hover:bg-slate-50">
-                    <td className="py-2.5 px-3 font-medium text-slate-800">{t.description}</td>
-                    <td className="py-2.5 px-3"><code>{t.query}</code></td>
-                    <td className="py-2.5 px-3 text-slate-700">{t.topMatchTitle}</td>
-                    <td className="py-2.5 px-3 font-semibold text-[#079fdf]">{t.score}</td>
-                    <td className="py-2.5 px-3">
-                      <span className="inline-flex items-center gap-1 text-emerald-600 font-semibold">
+                  <tr key={t.query} className="transition-colors duration-150 hover:bg-[#fafbfc]">
+                    <td className="px-3 py-2.5 font-medium text-[#172b4d]">{t.description}</td>
+                    <td className="px-3 py-2.5"><code>{t.query}</code></td>
+                    <td className="px-3 py-2.5 text-slate-700">{t.topMatchTitle}</td>
+                    <td className="px-3 py-2.5 font-semibold tabular-nums text-[#079fdf]">{t.score}</td>
+                    <td className="px-3 py-2.5">
+                      <span className="inline-flex items-center gap-1 font-semibold text-emerald-600">
                         <CheckCircle2 className="h-3.5 w-3.5" /> Passed
                       </span>
                     </td>

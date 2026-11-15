@@ -80,25 +80,25 @@ export default function Profile() {
   return (
     <main className="min-h-screen bg-white">
       {/* HERO */}
-      <section className="bg-[#102b50] text-white">
-        <div className="mx-auto max-w-[1300px] px-6 py-20 md:px-12 md:py-24">
-          <nav className="mb-4 text-sm text-cyan-200">
-            <Link to="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link to="/company" className="hover:text-white">About Us</Link>
-            <span className="mx-2">/</span>
-            <Link to="/management" className="hover:text-white">Management</Link>
-            <span className="mx-2">/</span>
+      <section className="border-b border-white/10 bg-[#102b50] text-white">
+        <div className="mx-auto max-w-[1300px] px-6 py-16 md:px-12 md:py-20">
+          <nav className="mb-4 flex items-center gap-2 text-xs font-medium text-cyan-200/80">
+            <Link to="/" className="hover:text-white transition-colors duration-150 ease-out">Home</Link>
+            <span>/</span>
+            <Link to="/company" className="hover:text-white transition-colors duration-150 ease-out">About Us</Link>
+            <span>/</span>
+            <Link to="/management" className="hover:text-white transition-colors duration-150 ease-out">Management</Link>
+            <span>/</span>
             <span className="text-white">{person.name}</span>
           </nav>
 
-          <p className="text-sm font-semibold uppercase tracking-widest text-cyan-200">
+          <p className="text-xs font-bold uppercase tracking-wider text-cyan-200">
             Management Profiles
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
+          <h1 className="mt-2.5 font-display text-3xl font-bold tracking-[-0.025em] sm:text-4xl md:text-5xl">
             {person.name}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-gray-200">
+          <p className="mt-3 max-w-2xl text-base text-slate-200/85 sm:text-lg leading-[1.6]">
             {person.role}
           </p>
         </div>
@@ -106,12 +106,12 @@ export default function Profile() {
 
       {/* PHOTO + BIO */}
       <section className="mx-auto max-w-[1300px] px-6 py-16 md:px-12">
-        <div className="grid gap-10 md:grid-cols-[300px_1fr] md:gap-16 lg:grid-cols-[360px_1fr]">
+        <div className="grid gap-10 md:grid-cols-[300px_1fr] md:gap-16 lg:grid-cols-[340px_1fr]">
           {/* photo */}
           <div className="md:sticky md:top-28 md:self-start">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#102b50] to-[#168bc4] shadow-[0_20px_60px_rgba(16,43,80,0.15)]">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-slate-200/80 bg-[#102b50]">
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-7xl font-bold text-white/90">{initials}</span>
+                <span className="text-6xl font-bold text-white/90">{initials}</span>
               </div>
               {imageSrc && (
                 <img
@@ -127,7 +127,7 @@ export default function Profile() {
           </div>
 
           {/* bio */}
-          <div className="space-y-5 text-base leading-8 text-gray-700 md:text-[17px]">
+          <div className="space-y-5 text-base leading-[1.65] text-pretty text-[#172b4d]/85 md:text-[17px]">
             {paragraphs.length > 0 ? (
               paragraphs.map((line, i) =>
                 line.startsWith("•") ? (
@@ -140,10 +140,10 @@ export default function Profile() {
               <p>Biography coming soon.</p>
             )}
 
-            <div className="pt-6">
+            <div className="pt-6 border-t border-slate-200/80">
               <Link
                 to="/management"
-                className="inline-flex items-center gap-2 rounded-full bg-[#168bc4] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#102b50]"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#168bc4] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 ease-out hover:bg-[#102b50]"
               >
                 ← Back to Management
               </Link>

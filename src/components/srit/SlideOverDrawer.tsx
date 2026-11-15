@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, CheckCircle2, Building2, TrendingUp, Layers } from "lucide-react";
+import { X } from "lucide-react";
 import { HeroSolutionCard } from "../../data/blueprint/heroCardsData";
 
 interface SlideOverDrawerProps {
@@ -46,47 +46,57 @@ export function SlideOverDrawer({ card, isOpen, onClose }: SlideOverDrawerProps)
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
 
-          <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
+          <div className="fixed inset-y-0 right-0 flex max-w-full pl-6 sm:pl-12">
             {/* Drawer Panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 280 }}
-              className="w-screen max-w-2xl bg-white shadow-2xl flex flex-col"
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              className="w-screen max-w-2xl bg-white shadow-xl flex flex-col sm:rounded-l-xl overflow-hidden border-l border-slate-200/80"
             >
               {/* Header */}
-              <div className="border-b border-slate-200 bg-[#102b50] px-6 py-6 text-white sm:px-8">
-                <div className="flex items-start justify-between">
+              <div className="border-b border-slate-200/80 bg-white px-6 pt-6 pb-0 sm:px-8">
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="inline-block rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-                      {card.badge}
-                    </span>
-                    <h2 className="mt-2.5 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <span className="font-bold uppercase tracking-wider text-[#079fdf]">
+                        {card.badge}
+                      </span>
+                      <span className="text-slate-300" aria-hidden="true">•</span>
+                      <span className="font-medium text-[#172b4d]/55">
+                        SRIT India Limited • Architecture Specification
+                      </span>
+                    </div>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-[-0.025em] text-[#102b50] sm:text-3xl leading-snug text-balance">
                       {card.title}
                     </h2>
+                    <p className="mt-1.5 text-sm text-[#172b4d]/75 leading-relaxed">
+                      {card.cardTeaser}
+                    </p>
                   </div>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="rounded-lg p-2 text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+                    aria-label="Close drawer"
+                    className="h-9 w-9 shrink-0 rounded-lg border border-slate-200/80 bg-[#fafbfc] hover:bg-slate-100 text-[#172b4d]/60 hover:text-[#102b50] transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf] flex items-center justify-center mt-1"
                   >
-                    <X className="h-5 w-5" />
+                    <X className="h-4 w-4" />
                   </button>
                 </div>
 
-                {/* Tabs */}
-                <div className="mt-6 flex border-b border-white/15 text-sm">
+                {/* Architectural Underline Tabs */}
+                <div className="mt-6 flex gap-6 border-t border-slate-100 pt-1">
                   <button
                     type="button"
                     onClick={() => setActiveTab("overview")}
-                    className={`pb-3 font-medium transition-colors border-b-2 mr-6 ${
+                    className={`relative -mb-px border-b-2 pb-3 pt-2.5 text-xs sm:text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf] rounded-t-sm ${
                       activeTab === "overview"
-                        ? "border-[#079fdf] text-white"
-                        : "border-transparent text-white/60 hover:text-white"
+                        ? "border-[#079fdf] text-[#102b50]"
+                        : "border-transparent text-[#172b4d]/60 hover:text-[#102b50]"
                     }`}
                   >
                     Overview
@@ -94,21 +104,21 @@ export function SlideOverDrawer({ card, isOpen, onClose }: SlideOverDrawerProps)
                   <button
                     type="button"
                     onClick={() => setActiveTab("suite")}
-                    className={`pb-3 font-medium transition-colors border-b-2 mr-6 ${
+                    className={`relative -mb-px border-b-2 pb-3 pt-2.5 text-xs sm:text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf] rounded-t-sm ${
                       activeTab === "suite"
-                        ? "border-[#079fdf] text-white"
-                        : "border-transparent text-white/60 hover:text-white"
+                        ? "border-[#079fdf] text-[#102b50]"
+                        : "border-transparent text-[#172b4d]/60 hover:text-[#102b50]"
                     }`}
                   >
-                    Products & Technology
+                    Platform Suite
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab("deployments")}
-                    className={`pb-3 font-medium transition-colors border-b-2 ${
+                    className={`relative -mb-px border-b-2 pb-3 pt-2.5 text-xs sm:text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#079fdf] rounded-t-sm ${
                       activeTab === "deployments"
-                        ? "border-[#079fdf] text-white"
-                        : "border-transparent text-white/60 hover:text-white"
+                        ? "border-[#079fdf] text-[#102b50]"
+                        : "border-transparent text-[#172b4d]/60 hover:text-[#102b50]"
                     }`}
                   >
                     Deployments
@@ -117,28 +127,32 @@ export function SlideOverDrawer({ card, isOpen, onClose }: SlideOverDrawerProps)
               </div>
 
               {/* Body */}
-              <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6 bg-slate-50/60">
+              <div className="flex-1 overflow-y-auto px-6 py-7 sm:px-8 bg-white">
                 {activeTab === "overview" && (
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                     <div>
-                      <h4 className="font-display text-lg font-bold text-[#102b50]">
+                      <h4 className="font-display text-lg font-bold tracking-[-0.02em] text-[#102b50] leading-snug text-balance">
                         {card.drawer.headlineTitle}
                       </h4>
-                      <p className="mt-3 text-base leading-relaxed text-slate-700">
+                      <p className="mt-3 text-[15px] leading-[1.65] text-[#172b4d]/75 text-pretty">
                         {card.drawer.strategicNarrative}
                       </p>
                     </div>
 
-                    {/* Delivery Metrics */}
-                    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                      <div className="flex items-center gap-2 text-[#079fdf] font-semibold text-sm">
-                        <TrendingUp className="h-4 w-4" /> Proven Scale & Impact
+                    <div className="border-t border-slate-200/80 pt-6">
+                      <div className="text-[#079fdf] font-bold text-xs uppercase tracking-wider">
+                        Proven Scale &amp; Impact
                       </div>
-                      <div className="mt-4 space-y-3">
+                      <div className="mt-3 divide-y divide-slate-200/80 border-y border-slate-200/80">
                         {card.drawer.provenMetrics.map((metric, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
-                            <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                            <span className="text-sm font-medium text-slate-800">{metric}</span>
+                          <div
+                            key={idx}
+                            className="flex items-start gap-3.5 py-3.5"
+                          >
+                            <span className="mt-2.5 h-px w-3 bg-[#079fdf] shrink-0" />
+                            <span className="text-sm font-semibold tabular-nums text-[#102b50] leading-snug">
+                              {metric}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -148,19 +162,25 @@ export function SlideOverDrawer({ card, isOpen, onClose }: SlideOverDrawerProps)
 
                 {activeTab === "suite" && (
                   <div className="space-y-4">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                      <Layers className="h-4 w-4 text-[#079fdf]" /> Proprietary Platforms
-                    </h3>
-                    <div className="grid gap-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#172b4d]/55">
+                        Proprietary Software Suites
+                      </span>
+                      <span className="text-xs text-[#079fdf] font-semibold tabular-nums">
+                        {card.drawer.proprietarySuite.length} Platforms
+                      </span>
+                    </div>
+
+                    <div className="divide-y divide-slate-200/80 border-y border-slate-200/80">
                       {card.drawer.proprietarySuite.map((product, idx) => (
                         <div
                           key={idx}
-                          className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+                          className="py-5 sm:grid sm:grid-cols-12 sm:gap-6"
                         >
-                          <h4 className="font-display font-bold text-[#102b50] text-base">
+                          <h4 className="sm:col-span-5 font-display text-[15px] font-bold text-[#102b50] leading-snug">
                             {product.name}
                           </h4>
-                          <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
+                          <p className="mt-1.5 sm:mt-0 sm:col-span-7 text-sm leading-[1.6] text-[#172b4d]/75 text-pretty">
                             {product.description}
                           </p>
                         </div>
@@ -171,19 +191,25 @@ export function SlideOverDrawer({ card, isOpen, onClose }: SlideOverDrawerProps)
 
                 {activeTab === "deployments" && (
                   <div className="space-y-4">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                      <Building2 className="h-4 w-4 text-[#079fdf]" /> Key State & National Deployments
-                    </h3>
-                    <div className="grid gap-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#172b4d]/55">
+                        Spotlight Deployments
+                      </span>
+                      <span className="text-xs text-[#079fdf] font-semibold">
+                        Population Scale
+                      </span>
+                    </div>
+
+                    <div className="divide-y divide-slate-200/80 border-y border-slate-200/80">
                       {card.drawer.spotlightDeployments.map((dep, idx) => (
                         <div
                           key={idx}
-                          className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+                          className="py-5"
                         >
-                          <span className="inline-block rounded bg-sky-50 px-2 py-0.5 text-xs font-semibold text-[#079fdf]">
+                          <h4 className="font-display text-base font-bold text-[#102b50] leading-snug">
                             {dep.client}
-                          </span>
-                          <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                          </h4>
+                          <p className="mt-1.5 text-sm tabular-nums leading-[1.6] text-[#172b4d]/75 text-pretty">
                             {dep.details}
                           </p>
                         </div>
@@ -191,20 +217,6 @@ export function SlideOverDrawer({ card, isOpen, onClose }: SlideOverDrawerProps)
                     </div>
                   </div>
                 )}
-              </div>
-
-              {/* Footer */}
-              <div className="border-t border-slate-200 bg-white px-6 py-4 flex items-center justify-between">
-                <span className="text-xs text-slate-500">
-                  SRIT India Limited
-                </span>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="rounded-lg bg-[#102b50] px-4 py-2 text-xs font-semibold text-white hover:bg-[#092b55] transition-colors"
-                >
-                  Close
-                </button>
               </div>
             </motion.div>
           </div>

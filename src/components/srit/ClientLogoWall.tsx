@@ -1,76 +1,79 @@
-import { useState } from "react";
-import { motion } from "motion/react";
-import { CLIENT_ROSTER, CLIENT_ROSTER_CATEGORIES } from "../../data/blueprint/clientsData";
+import { img } from "./assets";
+
+const SRIT_CLIENT_LOGOS = [
+  { name: "Kerala Fibre Optic Network (KFON)", asset: "srit c.webp" },
+  { name: "Govt. of Andhra Pradesh (Health, Medical & Family Welfare)", asset: "srit c1.webp" },
+  { name: "Employees' State Insurance Corporation (ESIC)", asset: "srit c4.webp" },
+  { name: "RailTel Corporation of India (RailWire)", asset: "srit c9.webp" },
+  { name: "Boston Consulting Group (BCG)", asset: "srit c6.webp" },
+  { name: "Baxter International", asset: "srit c8.webp" },
+  { name: "National Kidney and Transplant Institute, Philippines", asset: "srit c2.webp" },
+  { name: "Ooredoo Qatar", asset: "srit c3.webp" },
+  { name: "Al Salam Specialist Hospital", asset: "srit c5.webp" },
+  { name: "PIMS Medical & Education Charitable Society", asset: "srit c7.webp" },
+];
+
+const MARQUEE_LOGOS = [...SRIT_CLIENT_LOGOS, ...SRIT_CLIENT_LOGOS];
 
 export function ClientLogoWall() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All Clients");
-
-  const filteredClients =
-    selectedCategory === "All Clients"
-      ? CLIENT_ROSTER
-      : CLIENT_ROSTER.filter((c) => c.category === selectedCategory);
-
   return (
-    <section id="clients" className="py-20 bg-slate-50/60 text-[#172b4d]">
-      <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
-        
+    <section
+      id="clients"
+      className="border-b border-gray-200 bg-white py-20 text-[#172b4d] sm:py-24"
+    >
+      <style>{`
+        @keyframes client-marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-client-marquee {
+          animation: client-marquee-scroll 38s linear infinite;
+        }
+        .animate-client-marquee:hover {
+          animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-client-marquee {
+            animation: none;
+          }
+        }
+      `}</style>
+
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-3xl mb-10">
-          <h2 className="font-display text-3xl font-bold text-[#102b50] sm:text-4xl">
-            Key Clients & Public Institutions
-          </h2>
-          <p className="mt-3 text-base text-slate-600 leading-relaxed">
-            Powering critical public infrastructure, statewide connectivity highways, and multi-tier hospital networks.
+        <div className="mb-10 max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#079fdf]">
+            Institutional Partnerships
           </p>
+          <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-[#102b50] text-balance sm:text-4xl">
+            Trusted by Sovereign Governments &amp; Enterprises
+          </h2>
         </div>
 
-        {/* Minimal Category Tabs */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {CLIENT_ROSTER_CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setSelectedCategory(cat)}
-              className={`rounded-lg px-4 py-1.5 text-xs font-semibold transition-all duration-200 ${
-                selectedCategory === cat
-                  ? "bg-[#102b50] text-white shadow-sm"
-                  : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Continuous Full-Colour Logo Marquee */}
+        <div className="w-full rounded-xl border border-gray-200 bg-[#fafbfc] p-2">
+          <div className="relative overflow-hidden rounded-lg bg-white py-5 sm:py-6">
+            <div className="flex w-max animate-client-marquee items-center">
+              {MARQUEE_LOGOS.map((logo, index) => (
+                <div
+                  key={`${logo.asset}-${index}`}
+                  className="flex h-20 w-[200px] shrink-0 items-center justify-center px-8 sm:h-24 sm:w-[240px] sm:px-10"
+                  title={logo.name}
+                  aria-hidden={index >= SRIT_CLIENT_LOGOS.length ? true : undefined}
+                >
+                  <img
+                    src={img(logo.asset)}
+                    alt={index >= SRIT_CLIENT_LOGOS.length ? "" : logo.name}
+                    className="h-16 w-auto max-w-full object-contain sm:h-20"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent sm:w-16" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent sm:w-16" />
+          </div>
         </div>
-
-        {/* Client Cards Grid */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {filteredClients.map((client, idx) => (
-            <motion.div
-              key={client.name}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (idx % 8) * 0.03, duration: 0.35 }}
-              className="flex flex-col justify-between rounded-xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#079fdf]/50 hover:shadow-md"
-            >
-              <div>
-                <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#079fdf]">
-                  {client.category}
-                </span>
-                <h4 className="mt-1.5 font-display text-sm font-bold text-[#102b50]">
-                  {client.name}
-                </h4>
-              </div>
-
-              {client.shortDescription && (
-                <p className="mt-3 text-xs leading-relaxed text-slate-500 border-t border-slate-100 pt-2.5">
-                  {client.shortDescription}
-                </p>
-              )}
-            </motion.div>
-          ))}
-        </div>
-
       </div>
     </section>
   );

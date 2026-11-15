@@ -1070,6 +1070,62 @@ export const SEARCH_INDEX: SearchItem[] = [
     metadata: { iconName: "Briefcase", targetId: "industries" }
   },
   {
+    id: "page-industry-healthcare",
+    title: "Healthcare IT Vertical Page & Brochures",
+    category: "pages",
+    categoryLabel: "Industry Verticals",
+    subCategory: "Healthcare IT",
+    description:
+      "Dedicated page for SRIT Healthcare IT: RHES, AbHIS, Homing, Infinity PACS, SiaH brochures, NABH & ABDM validations, and practice highlights.",
+    keywords: ["healthcare vertical", "healthcare page", "rhes", "abhis", "homing", "infinity pacs", "siah", "nabh", "abdm"],
+    badge: "Healthcare",
+    url: "/industries/healthcare",
+    actionType: "route",
+    metadata: { iconName: "Activity" }
+  },
+  {
+    id: "page-industry-egovernance",
+    title: "e-Governance & Smart Cities Vertical Page",
+    category: "pages",
+    categoryLabel: "Industry Verticals",
+    subCategory: "e-Governance",
+    description:
+      "Dedicated page for e-Governance & Smart Cities: E-District, eCIVIC, PlanPermit, AgniPermit, Litigation Management Software, and brochures.",
+    keywords: ["egovernance page", "e-governance vertical", "smart cities", "edistrict", "ecivic", "planpermit", "agnipermit", "lms"],
+    badge: "e-Governance",
+    url: "/industries/egovernance",
+    actionType: "route",
+    metadata: { iconName: "Landmark" }
+  },
+  {
+    id: "page-industry-telecom",
+    title: "Telecom & Broadband Vertical Page",
+    category: "pages",
+    categoryLabel: "Industry Verticals",
+    subCategory: "Telecom & Broadband",
+    description:
+      "Dedicated page for Telecom & Broadband: R-Converge BSS/OSS, R-Connect Billing, SWAN & IP-MPLS Networks, and turnkey OFC deployment.",
+    keywords: ["telecom page", "telecom vertical", "broadband", "r-converge", "r-connect", "swan", "ip-mpls", "ofc", "bharatnet"],
+    badge: "Telecom",
+    url: "/industries/telecom",
+    actionType: "route",
+    metadata: { iconName: "Wifi" }
+  },
+  {
+    id: "page-industry-cybersecurity",
+    title: "Cyber Security & Sovereign Cloud Vertical Page",
+    category: "pages",
+    categoryLabel: "Industry Verticals",
+    subCategory: "Cyber Security",
+    description:
+      "Dedicated page for Cyber Security & Sovereign Cloud: Security Products, Managed Security Services (SOC/VAPT), DPDP Act & CERT-In governance, and #IndiaCloud.",
+    keywords: ["cybersecurity page", "cyber security vertical", "sovereign cloud", "csoc", "vapt", "dpdp act", "cert-in", "iso 27001"],
+    badge: "Cyber Security",
+    url: "/industries/cybersecurity",
+    actionType: "route",
+    metadata: { iconName: "ShieldCheck" }
+  },
+  {
     id: "page-careers",
     title: "Careers at SRIT - AI & Digital Public Infrastructure",
     category: "pages",
