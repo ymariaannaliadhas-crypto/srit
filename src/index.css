@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.buy-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.buy-button::before {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  top: 50%;
+  left: var(--mouse-x, 50%);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 115, 0, 0.95) 0%,
+    rgba(255, 65, 0, 0.5) 40%,
+    transparent 75%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.buy-button:hover::before {
+  opacity: 1;
+}
+
+.buy-button > span {
+  position: relative;
+  z-index: 1;
+}
+
+.buy-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.buy-button:hover .buy-arrow {
+  transform: translateX(6px);
+}
