@@ -15,6 +15,8 @@ import {
   SearchPlans,
   Blogs,
   Testimonials,
+  ClientLogoWall,   // <── ADDED
+  CareersSection,   // <── ADDED
 } from "./Sections";
 
 export default function HomePage() {
@@ -84,6 +86,8 @@ export default function HomePage() {
       <PartnerAndPlans />
       <SearchPlans />
       <Blogs />
+      <ClientLogoWall />   {/* <── ADDED */}
+      <CareersSection />   {/* <── ADDED */}
       <Testimonials />
     </main>
   );
