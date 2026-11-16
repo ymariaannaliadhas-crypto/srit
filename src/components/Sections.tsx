@@ -959,10 +959,9 @@ export function FutureProjects() {
         <div className="relative mx-auto flex max-w-[1600px] flex-col items-center px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="mb-10 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3.5 py-1 text-xs font-semibold text-cyan-300">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Upcoming Initiatives & Strategic Roadmap</span>
-            </div>
+           <Eyebrow center both>
+  Upcoming Initiatives & Strategic Roadmap
+</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               Our Future <span className="text-[#168bc4]">Projects</span>
             </h2>
@@ -1096,7 +1095,7 @@ export function FutureProjects() {
             <div className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/20 bg-[#13194a]/90 px-4 py-2 text-xs text-cyan-200 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
               <span>
-                <strong>Placeholder Wireframe Active:</strong> Click any initiative node to explore roadmap specifications. Detailed pipeline inputs pending from SRIT Strategy Team.
+                <strong></strong> Click any initiative node to explore roadmap specifications. Detailed pipeline inputs pending from SRIT Strategy Team.
               </span>
             </div>
           </div>
@@ -1269,10 +1268,9 @@ export function AiNativeEngineering() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Left Column: Headline & Intro */}
             <Reveal x={-40} y={0}>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#079fdf]/30 bg-[#079fdf]/10 px-3.5 py-1 text-xs font-semibold text-[#079fdf]">
-                <BrainCircuit className="h-3.5 w-3.5" />
-                <span>AI-Native Engineering</span>
-              </div>
+<Eyebrow center both>
+  AI-Native Engineering
+</Eyebrow>
 
               <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-[#102b50] sm:text-4xl lg:text-5xl lg:leading-[1.15]">
                 Moving from Reactive Software to{" "}
@@ -1314,9 +1312,9 @@ export function AiNativeEngineering() {
                       <p className="text-xs text-slate-500">Autonomous Execution Architecture</p>
                     </div>
                   </div>
-                  <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
+                  {/*<span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
                     Active in Production
-                  </span>
+                  </span>*/}
                 </div>
 
                 {/* Quote Teaser */}
@@ -2240,10 +2238,9 @@ export function ClientLogoWall() {
       {/* Section Header */}
       <div className="relative mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8 mb-6">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#079fdf]/30 bg-[#079fdf]/10 px-3.5 py-1 text-xs font-semibold text-[#079fdf]">
-            <Award className="h-3.5 w-3.5" />
-            <span>Trusted by Industry Leaders & Governments</span>
-          </div>
+          <Eyebrow center both>
+  Trusted by Industry Leaders & Governments
+</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-[#102b50] sm:text-4xl">
             Clients <span className="text-[#079fdf]">Logo Wall</span>
           </h2>
@@ -2348,10 +2345,10 @@ export function CareersSection() {
           <div className="mx-auto w-full max-w-[1300px] px-6 sm:px-8 lg:px-12">
             <div className="max-w-[600px]">
               {/* Eyebrow */}
-              <div className="mb-5 inline-flex items-center gap-2 rounded-sm border-l-2 border-[#079fdf] bg-[#079fdf]/10 pl-3 pr-4 py-1.5 backdrop-blur-sm">
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#79d4f7]">
-                  Careers at SRIT India
-                </span>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-sm ">
+                <Eyebrow center both>
+  Careers at SRIT
+</Eyebrow>
               </div>
 
               {/* Headline */}
@@ -2417,10 +2414,6 @@ export function CareersSection() {
               <h3 className="mt-1 text-2xl sm:text-3xl font-extrabold text-[#102b50] tracking-tight">
                 Choose your impact area
               </h3>
-            </div>
-            <div className="ml-auto hidden sm:flex items-center gap-2 text-sm text-slate-500">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              Actively hiring across all tracks
             </div>
           </div>
 

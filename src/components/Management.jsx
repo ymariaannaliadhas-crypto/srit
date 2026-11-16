@@ -496,21 +496,16 @@ export default function Management() {
       <AnimatedManagementHierarchy />
 
       {/* CONTACT CTA */}
-      <section
-        className="relative bg-cover bg-center bg-no-repeat text-white"
-        style={{
-          backgroundImage: "url('/images/management.jpeg')",
-        }}
-      >
-        <div className="mx-auto flex max-w-[1300px] flex-col items-start justify-between gap-6 px-6 py-14 md:flex-row md:items-center md:px-12">
-          <div>
-            <h2 className="text-2xl font-bold md:text-3xl">
-              Want to work with our leadership?
-            </h2>
-            <p className="mt-2 text-gray-300">
-              Reach out to discuss partnerships, investments or careers.
-            </p>
-          </div>
+<section className="relative bg-[#102b50] text-white">
+  <div className="mx-auto flex max-w-[1300px] flex-col items-start justify-between gap-6 px-6 py-14 md:flex-row md:items-center md:px-12">
+    <div>
+      <h2 className="text-2xl font-bold md:text-3xl">
+        Want to work with our leadership?
+      </h2>
+      <p className="mt-2 text-gray-300">
+        Reach out to discuss partnerships, investments or careers.
+      </p>
+    </div>
 
           <a
             href="/contact-us"
