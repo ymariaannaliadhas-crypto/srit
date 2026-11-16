@@ -19,6 +19,7 @@ export function Hero() {
   const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [showHeroContent, setShowHeroContent] = useState(false);
 
   // Rotate suggestion text every 2.4s
   useEffect(() => {
@@ -27,6 +28,14 @@ export function Hero() {
     }, 2400);
     return () => clearInterval(t);
   }, []);
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowHeroContent(true);
+  }, 5000);
+
+  return () => clearTimeout(timer);
+}, []);
 
   // Global Ctrl+K / Cmd+K
   useEffect(() => {
@@ -61,43 +70,46 @@ export function Hero() {
           {/* Dark overlay */}
           <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/85 via-black/45 to-black/20" />
 
-          {/* Hero content */}
-          <div className="relative z-10 mx-auto w-full max-w-[1300px] px-4 text-center sm:px-6 lg:px-8">
-            <div className="flex flex-col items-center">
+{/* Hero content */}
+{/* Hero content */}
+<div className="relative z-10 mx-auto w-full max-w-[1300px] px-4 text-center sm:px-6 lg:px-8">
+  <div className="flex flex-col items-center">
 
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8, ease }}
-                className="font-display text-2xl font-semibold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight"
-              >
-                Revolutionizing Healthcare and Beyond
-              </motion.h1>
+    {/* Hero Heading */}
+<motion.h1
+  initial={{ opacity: 0, y: 35 }}
+  animate={showHeroContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+  transition={{ duration: 1.5, ease }}
+  className="font-display text-2xl font-semibold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight"
+>
+      Revolutionizing Healthcare and Beyond
+    </motion.h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.8, ease }}
-                className="mt-2 w-full text-sm leading-relaxed text-white/80 md:leading-7"
-              >
-                Since 1999, SRIT has been at the forefront of innovation,
-                transforming industries such as Healthcare, eGovernance, and
-                Telecoms. We are proud to announce that our flagship products – the
-                Hospital Management Information Suite (HMIS/HIS) and the
-                Electronic Medical Record (EMR) – are certified by the National
-                Accreditation Board for Hospitals (NABH) under the esteemed
-                Government of India. This endorsement underscores our commitment
-                to delivering exceptional quality solutions and improving
-                healthcare delivery across the nation.
-              </motion.p>
+    {/* Hero Description */}
+<motion.p
+  initial={{ opacity: 0, y: 35 }}
+  animate={showHeroContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+  transition={{ duration: 1.5, delay: 1.5, ease }}
+  className="mt-2 w-full text-sm leading-relaxed text-white/80 md:leading-7"
+>
+      Since 1999, SRIT has been at the forefront of innovation,
+      transforming industries such as Healthcare, eGovernance, and
+      Telecoms. We are proud to announce that our flagship products –
+      the Hospital Management Information Suite (HMIS/HIS) and the
+      Electronic Medical Record (EMR) – are certified by the National
+      Accreditation Board for Hospitals (NABH) under the esteemed
+      Government of India. This endorsement underscores our commitment
+      to delivering exceptional quality solutions and improving
+      healthcare delivery across the nation.
+    </motion.p>
 
               {/* ── AI SEARCH BAR ── */}
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.65, duration: 0.8, ease }}
-                className="mt-7 w-full max-w-[680px]"
-              >
+  initial={{ opacity: 0, y: 35 }}
+  animate={showHeroContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+  transition={{ duration: 1.5, delay: 3, ease }}
+  className="mt-7 w-full max-w-[680px]"
+>
                 {/* Glow ring behind the bar */}
                 <div className="relative">
                   <div className="pointer-events-none absolute -inset-[3px] rounded-2xl bg-gradient-to-r from-[#079fdf]/60 via-[#38bdf8]/40 to-[#079fdf]/60 blur-sm opacity-70" />

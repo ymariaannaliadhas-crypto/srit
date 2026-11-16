@@ -1821,26 +1821,186 @@ export function Testimonials() {
 
 export function AIChatButton() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
-    { role: "bot", text: "Hi! I'm SRIT's AI assistant. How can I help you today?" },
+  const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string; typing?: boolean }[]>([
+    {
+      role: "bot",
+      text: "👋 Hi! I'm SRIT's AI assistant. Ask me anything about our products, services, investors, certifications, projects, or careers.",
+    },
   ]);
   const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // ── Knowledge base ──────────────────────────────────────────
+  const KB: { patterns: RegExp[]; answer: string }[] = [
+    {
+      patterns: [/hmis|his|hospital management|hospital information/i],
+      answer:
+        "SRIT's Hospital Management Information Suite (HMIS/HIS) is deployed across 2,000+ hospitals and OPD clinics in 20+ countries. It covers patient registration, OPD/IPD workflows, billing, pharmacy, lab, radiology, and more — NABH certified under the Government of India.",
+    },
+    {
+      patterns: [/emr|electronic medical record/i],
+      answer:
+        "Our Electronic Medical Record (EMR) system is NABH certified and ABDM ready. It supports interoperability with FHIR, integrates with PACS, and is deployed across thousands of hospital beds. It is part of our Renaissance Health Enterprise Suite (RHES).",
+    },
+    {
+      patterns: [/nabh|certification|accreditation|certified/i],
+      answer:
+        "SRIT's RHES (Renaissance Health Enterprise Suite) and EMR have received national quality accreditation — NABH certification — under the Government of India. This validates clinical-grade security, ABDM readiness, and full interoperability across our health platform.",
+    },
+    {
+      patterns: [/kfon|kerala fiber|broadband|r-converge/i],
+      answer:
+        "SRIT powers the KFON Digital Highway — connecting 30,000+ government institutions across Kerala. Our R-Converge OSS/BSS platform manages subscriber onboarding, automated billing, and partner reconciliations for this statewide broadband grid, in consortium with BEL.",
+    },
+    {
+      patterns: [/bsnl|telecom|noc|network operating|bss|oss/i],
+      answer:
+        "SRIT powers BSNL's Next-Generation Network Operating Centre (NOC). Our BSS/OSS network platforms manage core operations and inter-operator settlement for India's national telecom backbone. We are a key partner in India's sovereign telecom infrastructure.",
+    },
+    {
+      patterns: [/safe|traffic|computer vision|cv|highway|violation|enforcement/i],
+      answer:
+        "The SAFE Kerala AI Traffic Network, built by SRIT, logged over 350,000 violations in just 72 hours using real-time edge computer-vision algorithms deployed across highway corridors. This benchmark is now being evaluated by neighboring states.",
+    },
+    {
+      patterns: [/edge|inference|<20ms|latency/i],
+      answer:
+        "SRIT's edge AI achieves sub-20ms inference latency — enabling real-time computer vision for traffic enforcement, surveillance, and industrial monitoring without cloud round-trips. This ultra-low latency is benchmarked on the SAFE Kerala highway deployment.",
+    },
+    {
+      patterns: [/mp|madhya pradesh|e-nagar|municipality|urban|ulb/i],
+      answer:
+        "SRIT built the MP e-Nagar Palika 2.0 platform, unifying municipal operations across all 417 Urban Local Bodies (ULBs) in Madhya Pradesh. This project won the prestigious National e-Governance Award for digital trust and delivery efficiency.",
+    },
+    {
+      patterns: [/e-governance|egovernance|governance|agni|permit|district/i],
+      answer:
+        "SRIT's e-Governance suite includes platforms for urban local bodies, permit management (AgniPermit), e-District services, and state-level digital public infrastructure. Our MP e-Nagar Palika project won a National e-Governance Award.",
+    },
+    {
+      patterns: [/ipo|nse|bse|listed|stock|share|218|public offering/i],
+      answer:
+        "SRIT India Limited made its historic debut on both the NSE and BSE on October 6, 2026, following an oversubscribed ₹218.40 crore IPO. The capital raised is being deployed toward next-gen healthcare platforms, public AI systems, and working capital scale.",
+    },
+    {
+      patterns: [/investor|investment|annual report|financial|revenue|profit/i],
+      answer:
+        "SRIT is listed on NSE and BSE (October 2026, ₹218 Cr IPO). For investor information — financials, annual reports, management commentary, and ESG disclosures — visit the Investors section on our website or navigate to /investor.",
+    },
+    {
+      patterns: [/iit|pravartak|r&d|research|academic|edge.*ai|forensic/i],
+      answer:
+        "SRIT has entered a strategic deep-tech partnership with IIT Pravartak Foundation to co-engineer sovereign databases and edge-AI modules for forensic analysis and healthcare diagnostics — advancing academic-industrial R&D at population scale.",
+    },
+    {
+      patterns: [/l&t|larsen|toubro|cloud|sovereign cloud|srit cloud/i],
+      answer:
+        "SRIT partnered with Larsen & Toubro (L&T) to launch SRIT Cloud — a sovereign enterprise hosting backbone. Together we showcased automated computer vision and high-performance infrastructure solutions at the AI Impact Summit.",
+    },
+    {
+      patterns: [/cmmi|cmmi level 5|process maturity|quality/i],
+      answer:
+        "SRIT holds CMMI Level 5 certification — the highest process maturity in software engineering. We also hold ISO 9001, ISO 27001, ISO 20000, ISO 14001, ISO 27034, and ISO 45001 certifications.",
+    },
+    {
+      patterns: [/iso|certification|standard/i],
+      answer:
+        "SRIT is certified under CMMI Level 5, ISO 9001 (Quality), ISO 27001 (Information Security), ISO 20000 (IT Service Management), ISO 14001 (Environment), ISO 27034 (Application Security), and ISO 45001 (OH&S).",
+    },
+    {
+      patterns: [/career|job|hiring|recruit|position|vacancy|work.*srit|join/i],
+      answer:
+        "SRIT is actively hiring across AI Engineering, Cloud Architecture, Computer Vision, Digital Health, Telecom BSS/OSS, and Enterprise Delivery. We are a CMMI Level 5 organisation with 20+ countries of reach. Email careers@sritindia.in or visit our Careers section.",
+    },
+    {
+      patterns: [/contact|email|phone|address|office|reach/i],
+      answer:
+        "📧 info@sritindia.com\n🌐 www.sritindia.in\n📍 Hyderabad, India (HQ)\n\nFor sales enquiries, partnerships, or project discussions, visit our Contact Us page at /contact-us.",
+    },
+    {
+      patterns: [/healthcare|health|hospital|patient|clinical|rhes|pacs/i],
+      answer:
+        "SRIT's Digital Health suite — RHES, HMIS/HIS, EMR, PACS — powers 2,000+ hospitals and OPD clinics across 20+ countries, with 300 million+ EMR experiences to date and 200,000+ active users. All products are NABH certified and ABDM ready.",
+    },
+    {
+      patterns: [/nimhans|esic|ap health|west bengal|ck birla|railtel/i],
+      answer:
+        "SRIT serves major institutions including NIMHANS, ESIC, AP Health, West Bengal Health, CK Birla Hospitals, RailTel, BSNL, SBI, KFON, Keltron, Maharashtra DFSL, TÜV Rheinland, BCG, and Defence OFB — across healthcare, telecom, banking, and governance.",
+    },
+    {
+      patterns: [/about|who.*srit|what.*srit|founded|1999|history/i],
+      answer:
+        "SRIT (Systems Research and Information Technology) India Limited was founded in 1999 and is headquartered in Hyderabad, India. For 25+ years, SRIT has built mission-critical platforms across Digital Health, e-Governance, Telecom, AI, and Cybersecurity — serving 20+ countries and listed on NSE & BSE.",
+    },
+    {
+      patterns: [/product|solution|platform|suite/i],
+      answer:
+        "SRIT's key product suites include:\n• 🏥 RHES / HMIS / EMR — Digital Health\n• 🏛️ e-Nagar Palika / AgniPermit — e-Governance\n• 📡 R-Converge — Telecom OSS/BSS\n• 🤖 SAFE AI — Edge Computer Vision\n• ☁️ SRIT Cloud — Sovereign Hosting\n• 🛡️ Cyber Resilience Suite",
+    },
+    {
+      patterns: [/cyber|security|cybersecurity|firewall|threat/i],
+      answer:
+        "SRIT's Cyber Resilience practice delivers sovereign security solutions for government and enterprise — covering threat intelligence, SOC operations, compliance (ISO 27001, 27034), and secure application architecture for population-scale platforms.",
+    },
+    {
+      patterns: [/col.*oberoi|oberoi|board|director|governance|carnot/i],
+      answer:
+        "Col. Amit Oberoi, Co-Founder & CEO of Carnot Research, has joined SRIT's Board of Directors to guide the company's growth in autonomous enterprise AI and deep-tech government solutions.",
+    },
+    {
+      patterns: [/hello|hi|hey|good morning|good afternoon|good evening/i],
+      answer:
+        "Hello! 👋 I'm SRIT's AI assistant. I can answer questions about our products (HMIS, EMR, KFON), services, investor relations, certifications, projects, or careers. What would you like to know?",
+    },
+    {
+      patterns: [/thank|thanks|thank you/i],
+      answer:
+        "You're welcome! 😊 Feel free to ask anything else about SRIT's solutions, projects, or how we can help your organisation.",
+    },
+  ];
+
+  const getAnswer = (query: string): string => {
+    const q = query.toLowerCase();
+    for (const entry of KB) {
+      if (entry.patterns.some((p) => p.test(q))) {
+        return entry.answer;
+      }
+    }
+    // Fallback
+    return `I don't have a specific answer for "${query}" yet, but our team can help!\n\n📧 info@sritindia.com\n🌐 /contact-us\n\nOr try asking about: HMIS, EMR, KFON, BSNL, IPO, careers, certifications, or our AI projects.`;
+  };
+
+  // Auto-scroll to bottom on new message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
 
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     const text = input.trim();
-    if (!text) return;
+    if (!text || isTyping) return;
 
     setMessages((prev) => [...prev, { role: "user", text }]);
     setInput("");
+    setIsTyping(true);
 
+    // Simulate AI thinking delay (400–900ms)
+    const delay = 400 + Math.random() * 500;
     setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { role: "bot", text: "Thanks for your message! A member of our team will be in touch shortly." },
-      ]);
-    }, 600);
+      const answer = getAnswer(text);
+      setIsTyping(false);
+      setMessages((prev) => [...prev, { role: "bot", text: answer }]);
+    }, delay);
   };
+
+  const quickQuestions = [
+    "What is HMIS?",
+    "Tell me about KFON",
+    "NABH certification",
+    "Careers at SRIT",
+    "IPO details",
+  ];
 
   return (
     <>
@@ -1851,46 +2011,115 @@ export function AIChatButton() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 z-50 flex h-[440px] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+            className="fixed bottom-24 right-6 z-50 flex h-[500px] w-[360px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
           >
-            <div className="flex items-center justify-between bg-[#079fdf] px-4 py-3 text-white">
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5" />
-                <span className="font-display text-sm font-semibold">SRIT AI Assistant</span>
+            {/* Header */}
+            <div className="flex items-center justify-between bg-gradient-to-r from-[#079fdf] to-[#0369a1] px-4 py-3 text-white">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold leading-none">SRIT AI Assistant</p>
+                  <p className="mt-0.5 text-[10px] text-white/70">Powered by SRIT Knowledge Base</p>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close chat"
-                className="rounded-full p-1 transition hover:bg-white/20"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-1">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="mr-2 text-[10px] text-white/80">Online</span>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close chat"
+                  className="rounded-full p-1 transition hover:bg-white/20"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
+            {/* Messages */}
             <div className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-4 text-sm">
               {messages.map((m, idx) => (
                 <div
                   key={idx}
-                  className={`max-w-[85%] rounded-xl px-3 py-2 leading-relaxed ${
-                    m.role === "user" ? "ml-auto bg-[#079fdf] text-white" : "bg-white text-slate-700 shadow-sm"
-                  }`}
+                  className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  {m.text}
+                  {m.role === "bot" && (
+                    <div className="mr-2 mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#079fdf]/15">
+                      <Sparkles className="h-3.5 w-3.5 text-[#079fdf]" />
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 leading-relaxed whitespace-pre-line ${
+                      m.role === "user"
+                        ? "rounded-br-sm bg-[#079fdf] text-white"
+                        : "rounded-bl-sm bg-white text-slate-700 shadow-sm border border-slate-100"
+                    }`}
+                  >
+                    {m.text}
+                  </div>
                 </div>
               ))}
+
+              {/* Typing indicator */}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="mr-2 mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#079fdf]/15">
+                    <Sparkles className="h-3.5 w-3.5 text-[#079fdf]" />
+                  </div>
+                  <div className="rounded-2xl rounded-bl-sm bg-white px-4 py-3 shadow-sm border border-slate-100">
+                    <div className="flex items-center gap-1">
+                      <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
+            {/* Quick question chips */}
+            {messages.length <= 1 && (
+              <div className="flex flex-wrap gap-1.5 border-t border-slate-100 bg-white px-3 py-2">
+                {quickQuestions.map((q) => (
+                  <button
+                    key={q}
+                    type="button"
+                    onClick={() => {
+                      setInput(q);
+                      setTimeout(() => {
+                        setMessages((prev) => [...prev, { role: "user", text: q }]);
+                        setInput("");
+                        setIsTyping(true);
+                        setTimeout(() => {
+                          setIsTyping(false);
+                          setMessages((prev) => [...prev, { role: "bot", text: getAnswer(q) }]);
+                        }, 600);
+                      }, 10);
+                    }}
+                    className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 transition hover:border-[#079fdf]/50 hover:bg-[#eaf7fc] hover:text-[#079fdf]"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Input */}
             <form onSubmit={send} className="flex items-center gap-2 border-t border-slate-200 bg-white p-3">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask me anything..."
-                className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#079fdf]"
+                placeholder="Ask me anything about SRIT…"
+                className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-[#079fdf] focus:ring-2 focus:ring-[#079fdf]/20"
+                disabled={isTyping}
               />
               <button
                 type="submit"
-                className="grid h-9 w-9 place-items-center rounded-lg bg-[#079fdf] text-white transition hover:bg-[#078bc4]"
+                disabled={isTyping || !input.trim()}
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#079fdf] text-white transition hover:bg-[#0284c7] disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Send message"
               >
                 <ChevronRight className="h-4 w-4" />
@@ -2242,7 +2471,7 @@ export function ClientLogoWall() {
   Trusted by Industry Leaders & Governments
 </Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-[#102b50] sm:text-4xl">
-            Clients <span className="text-[#079fdf]">Logo Wall</span>
+            Our <span className="text-[#079fdf]">Clients</span>
           </h2>
           <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
             Powering mission-critical platforms across population scale for sovereign departments, national telecom operators, state healthcare grids, and Fortune 500 enterprises.
