@@ -7,17 +7,14 @@ import {
   PortalCards,
   About,
   Features,
-  FutureProjects,
+  //FutureProjects,
   AiNativeEngineering,
   Entertainment,
   CyberSecurity,
   PartnerAndPlans,
   SearchPlans,
   Blogs,
-  ClientLogoWall,
-  CareersSection,
   Testimonials,
-  Certifications,
 } from "./Sections";
 
 export default function HomePage() {
@@ -76,9 +73,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <PortalCards />
-      <Certifications />
       <Features />
-      <FutureProjects />
       <AiNativeEngineering />
       <About />
       <Healthcare />
@@ -89,8 +84,6 @@ export default function HomePage() {
       <PartnerAndPlans />
       <SearchPlans />
       <Blogs />
-      <ClientLogoWall />
-      <CareersSection />
       <Testimonials />
     </main>
   );
